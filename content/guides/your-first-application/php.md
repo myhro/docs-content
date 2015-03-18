@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in PHP"
 description = "Your first PHP application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-02-10"
+date = "2015-03-18"
 type = "page"
 weight = 60
 categories = ["basic"]
@@ -257,9 +257,9 @@ So here is what we get when doing so (your output will vary slightly):
 ```nohighlight
 App currentweather is up
 
-service                 component  instanceid                            created              status
-currentweather-service  php        1d23c62a-3ebf-4a01-a054-05fbf024eb0a  2015-02-03 17:02:46  up
-currentweather-service  redis      04570837-9ac3-4959-bc74-ad49eafaaa3f  2015-02-03 17:02:46  up
+service                 component  instanceid    created              status
+currentweather-service  php        fszzV5B2XR0m  2015-02-03 17:02:46  up
+currentweather-service  redis      yYpKV0zOKhkv  2015-02-03 17:02:46  up
 ```
 
 Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status` output. The syntax for the command is `swarm logs <instance-id>`. 

@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Java"
 description = "Your first Java application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-03-17"
+date = "2015-03-18"
 type = "page"
 weight = 55
 categories = ["basic"]
@@ -249,9 +249,9 @@ So here is what we get when doing so (your output will vary slightly):
 ```nohighlight
 App currentweather is up
 
-service                 component  instanceid                            created              status
-currentweather-service  java       60a35215-9388-4218-a65c-fe2aced58c2b  2015-03-13 10:23:19  up
-currentweather-service  redis      c17e2007-badd-4ad5-9925-919aa06bba44  2015-03-13 10:23:19  up
+service                 component  instanceid    created              status
+currentweather-service  java       wN2thyTNU69r  2015-03-13 10:23:19  up
+currentweather-service  redis      rCRraU1cGunF  2015-03-13 10:23:19  up
 ```
 
 Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status` output. The syntax for the command is `swarm logs <instance-id>`.

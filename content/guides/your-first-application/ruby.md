@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Ruby"
 description = "Your first Ruby application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-02-10"
+date = "2015-03-18"
 type = "page"
 weight = 55
 categories = ["basic"]
@@ -250,9 +250,9 @@ So here is what we get when doing so (your output will vary slightly):
 ```nohighlight
 App currentweather-app is up
 
-service                 component           instanceid                            created              status
-currentweather-service  ruby-web-component  1d23c62a-3ebf-4a01-a054-05fbf024eb0a  2015-02-10 07:20:03  up
-currentweather-service  redis               04570837-9ac3-4959-bc74-ad49eafaaa3f  2015-02-10 07:20:02  up
+service                 component           instanceid    created              status
+currentweather-service  ruby-web-component  TdfsdckAwoS3  2015-02-10 07:20:03  up
+currentweather-service  redis               VrvpFsjGOLyq  2015-02-10 07:20:02  up
 ```
 
 Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status` output. The syntax for the command is `swarm logs <instance-id>`.
