@@ -150,7 +150,7 @@ $ curl 172.17.42.1:5000
 Your output should look something like this:
 
 ```nohighlight
-Live weather: The current temperature is 290.83 farenheit and the wind is 2.1 mph.
+Live weather: The current temperature 17 degrees and the wind is 20.52 km/h.
 ```
 
 Try at least two requests within 60 seconds to verify your cache is working.
