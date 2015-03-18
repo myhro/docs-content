@@ -153,7 +153,7 @@ Your output should look something like this:
 Live weather: The current temperature 17 degrees and the wind is 20.52 km/h.
 ```
 
-Try at least two requests within 60 seconds to verify your cache is working.
+Try at least two requests within 60 seconds to verify your cache is working. Yout logs should say "Querying live weather data" on each non-cached API call.
 
 Awesome. Now let's deploy it to the cloud.
 
