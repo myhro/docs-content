@@ -57,7 +57,7 @@ __For Linux users__: You probably have to call the `docker` binary with root pri
 $ sudo docker pull redis && sudo docker pull php:5.6-cli
 ```
 
-We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be remembered anyway.
+We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
 
 While your terminal and network connection are kept busy with loading Docker images, let's have a look on what exactly we are going to build.
 
@@ -84,7 +84,7 @@ FROM php:5.6-cli
 
 RUN apt-get update && apt-get install -y zlib1g-dev
 RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz
-RUN tar xvfz /tmp/redis.tar.gz 
+RUN tar xvfz /tmp/redis.tar.gz
 RUN mv phpredis-2.2.7 /usr/src/php/ext/redis
 RUN docker-php-ext-install redis zip
 
@@ -98,7 +98,7 @@ RUN ./composer.phar install
 COPY . /usr/src/firstapp
 EXPOSE 80
 ENTRYPOINT ["php", "-S", "0.0.0.0:80", "-t", "web/"]
-``` 
+```
 
 As you can see, we use the official [PHP Docker image](https://registry.hub.docker.com/u/library/php/) as a basis. We install the PHP Redis module.
 
@@ -154,7 +154,7 @@ PHP 5.6.5 Development Server started at Tue Feb  3 20:52:23 2015
 Listening on http://0.0.0.0:80
 Document root is /usr/src/firstapp/web
 Press Ctrl-C to quit.
-[Tue Feb  3 16:52:33 2015] 
+[Tue Feb  3 16:52:33 2015]
 [Tue Feb  3 16:52:33 2015] Fetched weather from remote: broken clouds, temperature 2 degrees, wind 7.2 km/h
 [Tue Feb  3 16:52:33 2015] 192.168.59.3:53839 [200]: /
 [Tue Feb  3 16:59:27 2015] Fetched weather from Redis: broken clouds, temperature 2 degrees, wind 7.2 km/h
@@ -262,7 +262,7 @@ currentweather-service  php        1d23c62a-3ebf-4a01-a054-05fbf024eb0a  2015-02
 currentweather-service  redis      04570837-9ac3-4959-bc74-ad49eafaaa3f  2015-02-03 17:02:46  up
 ```
 
-Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status` output. The syntax for the command is `swarm logs <instance-id>`. 
+Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status` output. The syntax for the command is `swarm logs <instance-id>`.
 
 Now if you like, you can stop or even delete the application again.
 
