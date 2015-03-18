@@ -58,6 +58,16 @@ We recommend to make the `swarm` binary available in your PATH by copying it to 
 $ sudo cp swarm /usr/local/bin/
 ```
 
+## Using a HTTP proxy
+
+The swarm client you install is programmed in [Go](http://golang.org/). That way we can leverage several build in features. For example you can configure a proxy for the connection between the CLI and the swarm cluster by simply setting the HTTP_PROXY env variable.
+
+In Bash this would be:
+```
+export HTTP_PROXY="http://proxyIp:proxyPort"
+```
+
+
 ## Next steps
 
 * [The Annotated Hello World Example](/guides/annotated-helloworld/): A quick check that everything is working fine
