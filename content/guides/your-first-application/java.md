@@ -74,14 +74,14 @@ We get the weather data from the [openweathermap.org](http://openweathermap.org/
 
 ## The Java/Spark server component
 
-Our application server consists of only one little file: A Java file called [App.java](https://github.com/giantswarm/giantswarm-firstapp-python/blob/master/server.py)TODO, which contains all our application logic. If you're interested in the internal workings of it, check it's content. It is mainly based on Mattihas' [Getting Started with Java Development on Docker](http://blog.giantswarm.io/getting-started-with-java-development-on-docker), so it also uses Maven and a [pom.xml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/pom.xml) to build a fat Jar with all dependencies for deployment. For our tutorial, we won't go into much more details here. If you're working with Java you should quickly realize, how to change this code to fit your own app's needs and get your own custom app running.
+Our application server consists of only one little file: A Java file called [App.java](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/src/main/java/currentweather/App.java), which contains all our application logic. If you're interested in the internal workings of it, check it's content. It is mainly based on Mattihas' [Getting Started with Java Development on Docker](http://blog.giantswarm.io/getting-started-with-java-development-on-docker), so it also uses Maven and a [pom.xml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/pom.xml) to build a fat Jar with all dependencies for deployment. For our tutorial, we won't go into much more details here. If you're working with Java you should quickly realize, how to change this code to fit your own app's needs and get your own custom app running.
 
 ## Building our Docker image
 
 We now create a Docker image for our Java server. Here is the `Dockerfile` we use for that purpose:
 
 ```Dockerfile
-FROM dockerfile/java:oracle-java8 
+FROM dockerfile/java:oracle-java8
 
 # Install maven
 RUN apt-get update
@@ -100,7 +100,7 @@ RUN ["mvn", "package"]
 
 EXPOSE 4567
 ENTRYPOINT ["java", "-jar", "target/currentweather-jar-with-dependencies.jar"]
-``` 
+```
 
 As you can see, we use a [Java base image](https://registry.hub.docker.com/u/dockerfile/java/), which uses Java 8. We install [Maven](http://maven.apache.org/) to fetch our dependencies specified in the [pom.xml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/pom.xml) and build a fat jar.
 
