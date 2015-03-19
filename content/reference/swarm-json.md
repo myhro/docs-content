@@ -222,7 +222,7 @@ As a result, our current component would provide the environment variable `RESTA
 
 The `domains` key allows you to make components of your application available via HTTP through port 80 (the HTTP default port) under one or several domain names.
 
-The example below makes the given component's exposed port 8080 available using the domain name `myexample.gigantic.io`:
+The example below makes the given component's exposed port 8080 available under port 80 using the domain name `myexample.gigantic.io`:
 
 ```json
 "domains": {
