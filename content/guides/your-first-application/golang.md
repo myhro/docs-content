@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Go"
 description = "Your first Go/Golang application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-02-10"
+date = "2015-03-18"
 type = "page"
 weight = 50
 categories = ["basic"]
@@ -259,9 +259,9 @@ So here is what we get when doing so (your output will vary slightly):
 ```nohighlight
 App currentweather is up
 
-service                 component  instanceid                            created              status
-currentweather-service  redis      7121393e-e649-4f84-9121-9b642c4473bc  2015-02-03 22:17:38  up
-currentweather-service  webserver  7e769815-8623-4f5b-8ec6-a2b31d302f24  2015-02-03 22:17:38  up
+service                 component  instanceid    created              status
+currentweather-service  redis      yYpKV0zOKhkv  2015-02-03 22:17:38  up
+currentweather-service  webserver  fszzV5B2XR0m  2015-02-03 22:17:38  up
 ```
 
 Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status output`. The syntax for the command is `swarm logs <instance-id>`.

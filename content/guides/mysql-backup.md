@@ -1,7 +1,7 @@
 +++
 title = "MySQL with Backups"
 description = "This guide shows you how you can create periodic backups of your MySQL database with a very simple, additional service running in your application."
-date = "2015-02-10"
+date = "2015-03-18"
 type = "page"
 weight = 200
 categories = ["advanced"]
@@ -312,9 +312,9 @@ This will create the application and start its services. When the application is
 ```nohighlight
 App your-app is up
 
-service   component       instanceid                            created              status
-db        mysql           715a3b72-7ab2-4294-8337-bfe4b3758bc1  2015-01-13 18:02:37  up
-archiver  mysql-archiver  f8ce5429-74da-4445-acfe-1b84a600c81d  2015-01-13 18:02:37  up
+service   component       instanceid    created              status
+db        mysql           g8GFvBVLj36t  2015-01-13 18:02:37  up
+archiver  mysql-archiver  AfeLfIT1SeYy  2015-01-13 18:02:37  up
 
 ```
 
