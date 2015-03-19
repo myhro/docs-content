@@ -57,7 +57,7 @@ __For Linux users__: You probably have to call the `docker` binary with root pri
 $ sudo docker pull redis && sudo docker pull google/nodejs
 ```
 
-We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be remembered anyway.
+We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
 
 While your terminal and network connection are kept busy with loading Docker images, let's have a look on what exactly we are going to build.
 
@@ -95,7 +95,7 @@ RUN npm install
 
 EXPOSE 1337
 CMD ["/nodejs/bin/node", "server.js"]
-``` 
+```
 
 As you can see, we use a [NodeJS image provided by Google](https://registry.hub.docker.com/u/google/nodejs/) as a basis. That means NodeJS is already in place. All we have to do is add the two files we introduced earlier to the container and execute `npm install` inside it.
 
@@ -253,7 +253,7 @@ currentweather-service  nodejs     1d23c62a-3ebf-4a01-a054-05fbf024eb0a  2015-01
 currentweather-service  redis      04570837-9ac3-4959-bc74-ad49eafaaa3f  2015-01-15 15:35:46  up
 ```
 
-Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status` output. The syntax for the command is `swarm logs <instance-id>`. 
+Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status` output. The syntax for the command is `swarm logs <instance-id>`.
 
 Now if you like, you can stop or even delete the application again.
 

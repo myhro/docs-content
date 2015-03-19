@@ -56,7 +56,7 @@ __For Linux users__: You probably have to call the `docker` binary with root pri
 $ sudo docker pull redis && sudo docker pull ruby:2.2-onbuild
 ```
 
-We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be remembered anyway.
+We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
 
 While your terminal and network connection are kept busy with loading Docker images, let's have a look on what exactly we are going to build.
 
@@ -84,7 +84,7 @@ FROM ruby:2.2-onbuild
 EXPOSE 4567
 
 ENTRYPOINT ["bundle", "exec", "ruby", "current_weather_service.rb"]
-``` 
+```
 
 As you can see, we use a [ruby base image](https://registry.hub.docker.com/_/ruby/) as a basis. We don't have to add or install anything. The Docker base image takes care that our dependencies and script are bundled into our final image.
 

@@ -56,7 +56,7 @@ __For Linux users__: You probably have to call the `docker` binary with root pri
 $ sudo docker pull golang:1.3.1-cross && sudo docker pull redis:latest && sudo docker pull busybox:ubuntu-14.04
 ```
 
-We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be remembered anyway.
+We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
 
 While your terminal and network connection are kept busy with loading Docker images, let's have a look on what exactly we are going to build.
 
@@ -107,7 +107,7 @@ ADD ./currentweather /usr/bin/
 EXPOSE 8080
 
 ENTRYPOINT ["currentweather"]
-``` 
+```
 
 We use a tiny [busybox image](https://github.com/jpetazzo/docker-busybox/blob/ca435164f45c40d761fad9ef9b5a76a6ba0d5f1a/Dockerfile) as a foundation. The only thing we add is our `currentweather binary`. The beauty of an indpendent binary. In addition, the `EXPOSE 8080` setting ensures that port 8080 of our container is exposed to the network.
 
@@ -264,7 +264,7 @@ currentweather-service  redis      7121393e-e649-4f84-9121-9b642c4473bc  2015-02
 currentweather-service  webserver  7e769815-8623-4f5b-8ec6-a2b31d302f24  2015-02-03 22:17:38  up
 ```
 
-Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status output`. The syntax for the command is `swarm logs <instance-id>`. 
+Here you have them, your two components, running on Giant Swarm. If you want to, you can check the logs using the instance IDs you see in the `swarm status output`. The syntax for the command is `swarm logs <instance-id>`.
 
 Now if you like, you can stop or even delete the application again.
 
