@@ -81,7 +81,7 @@ Our application server consists of only one little file: A Java file called [App
 We now create a Docker image for our Java server. Here is the `Dockerfile` we use for that purpose:
 
 ```Dockerfile
-FROM dockerfile/java:oracle-java8
+FROM java:8
 
 # Install maven
 RUN apt-get update
