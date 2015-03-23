@@ -81,7 +81,7 @@ Our application server consists of only one little file: A Java file called [App
 We now create a Docker image for our Java server. Here is the `Dockerfile` we use for that purpose:
 
 ```Dockerfile
-FROM dockerfile/java:oracle-java8
+FROM java:8
 
 # Install maven
 RUN apt-get update
@@ -99,7 +99,7 @@ ADD src /code/src
 RUN ["mvn", "package"]
 
 EXPOSE 4567
-ENTRYPOINT ["java", "-jar", "target/currentweather-jar-with-dependencies.jar"]
+ENTRYPOINT ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/currentweather-jar-with-dependencies.jar"]
 ```
 
 As you can see, we use a [Java base image](https://registry.hub.docker.com/u/dockerfile/java/), which uses Java 8. We install [Maven](http://maven.apache.org/) to fetch our dependencies specified in the [pom.xml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/pom.xml) and build a fat jar.
