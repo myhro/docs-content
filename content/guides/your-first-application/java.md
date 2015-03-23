@@ -46,16 +46,16 @@ Everybody else, follow the path to wisdom and read on.
 
 We have a Docker task ahead of us that could be a little time-consuming. The good thing is that we can make things a lot faster with some preparation. As a side effect, you can make sure that `docker` is working as expected on your system.
 
-We need to pull two images from the public Docker library, namely `redis` and `java:oracle-java8`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
+We need to pull two images from the public Docker library, namely `redis` and `java:8`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
 
 ```nohighlight
-$ docker pull redis && docker pull java:oracle-java8
+$ docker pull redis && docker pull java:8
 ```
 
 __For Linux users__: You probably have to call the `docker` binary with root privileges, so please use `sudo docker` whenever the docker command is required here. For example, initiate the prefetching like this:
 
 ```nohighlight
-$ sudo docker pull redis && sudo docker pull java:oracle-java8
+$ sudo docker pull redis && sudo docker pull java:8
 ```
 
 We won't repeat the `sudo` note for the sake of readability in the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
@@ -102,7 +102,7 @@ EXPOSE 4567
 ENTRYPOINT ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/currentweather-jar-with-dependencies.jar"]
 ```
 
-As you can see, we use a [Java base image](https://registry.hub.docker.com/u/dockerfile/java/), which uses Java 8. We install [Maven](http://maven.apache.org/) to fetch our dependencies specified in the [pom.xml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/pom.xml) and build a fat jar.
+As you can see, we use a [Java base image](https://registry.hub.docker.com/_/java/), which uses Java 8. We install [Maven](http://maven.apache.org/) to fetch our dependencies specified in the [pom.xml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/pom.xml) and build a fat jar.
 
 The prefetching of Docker images you started a couple of minutes ago should be finished by now. If not, please wait until it's done.
 
