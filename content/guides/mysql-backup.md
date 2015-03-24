@@ -88,7 +88,7 @@ RUN pip install awscli
 ADD backup.sh /backup.sh
 RUN chmod 0755 /backup.sh
 
-CMD /backup.sh
+ENTRYPOINT ["/backup.sh"]
 ```
 
 What does it do? The image we build with this Dockerfile will be based on an official Debian image. We install the packages `python2.7` and `python-pip` so we can install and run the AWS command line interface (`awscli`), which is written in Python.
