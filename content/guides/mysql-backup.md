@@ -11,7 +11,7 @@ categories = ["advanced"]
 
 <p class="lead">In this guide we show you how a specialized service running inside your Giant Swarm application can be used to create periodic backups of your MySQL database</p>
 
-Setting up a MySQL database on Giant Swarm is simple. The Docker Hub provides a [standard image](https://registry.hub.docker.com/u/library/mysql/) in various flavors. But what happens as soon as your applications creates actual data? Servers can break any time, data can be lost. So you need a backup system.
+Setting up a MySQL database on Giant Swarm is simple. The Docker Hub provides a [standard image](https://registry.hub.docker.com/u/library/mysql/) in various flavors. But what happens as soon as your application creates actual data? Servers can break any time, data can be lost. So you need a backup system.
 
 In this guide we show you how you can add a service to your Giant Swarm application that accomplishes one thing only: Create a database dump and store it to Amazon S3. This way you don't have to touch your existing services. Each function has it's place. Truly microservistic. :-) However, be aware that this is only one possible solution and might not be ideal for you.
 
