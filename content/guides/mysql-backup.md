@@ -321,7 +321,7 @@ archiver  mysql-archiver  AfeLfIT1SeYy  2015-01-13 18:02:37  up
 Using the instance ID of the `archiver` component, you can now access the logs:
 
 ```nohighlight
-$ swarm logs f8ce5429-74da-4445-acfe-1b84a600c81d
+$ swarm logs AfeLfIT1SeYy
 ```
 
 If everything works fine, they look pretty similar to what you saw when running the container locally.
