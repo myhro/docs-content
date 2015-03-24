@@ -1,7 +1,7 @@
 +++
 title = "Accessing process logs"
 description = "This is the reference page for the 'swarm logs' command, which allows you to access the logs of your component instances."
-date = "2014-11-10"
+date = "2015-03-24"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm logs"]
@@ -16,9 +16,9 @@ Note: For logs to be accessible in this way, processes have to send their log me
 
 ## Returning all log messages
 
-The command requires an instance ID for the instance your component is running on. If the component you are interested in is running on multiple instances, you have to inquire the logs for each instance seperately.
+The command requires an instance ID for the instance your component is running on. An instance ID can be found using the [`swarm status`](../status/) command.
 
-<!-- TODO link instance IDs reference page here once it's created -->
+If there is more than one instance running for the component you are interested in, you have to inquire the logs for each instance seperately.
 
 ```nohighlight
 $ swarm logs <instance_id>
@@ -61,7 +61,7 @@ $ swarm logs <instance_id> --follow
 You can also combine the `--tail`/`-t` and the `--follow`/`-f` switches to first cap the log output returned and then follow new messages as they come up. An example:
 
 ```nohighlight
-$ swarm logs b4405a86-958e-4a46-ac14-41404c5e17bd -t 100 -f
+$ swarm logs AfeLfIT1SeYy -t 100 -f
 ```
 
 ## Further reading
