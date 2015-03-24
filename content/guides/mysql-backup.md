@@ -15,7 +15,7 @@ Setting up a MySQL database on Giant Swarm is simple. The Docker Hub provides a 
 
 In this guide we show you how you can add a service to your Giant Swarm application that accomplishes one thing only: Create a database dump and store it to Amazon S3. This way you don't have to touch your existing services. Each function has it's place. Truly microservistic. :-) However, be aware that this is only one possible solution and might not be ideal for you.
 
-This guide proposes Amazon S3 as a means to store backups, because it's well-known. And it has the advantage that it is possble to create user accounts with very specific permission. You might adapt this guide to use different cloud storage services or your own (S)FTP server. If you write this up, let us know. We're happy to learn.
+This guide proposes Amazon S3 as a means to store backups, because it's well-known. And it has the advantage that it is possble to create user accounts with very specific permissions. You might adapt this guide to use different cloud storage services or your own (S)FTP server. If you write this up, let us know. We're happy to learn.
 
 ## Prerequisites
 
