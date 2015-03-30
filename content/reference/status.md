@@ -5,7 +5,7 @@ date = "2015-03-18"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm status"]
-weight = 100
+weight = 84
 +++
 
 # Getting an applications's status
