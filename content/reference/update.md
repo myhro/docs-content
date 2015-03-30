@@ -10,7 +10,7 @@ weight = 70
 
 # Updating a component
 
-The `swarm update` command enables you to update the container version that's running in a specific component. This results in the component being stopped, he new image being pulled from the registry and then the component being restarted.
+The `swarm update` command enables you to update the container version that's running in a specific component. This results in the component being stopped, the new image being pulled from the registry and then the component being restarted.
 
 If a component was not running before the `swarm update` command is issued on it, it will be started as a result.
 
@@ -42,7 +42,7 @@ $ swarm update yourapp/yourservice/yourcomponent
 
 ## Updating to a specific image version {#specificversion}
 
-I you want to make sure the component uses a specific version of your image, you would first tag your image using a specific version number and then upload t to the registry. For example:
+I you want to make sure the component uses a specific version of your image, you would first tag your image using a specific version number and then upload it to the registry. For example:
 
 
 ```nohighlight
