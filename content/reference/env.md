@@ -14,12 +14,12 @@ Environments allow you to deploy your apps in __multiple independent contexts__ 
 
 Environments are managed with the swarm client using the `swarm env` command. They are distinguished by a __unique name__. The name is a compound of two parts, seperated by a forward slash:
 
-1. The company name
+1. The organization name
 2. The actual environment name
 
 ## The default environment
 
-When you start working with the swarm client, you are automatically assigned to a default environment named after your username as the company name part and `dev` as the second part. For a user named `bouncer`, this would be: `bouncer/dev`.
+When you start working with the swarm client, you are automatically assigned to a default environment named after your username as the organization name part and `dev` as the second part. For a user named `bouncer`, this would be: `bouncer/dev`.
 
 Note that you are free to set up environments with arbitrary names. Read on for details on creating environments.
 
@@ -63,7 +63,7 @@ Here, the names of all environments are printed. In addition, the selected envir
 
 Deleting an environment removes that environment from the list of known environments which you see when you issue the `swarm env -l` command without argument.
 
-Be aware that deleting an environment does not delete or stop any applications you (or someone else in your company) might have deployed in that environment.
+Be aware that deleting an environment does not delete or stop any applications you (or someone else in your organization) might have deployed in that environment.
 
 To delete an environment, use the `swarm env` command with the `-d` switch and the respective env name:
 

@@ -11,42 +11,42 @@ categories = ["advanced"]
 
 <p class="lead">Giant Swarm provides the means to collaborate on applications as a team. This guide gives an introduction to the most important aspects to take care of when deploying and controlling applications in a multi-user work group.</p>
 
-## Companies and environments
+## Organizations and environments
 
-A [company](/reference/companies/) on Giant Swarm is a simply a named group of users. An [environment](/reference/env/) is a named context in which to deploy applications. Each environment belongs to a company. This is visible in the environment name, which is always prefixed with a company name: `<company_name>/<environment_suffix>`.
+An [organization](/reference/org/) on Giant Swarm is a simply a named group of users. An [environment](/reference/env/) is a named context in which to deploy applications. Each environment belongs to an organization. This is visible in the environment name, which is always prefixed with an organization name: `<organization_name>/<environment_suffix>`.
 
-Whenever you're logged in with the `swarm` CLI and interact with our infrastructure, an environment is selected as your context. This even happens without you knowing about these concepts. With your first login, a company named after your username is created and an environment with the name pattern `<company_name>/dev` is created and selected. This is called the default environment.
+Whenever you're logged in with the `swarm` CLI and interact with our infrastructure, an environment is selected as your context. This even happens without you knowing about these concepts. With your first login, an organization named after your username is created and an environment with the name pattern `<organization_name>/dev` is created and selected. This is called the default environment.
 
-However, for collaboration in a team, there should be a dedicated company for any team you work with. You can create as many companies as you like, and each company can have as many environments as needed.
+However, for collaboration in a team, there should be a dedicated organization for any team you work with. You can create as many organizations as you like, and each organization can have as many environments as needed.
 
-## Creating a company for your team
+## Creating an organization for your team
 
-The basis for team collaboration is to have a company that every team member belongs to. So the first step when starting to work as a team is to create the appropriate company using the `swarm CLI`.
+The basis for team collaboration is to have an organization that every team member belongs to. So the first step when starting to work as a team is to create the appropriate organization using the `swarm CLI`.
 
-Probably the hardest part here is to come up with a good company name. Company names are between 4 and 30 characters long and only consist of the characters a-z, 0-9 and the underscore (_). Also, the name has to be unique for the entire Giant Swarm platform.
+Probably the hardest part here is to come up with a good organization name. Organization names are between 4 and 30 characters long and only consist of the characters a-z, 0-9 and the underscore (_). Also, the name has to be unique for the entire Giant Swarm platform.
 
-Say you want to create a new company called `ateam`, this is how you would do it:
+Say you want to create a new organization called `ateam`, this is how you would do it:
 
 ```nohighlight
-$ swarm company create ateam
+$ swarm org create ateam
 ```
 
-As the creator of the company, you are automatically a member. Find proof for that by listing all members of the newly created company:
+As the creator of the organization, you are automatically a member. Find proof for that by listing all members of the newly created organization:
 
 ```nohighlight
-$ swarm company show ateam
-Company ateam
+$ swarm org show ateam
+Organization ateam
 
 Username:
 hannibal
 ```
 
-## Adding team members to the company
+## Adding team members to the organization
 
-To add a user to a company, you need to know the Giant Swarm username of the user to add. To add a user called `murdoch` to the company `ateam`, use this command:
+To add a user to an organization, you need to know the Giant Swarm username of the user to add. To add a user called `murdoch` to the organization `ateam`, use this command:
 
 ```nohighlight
-$ swarm company add-user ateam murdock
+$ swarm org add-user ateam murdock
 ```
 
 ## Naming images for team access
@@ -59,15 +59,15 @@ When working only on your own, you can simply tag images for your application co
 registry.giantswarm.io/<yourusername>/<imagename>:<tag>
 ```
 
-When your applications are supposed to belong to a team, all team members should be able to push new image versions to the registry. This can be accomplished by using the company name (instead of a username) as namespace identifier. The image schema then has to be:
+When your applications are supposed to belong to a team, all team members should be able to push new image versions to the registry. This can be accomplished by using the organization name (instead of a username) as namespace identifier. The image schema then has to be:
 
 ```nohighlight
-registry.giantswarm.io/<companyname>/<imagename>:<tag>
+registry.giantswarm.io/<organization_name>/<image_name>:<tag>
 ```
 
 You can set the appropriate image name either immediately when creating an image using `docker build`, or in a seperate step after creating the image, using `docker tag`.
 
-For our company called `ateam`, an image with the name `myimage` and some tag could look like this:
+For our organization called `ateam`, an image with the name `myimage` and some tag could look like this:
 
 ```nohighlight
 registry.giantswarm.io/ateam/myimage:latest
@@ -83,13 +83,13 @@ $ docker push registry.giantswarm.io/ateam/myimage:latest
 
 Now that it's set that the team has access to our images, we can deploy the according application.
 
-As said in the introduction, whenever you work on the Giant Swarm infrastructure, you act in a distinct environment. To make your application accessible to your team (company), the environment running the application has to be owned by the according company.
+As said in the introduction, whenever you work on the Giant Swarm infrastructure, you act in a distinct environment. To make your application accessible to your team (organization), the environment running the application has to be owned by the according organization.
 
-When you just created a new company as explained above, you will now have to cerate a new environment belonging to that company.
+When you just created a new organization as explained above, you will now have to cerate a new environment belonging to that organization.
 
 ### Creating an environment and selecting it
 
-Again, you'll have to come up with a name for the environment. It only has to be unique within the context of the company, so it can be nice and short. Common environment names tell something about their purpose, e. g. `<somecompena>/dev` or `<somecompena>/production`.
+Again, you'll have to come up with a name for the environment. It only has to be unique within the context of the organization, so it can be nice and short. Common environment names tell something about their purpose, e. g. `<somecompena>/dev` or `<somecompena>/production`.
 
 Creating a new environment `ateam/dev`, for example, could be done using this command:
 
@@ -101,7 +101,7 @@ Not only does this create the environment, it also selects it as the current one
 
 So, regardless if the environment existed before or not, `swarm env ateam/dev` will select the according environment for the current user. Every team member has to do this in order to conveniently control applications running in this environment.
 
-As you might have guessed, only members of the company `ateam` are allowed to select its environments.
+As you might have guessed, only members of the organization `ateam` are allowed to select its environments.
 
 ### Deploying applications
 
@@ -111,11 +111,11 @@ Your [application configuration](/reference/swarm-json/) has to make use of the 
 
 ## Wrapping it up
 
-This is all there is to it. You have just learned how to create a company for your team and add members to it, creating environments for the team, and tagging images to be accessed by the team.
+This is all there is to it. You have just learned how to create an organization for your team and add members to it, creating environments for the team, and tagging images to be accessed by the team.
 
 ## Further reading
 
-* [Reference: Managing companies](/reference/companies/)
+* [Reference: Managing organizations](/reference/org/)
 * [Reference: Managing Environments](/reference/env/)
 * [Reference: Using the Registry](/reference/registry/)
 * [Reference: Application configuraiton (swarm.json)](/reference/swarm-json/)

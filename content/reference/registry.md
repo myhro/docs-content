@@ -42,7 +42,7 @@ Reference the image in your app config:
 
 Giant Swarm provides you a protected registry to deposit and deploy your [Docker](https://docker.com/) images. Here we give you the information you need to login and push images to our registry and use these images within your applications.
 
-The registry uses software provided by Docker and is accessed via standard Docker tools. If you are familiar with the concept of registries and know how to deal with images there, you can easily transfer that knowledge to our protected registry. In this case, please make sure that you read and understand how we use company names as namespaces, as explained in the section [_company namespaces_](#company-namespaces) below.
+The registry uses software provided by Docker and is accessed via standard Docker tools. If you are familiar with the concept of registries and know how to deal with images there, you can easily transfer that knowledge to our protected registry. In this case, please make sure that you read and understand how we use organization names as namespaces, as explained in the section [_organization namespaces_](#organization-namespaces) below.
 
 In addition to using the Giant Swarm registry, you have the option to use any publicly accessible Docker registry, including the [Docker Hub](https://registry.hub.docker.com/) with lots of readily available Open Source software packages.
 
@@ -53,7 +53,7 @@ The URL of our registry is `https://registry.giantswarm.io`.
 The full image name format is
 
 ```nohighlight
-registry.giantswarm.io/<company_namespace>/<image_name>:<tag>
+registry.giantswarm.io/<organization_namespace>/<image_name>:<tag>
 ```
 
 Note that the URL scheme (`https://`) is ommited here.
@@ -64,23 +64,23 @@ Example of a full image name:
 registry.giantswarm.io/acmecorp/webserver:1.4.2
 ```
 
-## Company namespaces
+## Organization namespaces
 
-In our systems, users are associated with [companies](../companies/) to allow for shared resources between multiple users. Docker images are an example of these shared resources.
+In our systems, users are associated with [organizations](../organizations/) to allow for shared resources between multiple users. Docker images are an example of these shared resources.
 
-In fact, even if you don't collaborate with other users, you are part of a company. The default company you belong to has the same name as your username. This is relevant for the registry, because:
+In fact, even if you don't collaborate with other users, you are part of an organization. The default organization you belong to has the same name as your username. This is relevant for the registry, because:
 
-> Every image you push to the registry has to belong to a certain company. This is expressed by using the company name as the image's namespace.
+> Every image you push to the registry has to belong to a certain organization. This is expressed by using the organization name as the image's namespace.
 
-If, for example, you belong to the company called `acmecorp` and want to create an image, which can be used by all users of that company, the name `acmecorp` has to be used as the name space field within the image name, like here:
+If, for example, you belong to the organization called `acmecorp` and want to create an image, which can be used by all users of that organization, the name `acmecorp` has to be used as the name space field within the image name, like here:
 
 ```nohighlight
 registry.giantswarm.io/acmecorp/exampleimage:1.4.2
 ```
 
-We will be using the company name `acmecorp` throughout this page as a placeholder for your respective company name.
+We will be using the organization name `acmecorp` throughout this page as a placeholder for your respective organization name.
 
-If you aren't planning to share your images with other users, you can of course use your default company name, which is identitcal with your user name.
+If you aren't planning to share your images with other users, you can of course use your default organization name, which is identitcal with your user name.
 
 ## Logging in
 
@@ -130,7 +130,7 @@ To make use of your images within your Giant Swarm applications, you have to upl
 Above, you learnt that you have to name an image with the appropriate name _before_ pushing it. Now you can use the full image name to push that same image. This is the general command syntax:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/<company_namespace>/<image_name>:<tag>
+$ docker push registry.giantswarm.io/<organization_namespace>/<image_name>:<tag>
 ```
 
 There are cases where the `:<tag>` part would be optional. Going into depth here would make this reference a lot longer. For now, we simply recommend to explicitly name the tag. If you like, you can read more about this topic in the Docker documentation (link given [below](#related-reading)). 
@@ -149,7 +149,7 @@ Once you create newer versions of your images and push them again, you will like
 
 ## Referencing your image in an app
 
-Once an image is pushed to our registry, you can use it in your (or your company's) applications. For general information on this topic, have a look at the [swarm.json reference page](../swarm-json/).
+Once an image is pushed to our registry, you can use it in your (or your organization's) applications. For general information on this topic, have a look at the [swarm.json reference page](../swarm-json/).
 
 Your application is potentially built of several components with one `"image"` definition each. This is where we expect the full name of your image in our registry.
 

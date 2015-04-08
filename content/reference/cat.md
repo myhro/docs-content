@@ -12,7 +12,7 @@ weight = 100
 
 The `swarm cat` command allows you to inspect the current effective configuration JSON of an application. This can serve various purposes:
 
-* Quick inspection of a running application. It might have been somone else in your company who has created the application, or some time passed since you created the application and need a quick reminder how it's set up.
+* Quick inspection of a running application. It might have been somone else in your organization who has created the application, or some time passed since you created the application and need a quick reminder how it's set up.
 
 * Debugging of variable replacement. Say you have used variables in your `swarm.json` file and want to make sure these have been replaced with the right values, a call to `swarm cat` can help you find out if everything works as expected.
 

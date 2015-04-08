@@ -44,4 +44,4 @@ Explicitly sets the [environment](../env/) used. If set, this overrides the curr
 
 Example:
 
-    --env="mycompany/production"
+    --env="myorganization/production"

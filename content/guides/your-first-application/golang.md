@@ -225,10 +225,10 @@ Pay close attention to how we create a link between our two components by defini
 
 ### Starting the application
 
-With the above configuration saved as `swarm.json` in your current directory you can now create and start the application using the `swarm up` command below. As always, replace `yourusername` with your actual username. The flag `--var=company=yourusername` will take care of placing your username in the positions where the `$username` variable is used in `swarm.json`.
+With the above configuration saved as `swarm.json` in your current directory you can now create and start the application using the `swarm up` command below. As always, replace `yourusername` with your actual username. The flag `--var=organization=yourusername` will take care of placing your username in the positions where the `$username` variable is used in `swarm.json`.
 
 ```nohighlight
-$ swarm up --var=company=yourusername
+$ swarm up --var=organization=yourusername
 ```
 
 You will see some progress output during creation and startup of your application:
