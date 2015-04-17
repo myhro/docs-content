@@ -126,7 +126,7 @@ Now let's start the server container, for which we just created the Docker image
 $ docker run --link redis:redis -p 4567:4567 -ti --rm registry.giantswarm.io/yourusername/currentweather
 ```
 
-If you want to do this the easy way, you can just use Docker Compose and the [docker-compose.yml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/docker-compose.yml). Instead of the two docker commands above you now can do a simple:
+If you want to do this the easy way, you can just use Docker Compose and the [docker-compose.yml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/docker-compose.yml). However, you will have to edit the docker-compose.yml manually to reflect your username instead of 'puja' (because [Docker Compose cannot handle dynamic environment variables](https://github.com/docker/compose/issues/495)). Now, instead of the two docker commands above you now can do a simple:
 
 ```nohighlight
 $ docker-compose up
