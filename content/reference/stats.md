@@ -5,7 +5,7 @@ date = "2015-04-20"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm stats"]
-weight = 100
+weight = 86
 +++
 
 # Getting statistics of an application, service, component or instance

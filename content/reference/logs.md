@@ -5,7 +5,7 @@ date = "2015-04-20"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm logs"]
-weight = 100
+weight = 87
 +++
 
 # Accessing process logs
