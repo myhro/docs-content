@@ -17,7 +17,7 @@ Released 2015-04-20
 * What was called "company" so far is now called an "organization". The `swarm company` CLI command has been renamed to `swarm org`.
 * The `swarm update` command is back and allows to update the docker image run by a component. Check the [reference page](../update/) for details.
 * The `swarm stats` command now allows showing the stats for more than one instance. it can be called with an application, service or component name as a selector. Check the [reference page](../stats/) for details.
-* The `swarm ls` command can now list applications from all organizations and environments accessible for the current user, using the '--all'/`-a` flag (`swarm ls -a`). Also the command executes faster than before due to parallelization.
+* The `swarm ls` command can now list applications from all organizations and environments accessible for the current user, using the `--all`/`-a` flag (`swarm ls -a`). Also the command executes faster than before due to parallelization.
 * Commands which accept an instance ID as argument (`swarm logs`, `swarm stats`) now also accept partial instance IDs, as long as this part is not ambigious. If, for example, an instance ID is `3nFK77aEF88NnSww`, it will in most cases suffice to call its stats using `swarm stats 3n` or even `swarm stats 3`.
 * The `swarm logs` command now defaults to showing the 10 latest rows. Use `-t <n>` to show a specific number of entries or `-t all` to show all entries. See the [reference page](../logs/) for details.
 * We now publish SHA1 and MD5 checksums/hashes for our CLI release files. Check the [install reference ](../installation/) for details.
