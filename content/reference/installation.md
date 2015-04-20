@@ -39,6 +39,8 @@ $ curl -O http://downloads.giantswarm.io/swarm/clients/{{% cli_latest_version %}
 $ tar xzf swarm-{{% cli_latest_version %}}-darwin-amd64.tar.gz
 ```
 
+To check the integrity of the downloaded .tar.gz file, we provide [SHA1](http://downloads.giantswarm.io/swarm/clients/{{% cli_latest_version %}}/swarm-{{% cli_latest_version %}}-darwin-amd64.tar.gz.sha1) and [MD5](http://downloads.giantswarm.io/swarm/clients/{{% cli_latest_version %}}/swarm-{{% cli_latest_version %}}-darwin-amd64.tar.gz.md5) checksum files.
+
 Please add the `swarm` binary to your PATH.
 
 ## Linux
@@ -51,6 +53,8 @@ First, download the tarball and unpack it:
 $ curl -O http://downloads.giantswarm.io/swarm/clients/{{% cli_latest_version %}}/swarm-{{% cli_latest_version %}}-linux-amd64.tar.gz
 $ tar xzf swarm-{{% cli_latest_version %}}-linux-amd64.tar.gz
 ```
+
+To check the integrity of the downloaded .tar.gz file, we provide [SHA1](http://downloads.giantswarm.io/swarm/clients/{{% cli_latest_version %}}/swarm-{{% cli_latest_version %}}-linux-amd64.tar.gz.sha1) and [MD5](http://downloads.giantswarm.io/swarm/clients/{{% cli_latest_version %}}/swarm-{{% cli_latest_version %}}-linux-amd64.tar.gz.md5) checksum files.
 
 We recommend to make the `swarm` binary available in your PATH by copying it to a directory that's already contained in your PATH. For example:
 
