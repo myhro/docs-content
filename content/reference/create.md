@@ -63,10 +63,10 @@ For frequent re-use you can store your app creation variables in a JSON variable
 
 ```json
 {
-    "mycompany/dev": {
+    "myorganization/dev": {
         "redis_port": 8080
     },
-    "mycompany/production": {
+    "myorganization/production": {
         "redis_port": 6397
     }
 }

@@ -39,4 +39,4 @@ What does this information tell you?
 ## Further reading
 
 * [Environments](../env/)
-* [Companies](../companies/)
+* [Organizations](../organizations/)

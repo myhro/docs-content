@@ -132,7 +132,7 @@ The name of the component.
 
 ### `image`
 
-The name of a docker image. This can be a name like `ubuntu` or `redis` when using "standard" images from the public Docker registry. In order to address images from the Giant Swarm registry, a fully qualified image name in the form `registry.giantswarm.io/<company_namespace>/<image_name>[:<tag>]` is required.
+The name of a docker image. This can be a name like `ubuntu` or `redis` when using "standard" images from the public Docker registry. In order to address images from the Giant Swarm registry, a fully qualified image name in the form `registry.giantswarm.io/<organization_namespace>/<image_name>[:<tag>]` is required.
 
 Find out more on the [registry reference page](../registry/).
 
