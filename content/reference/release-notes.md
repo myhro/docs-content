@@ -8,7 +8,7 @@ weight = 10
 
 # Release Notes
 
-Here we list the more important changes we made between releases.
+Here we list the more important changes we made between releases. See our [Installation reference](../installation/) for information on how to update to the latest CLI.
 
 ## Version 0.16.0
 
