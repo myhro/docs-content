@@ -124,26 +124,26 @@ However, let’s see what we have to do to change an existing container. For cha
 Now when you’re inside the container, you can change it to your liking, e.g.:
 
 	$ apt-get update
-	$ apt-get install openjdk-8-jdk 
+	$ apt-get install default-jdk 
 
 Once you’re done, you need to exit your container using the `exit` command.
 
 Now that we have a new container, we can “save” it by committing it to a new image. This can either be a new version of an existing image, or a completely new image.
 
-	$ docker commit -m “Added OpenJDK 8” -a “Mr. Smith” changing_container yourusername/java:8
+	$ docker commit -m “Added OpenJDK 7” -a “Mr. Smith” changing_container yourusername/java:7
 
-Here we used the `-m` flag to add a commit message and the `-a` flag to specify an author. Further, we specified a target `yourusername/java:8`, which consists of a user `yourusername`, an image name `java` and a tag `8`.
+Here we used the `-m` flag to add a commit message and the `-a` flag to specify an author. Further, we specified a target `yourusername/java:7`, which consists of a user `yourusername`, an image name `java` and a tag `7`.
 
 This image will now be available to us locally, so we can run it like any other image:
 
-	$ docker run -t -i yourusername/java:8 /bin/bash
+	$ docker run -t -i yourusername/java:7 /bin/bash
 
 Like mentioned above, the better way to create an image is to build it from a Dockerfile. For this we have create a Dockerfile in our projects directory and open it with the editor of our choice. A Dockerfile that recreates the image we created manually above would look like following:
 
 ```
 FROM ubuntu:14.04
 MAINTAINER Mr Smith <mr@smith.com>
-RUN apt-get update && apt-get install -y openjdk-8-jdk
+RUN apt-get update && apt-get install -y default-jdk
 ENTRYPOINT /bin/bash
 ```
 
@@ -151,22 +151,22 @@ Dockerfiles always consist of `INSTRUCTIONS` and `statements`. They always start
 
 Now let’s build our image:
 
-	$ docker build -t yourusername/java:8 .
+	$ docker build -t yourusername/java:7 .
 
 This will result in a similar image as the above, only that we don’t need the `/bin/bash` now anymore to run it:
 
-	$ docker run -t -i yourusername/java:8 -name our_java
+	$ docker run -t -i yourusername/java:7 -name our_java
 
 Additionally you can add tags to an image after you have commited or built it.
 
-	$ docker tag our_java yourusername/java:eight
+	$ docker tag our_java yourusername/java:seven
 
 Looking at our images we can see that there’s three tags representing the same image now:
 
 	$ docker images
 	BLA
 
-The `:8` and `:eight` tags both point to the same image and will stay like that even with further updates of this image. The `:latest` tag always points to the last image under the same name, even if the last one has a lower “version number”, e.g. `:7` (, which can happen e.g. when you fix an old version after already having a new one).
+The `:7` and `:seven` tags both point to the same image and will stay like that even with further updates of this image. The `:latest` tag always points to the last image under the same name, even if the last one has a lower “version number”, e.g. `:6` (, which can happen e.g. when you fix an old version after already having a new one).
 
 Finally, we can push an image to the Docker Hub, so we can share it with others or use it on other hosts (or in Giant Swarm).
 
