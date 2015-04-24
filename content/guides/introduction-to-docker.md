@@ -157,22 +157,24 @@ This will result in a similar image as the above, only that we don’t need the 
 
 	$ docker run -t -i yourusername/java:7 -name our_java
 
-Additionally you can add tags to an image after you have commited or built it.
+Again use the `exit` command to exit the container. Additionally, you can add tags to an image after you have commited or built it.
 
-	$ docker tag our_java yourusername/java:seven
+	$ docker tag yourusername/java:7 yourusername/java:seven
 
-Looking at our images we can see that there’s three tags representing the same image now:
+Looking at our images we can see that there’s two tags representing the same image now:
 
 	$ docker images
-	BLA
+	REPOSITORY                                              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+	yourusername/java                                            7                   0e5da60a9318        16 minutes ago      572.1 MB
+	yourusername/java                                            seven               0e5da60a9318        16 minutes ago      572.1 MB
 
-The `:7` and `:seven` tags both point to the same image and will stay like that even with further updates of this image. The `:latest` tag always points to the last image under the same name, even if the last one has a lower “version number”, e.g. `:6` (, which can happen e.g. when you fix an old version after already having a new one).
+The `:7` and `:seven` tags both point to the same image and will stay like that even with further updates of this image.
 
 Finally, we can push an image to the Docker Hub, so we can share it with others or use it on other hosts (or in Giant Swarm).
 
 	$ docker push yourusername/java
 
-This will push the whole repository of `yourusername/java`, incl. all tags and changes to the Docker Hub. If you want to keep your images private, you can use our [private registry](http://docs.giantswarm.io/reference/registry/).
+This will push the whole repository of `yourusername/java`, incl. all tags and changes to the Docker Hub. If you want to keep your images private, you can use our [private registry](http://docs.giantswarm.io/reference/registry/). This also creates a new `:latest` tag, which always points to the last image under the same name, even if the last one has a lower “version number”, e.g. `:6` (, which can happen e.g. when you fix an old version after already having a new one).
 
 If you want to remove an image from your host, you can use the `docker rmi` command.
 
