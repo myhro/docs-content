@@ -143,8 +143,8 @@ __Linux__: the command `ip addr show docker0|grep inet` should print out a line 
 So one of the following two commands will likely work:
 
 ```nohighlight
-$ curl 192.168.59.103:5000
-$ curl 172.17.42.1:5000
+$ curl 192.168.59.103:4567
+$ curl 172.17.42.1:4567
 ```
 
 Your output should look something like this:
