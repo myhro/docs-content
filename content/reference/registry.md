@@ -66,7 +66,7 @@ registry.giantswarm.io/acmecorp/webserver:1.4.2
 
 ## Organization namespaces
 
-In our systems, users are associated with [organizations](../organizations/) to allow for shared resources between multiple users. Docker images are an example of these shared resources.
+In our systems, users are associated with [organizations](/reference/cli/org/) to allow for shared resources between multiple users. Docker images are an example of these shared resources.
 
 In fact, even if you don't collaborate with other users, you are part of an organization. The default organization you belong to has the same name as your username. This is relevant for the registry, because:
 
@@ -149,7 +149,7 @@ Once you create newer versions of your images and push them again, you will like
 
 ## Referencing your image in an app
 
-Once an image is pushed to our registry, you can use it in your (or your organization's) applications. For general information on this topic, have a look at the [swarm.json reference page](../swarm-json/).
+Once an image is pushed to our registry, you can use it in your (or your organization's) applications. For general information on this topic, have a look at the [swarm.json reference page](/reference/swarm-json/).
 
 Your application is potentially built of several components with one `"image"` definition each. This is where we expect the full name of your image in our registry.
 
@@ -163,12 +163,12 @@ Your application is potentially built of several components with one `"image"` d
 
 We _explicitly recommend_ to use the full name including a specific tag here. Do not use the `:latest` alias here, otherwise it will be up the registry endpoint to resolve this to the actual image version.
 
-Be aware that you can use variables in your `swarm.json` file, which can be defined either in another JSON file or as command line parameters. Read more about this on the reference page for [creating apps](../create/).
+Be aware that you can use variables in your `swarm.json` file, which can be defined either in another JSON file or as command line parameters. Read more about this on the reference page for [creating apps](/reference/cli/create/).
 
 ## Related reading
 
-* [swarm.json reference page](../swarm-json/)
-* [Creating an app](../create/)
+* [swarm.json reference page](/reference/swarm-json/)
+* [Creating an app](/reference/cli/create/)
 
 External resources:
 

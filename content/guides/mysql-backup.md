@@ -334,6 +334,6 @@ This way you could also use the archiver service as a backup on demand tool. Jus
 
 ## Further reading
 
-* [Using the registry](../../reference/registry/) - to find out more about using our Docker registry.
+* [Using the registry](/reference/registry/) - to find out more about using our Docker registry.
 * [mysqldump reference](http://dev.mysql.com/doc/refman/5.5/en/mysqldump.html) - to learn about other ways to call `mysqldump` and how this would affect your backup
 

@@ -36,7 +36,7 @@ $ tar xzf swarm-{{% cli_latest_version %}}-linux-amd64.tar.gz
 $ sudo cp swarm /usr/local/bin/
 ```
 
-Check our [installation reference page](/reference/installation/) for details.
+Check our [installation reference page](/reference/cli/installation/) for details.
 
 ## Logging in
 
