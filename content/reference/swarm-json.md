@@ -139,7 +139,7 @@ Find out more on the [registry reference page](../registry/).
 
 ### `entrypoint`
 
-The `entrypoint` key is optional. If given, it overwrites the default `ENTRYPOINT` configured in the image on startup.
+The `entrypoint` key is optional. If given, it overwrites the default `ENTRYPOINT` configured in the image on startup. You can provide the path to a binary here, e.g. `/opt/app/bin/myapp`.
 
 ### `args`
 
