@@ -33,11 +33,11 @@ If you're not the type who likes to read a lot, we have a [Makefile](https://git
 
 ```nohighlight
 $ swarm login <yourusername>
-$ make build
-$ make run-redis
-$ make run-application
-$ make push
-$ make up
+$ make docker-build
+$ make docker-run-redis
+$ make docker-run-application
+$ make docker-push
+$ make swarm-up
 ```
 
 Everybody else, follow the path to wisdom and read on.
