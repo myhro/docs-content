@@ -10,81 +10,111 @@ weight = 40
 
 # Executing a Command in a Component Instance
 
-With the `swarm exec` command, you can start the execution of a new process in a running instance of a Giant Swarm application component. This allows to run a script or start an interactive shell, depending on what capabilities the instance provides.
+With the `swarm exec` command, you can start the execution of a new process inside a running instance, which includes running scripts or interactive shells. Any command you run must be supported by the underlying container image for the instance.
 
-## Basic Syntax
+## Synopsis
 
-```nohighlight
-$ swarm exec <instance-id> [-d|--detach] [--] [<command>]
-```
+```$ swarm exec <instance-id> [-d|--detach] [--] [<command>]```
 
-* The `instance_id` argument specifies an instance of a running application component. Use the [`swarm status`](../status/) command to list all instances of an application. Note that you can use partial IDs (ommitting characters from the end) as long as the part is unique within your environment.
+* The `instance_id` argument specifies an instance of a running application component.
 
-* When the optional `-d` or `--detach` flag is used, the CLI will return immediately after the command has been started on the instance, not waiting for the end of the execution.
+* When using the `-d` or `--detach` flags, the CLI will detach from the running process. The use of the detach flag is optional.
 
-* The seperator `--` has to be used when a `command` argument containing whitespace shall be used.
+* The `command` argument specifies the command to be executed on the target instance. If no command argument is given, the command `/bin/sh` is used to open a shell on the instance's container.
 
-* The `command` argument specifies the command to be executed in the target instance. If no command argument is given, the command `/bin/sh` is used to open a shell into the container.
+* The option separator `--` should be used when a `command` argument contains whitespace.
+
+**Note: Use the [`swarm status`](../status/) command to list all instances of an application. You may use partial IDs, omitting characters from the end, as long as the partial ID is unique within your environment.**
 
 ## Examples
 
-Assuming that we have an instance with the ID `pyhna3vqp24g`, we can quickly list the content of the current directory using this command:
+Here are a few examples you can try out on your instances.  Let's start by getting the process IDs with ```swarm ls``` + ```swarm status```:
 
-```nohighlight
-$ swarm exec pyhna3vqp24g ls
+```
+$ swarm ls
+2 applications available in environment 'bant/dev':
+
+application     created              status
+helloworld      2015-05-07 03:28:18  up
+
+$ swarm status
+App helloworld is up
+
+service             component             image     instanceid    created              status
+helloworld-service  helloworld-component  python:3  f00barjwxe37  2015-05-08 21:42:24  up
 ```
 
-Of course, this requires the `ls` binary to be existent in the running container and accessible in the PATH, which is entirely in your responsibility.
+### Shell Into the Instance
 
-Passing additional arguments to a command is possible, too, but this requires the seperator `--` to be present to prevents the CLI from trying to parse the additional arguments.
+If the instance is running an image which has support for running a bash shell, you should be able to do the following:
 
-So executing `ls -la` on your target instance takes this command:
-
-```nohighlight
-$ swarm exec pyhna3vqp24g -- ls -la
+```
+$ swarm exec f00bar /bin/bash
 ```
 
-Both examples shown above will wait for the result of the command execution and print the STDOUT and STDERR output to your terminal. To prevent this, use the `-d` or `--detach` flag.
+Here's a simple example of shelling into the Giant Swarm [*helloworld*](https://github.com/giantswarm/helloworld) example and getting a directory listing and process list:
 
-You could start a long running process this way:
-
-```nohighlight
-$ swarm exec pyhna3vqp24g -d /path/to/tedious-task
+```
+$ swarm exec f00bar /bin/bash
+root@f00barjwxe37:/# ls
+bin   dev  home        lib    media  opt   root  sbin  sys  usr
+boot  etc  index.html  lib64  mnt    proc  run	 srv   tmp  var
+root@f00barjwxe37:/# ps -ax
+  PID TTY      STAT   TIME COMMAND
+    1 ?        Ss     0:00 sh -c echo "Hello from Giant Swarm. \o/" > index.html
+    7 ?        S      0:00 python -m http.server
+   16 ?        S      0:00 /bin/bash
+   23 ?        R+     0:00 ps -ax
 ```
 
-## Running a Shell
+The ```swarm exec``` command uses `/bin/sh` by default. This results in a simple way to quickly check in on an instance:
 
-Using exec allows you to open an interactive shell into your instance, given that the container you are running actually contains a shell executable, which should be the case with most standard Linux containers.
-
-The syntax for calling a shell executable is exactly the same as for other commands, as described above.
-
-If you have Bash in `/bin/bash`, here is how you can run it:
-
-```nohighlight
-$ swarm exec <instance_id> /bin/bash
 ```
-
-If you like it even more reduced and have `/bin/sh`, you don't need to specify the command at all. Simply call
-
-```nohighlight
-$ swarm exec <instance_id>
+$ swarm exec f00bar
 ```
 
 Quitting a shell session usually requires the `exit` command or hitting `Ctrl + D`.
 
+### Listing Instance Directories
+Listing the contents of the default path in an instance with ID ```f00barjwxe37``` can be done by doing the following:
+
+```
+$ swarm exec f00bar ls
+```
+
+*Note: The use of `ls` requires the `ls` binary be available on the instance. If it fails, try shelling into the instance to debug!*
+
+### Using Parameters with Commands
+Using arguments with a ```command``` requires the use of the option separator `--` to keep the Swarm CLI from parsing the command's arguments for itself.
+
+Running ```grep -r foo * | cut -f 1 -d':'``` on an instance with ID ```f00barjwxe37``` can done by doing the following:
+
+```
+$ swarm exec f00bar -- grep -r foo * | cut -f 1 -d':'
+```
+
+*Note: STDOUT and STDERR for the command will be outputted to your terminal. To detach a blocking process, use the `-d` or `--detach` flag.*
+
+### Long Running Processes
+If you need to execute a long running process, use the afore mention ```-d``` or ```--detach``` flags:
+
+```$ swarm exec f00bar -d /path/to/tedious-task```
+
+
 ## Considerations
+Best practices for containers seem to indicate containers should only be running a single process. It is also suggested that this process is kicked off using the `ENTRYPOINT` or `CMD` directives in the container's Dockerfile.
 
-With the ability to execute commands interactively comes the question: When to use this function and when to rely on the main process started using the `ENTRYPOINT` or `CMD` property of a Docker container or their counterparts in the application configuration?
+Giant Swarm's service assumes a container should be restarted when the main process in the container dies. Extra processes started outside the Dockerfile directives, such as those run by a ```swarm exec```, are not moninitored by Giant Swarm's system. This includes logs or console output generated by these extra processes.
 
-Docker containers are designed for running one process, and Giant Swarm is building on this design decision. When the main process initiated in a container dies, the container is restarted. Only the main process' log output is gathered via Giant Swarm's global log aggregation.
+To ensure a process is always running on Giant Swarm, you should ensure the main process in started from the Dockerfile.
 
-As a consequence, whenever you want to rely on a process actually being running, you should always make this the main process in a container.
+The `swarm exec` function is best suited for short-running processes, which could include jobs like importing data into a database, manually creating a backup of a directory, or interactively debugging a system while it's running.
 
-So `swarm exec` is basically suited for short-running processes. This could be jobs like importing data into a database, manually creating a backup of some directory and sending this somewhere or interactively debugging a system while it's running.
+Remember, use your best judgement when adding extra processes to a container. With microservices, less is always more!
 
 ## Limitations
 
-Currently, the return values of executed commands are not reflected when executing `swarm exec`. Also, there is no way to determine from the `swarm exec` exit code whether a command could even be executed or not (for example since it doesn't exist).
+The return values of executed commands and their exit codes are not returned by `swarm exec`. This fact makes it difficult to programatically detect whether or not the command exists on the instance, and whether it successfully ran and exited, or not.
 
 ## Further Reading
 
