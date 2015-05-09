@@ -99,5 +99,5 @@ curl -s -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" http
 "dev"
 ```
 
-*Note: If you are running on OSX, you may install the ```jq``` command by doing a ```brew install jq```. You can find more information about ```jq``` [here](http://stedolan.github.io/jq/).
+*Note: If you are running on OSX, you may install the ```jq``` command by doing a ```brew install jq```. You can find more information about ```jq``` [here](http://stedolan.github.io/jq/)*.
 
