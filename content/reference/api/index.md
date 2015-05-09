@@ -46,14 +46,18 @@ In this example, we can see we should use a ```GET``` method on the ```/v1/org/b
 ### Authentication
 The Giant Swarm API requires authentication to most of its URL endpoints. Authentication to the system may be done by POSTing JSON data to the ```/v1/user/<username>/login``` endpoint. Note the use of the ```application/json``` content type for the ```POST``` and the use of ```-n``` inside the escaped bash partial in the JSON.
 
-    curl -H "Content-Type: application/json" -X POST -d '{"password":"'"$(echo -n <password> | base64)"'"}' https://api.giantswarm.io/v1/user/<username>/login
+    curl -H "Content-Type: application/json" -X POST \
+    -d '{"password":"'"$(echo -n <password> | base64)"'"}' \
+    https://api.giantswarm.io/v1/user/<username>/login
 
 *Note: Be careful when using the ```base64``` command to generate encoded data from STDIN. For example, the default behavior of ```echo foo | base64``` in bash will result in a line feed ```'/n'``` being encoded in the password. Giant Swarm's API is sorry that it is not able authorize a password with an appended line feed or carriage return.*
 
 Let's take a look at an example which uses Python to clean up the output:
 
 ```
-$ curl -s -H "Content-Type: application/json" -X POST -d '{"password":"'"$(echo -n f00bar | base64)"'"}' https://api.giantswarm.io/v1/user/bant/login | python -mjson.tool
+$ curl -s -H "Content-Type: application/json" -X POST \
+-d '{"password":"'"$(echo -n f00bar | base64)"'"}' \
+https://api.giantswarm.io/v1/user/bant/login | python -mjson.tool
 
 {
     "data": {
@@ -76,7 +80,9 @@ This token must be passed in the headers of the API request. In this example ```
 Here's an example of using a token to ```curl``` the ```/v1/org/bant/env/``` endpoint to list available environments:
 
 ```
-$ curl -s -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" https://api.giantswarm.io/v1/org/bant/env/ | python -mjson.tool
+$ curl -s \
+-H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+https://api.giantswarm.io/v1/org/bant/env/ | python -mjson.tool
 {
     "data": {
         "environments": [
@@ -94,7 +100,9 @@ $ curl -s -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" ht
 You may occasionally wish to prototype API calls in ```bash```. Here's an example which uses the ```jq``` command to extract the required data:
 
 ```
-curl -s -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" https://api.giantswarm.io/v1/org/bant/env/ | jq '.data.environments[0].name'
+curl -s \
+-H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+https://api.giantswarm.io/v1/org/bant/env/ | jq '.data.environments[0].name'
 
 "dev"
 ```
