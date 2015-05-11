@@ -66,7 +66,7 @@ registry.giantswarm.io/acmecorp/webserver:1.4.2
 
 ## Organization namespaces
 
-In our systems, users are associated with [organizations](../organizations/) to allow for shared resources between multiple users. Docker images are an example of these shared resources.
+In our systems, users are associated with [organizations](../org/) to allow for shared resources between multiple users. Docker images are an example of these shared resources.
 
 In fact, even if you don't collaborate with other users, you are part of an organization. The default organization you belong to has the same name as your username. This is relevant for the registry, because:
 
