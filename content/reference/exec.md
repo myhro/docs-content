@@ -14,7 +14,9 @@ With the `swarm exec` command, you can start the execution of a new process insi
 
 ## Synopsis
 
-```$ swarm exec <instance-id> [-d|--detach] [--] [<command>]```
+```nohighlight
+$ swarm exec <instance-id> [-d|--detach] [--] [<command>]
+```
 
 * The `instance_id` argument specifies an instance of a running application component.
 
@@ -28,38 +30,32 @@ With the `swarm exec` command, you can start the execution of a new process insi
 
 ## Examples
 
-Here are a few examples you can try out on your instances.  Let's start by getting the process IDs with ```swarm ls``` + ```swarm status```:
+Here are a few examples you can try out on your instances.  Let's start by getting the instance IDs with `swarm status`, assuming that we have an application called `helloworld`:
 
-```
-$ swarm ls
-2 applications available in environment 'bant/dev':
-
-application     created              status
-helloworld      2015-05-07 03:28:18  up
-
-$ swarm status
+```nohighlight
+$ swarm status helloworld
 App helloworld is up
 
 service             component             image     instanceid    created              status
-helloworld-service  helloworld-component  python:3  f00barjwxe37  2015-05-08 21:42:24  up
+helloworld-service  helloworld-component  python:3  r6ckgljwxe37  2015-05-08 21:42:24  up
 ```
 
 ### Shell Into the Instance
 
 If the instance is running an image which has support for running a bash shell, you should be able to do the following:
 
-```
-$ swarm exec f00bar /bin/bash
+```nohighlight
+$ swarm exec r6ckgljwxe37 /bin/bash
 ```
 
 Here's a simple example of shelling into the Giant Swarm [*helloworld*](https://github.com/giantswarm/helloworld) example and getting a directory listing and process list:
 
-```
-$ swarm exec f00bar /bin/bash
-root@f00barjwxe37:/# ls
+```nohighlight
+$ swarm exec r6ckgljwxe37 /bin/bash
+root@r6ckgljwxe37:/# ls
 bin   dev  home        lib    media  opt   root  sbin  sys  usr
 boot  etc  index.html  lib64  mnt    proc  run	 srv   tmp  var
-root@f00barjwxe37:/# ps -ax
+root@r6ckgljwxe37:/# ps -ax
   PID TTY      STAT   TIME COMMAND
     1 ?        Ss     0:00 sh -c echo "Hello from Giant Swarm. \o/" > index.html
     7 ?        S      0:00 python -m http.server
@@ -67,39 +63,43 @@ root@f00barjwxe37:/# ps -ax
    23 ?        R+     0:00 ps -ax
 ```
 
-The ```swarm exec``` command uses `/bin/sh` by default. This results in a simple way to quickly check in on an instance:
+The `swarm exec` command uses `/bin/sh` by default. This results in a simple way to quickly check in on an instance:
 
-```
-$ swarm exec f00bar
+```nohighlight
+$ swarm exec r6ckgljwxe37
 ```
 
 Quitting a shell session usually requires the `exit` command or hitting `Ctrl + D`.
 
 ### Listing Instance Directories
-Listing the contents of the default path in an instance with ID ```f00barjwxe37``` can be done by doing the following:
 
-```
-$ swarm exec f00bar ls
+Listing the contents of the default path in an instance with ID `r6ckgljwxe37` can be done by doing the following:
+
+```nohighlight
+$ swarm exec r6ckgljwxe37 ls
 ```
 
 *Note: The use of `ls` requires the `ls` binary be available on the instance. If it fails, try shelling into the instance to debug!*
 
 ### Using Parameters with Commands
-Using arguments with a ```command``` requires the use of the option separator `--` to keep the Swarm CLI from parsing the command's arguments for itself.
 
-Running ```grep -r foo * | cut -f 1 -d':'``` on an instance with ID ```f00barjwxe37``` can done by doing the following:
+Using arguments with a `command` requires the use of the option separator `--` to keep the Swarm CLI from parsing the command's arguments for itself.
 
-```
-$ swarm exec f00bar -- grep -r foo * | cut -f 1 -d':'
+Running `grep -r foo * | cut -f 1 -d':'` on an instance with ID `r6ckgljwxe37` can done by doing the following:
+
+```nohighlight
+$ swarm exec r6ckgljwxe37 -- grep -r foo * | cut -f 1 -d':'
 ```
 
 *Note: STDOUT and STDERR for the command will be outputted to your terminal. To detach a blocking process, use the `-d` or `--detach` flag.*
 
 ### Long Running Processes
-If you need to execute a long running process, use the afore mention ```-d``` or ```--detach``` flags:
 
-```$ swarm exec f00bar -d /path/to/tedious-task```
+If you need to execute a long running process, use the afore mention `-d` or `--detach` flags:
 
+```nohighlight
+$ swarm exec f00bar -d /path/to/tedious-task
+```
 
 ## Considerations
 Best practices suggest containers should only run a single process. It is required that this process be kicked off using the `ENTRYPOINT` or `CMD` directives in the container's Dockerfile.
