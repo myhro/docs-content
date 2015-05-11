@@ -59,7 +59,7 @@ $ cd helloworld
 
 Alternatively you can [download a ZIP file](https://github.com/giantswarm/helloworld/archive/master.zip) file, so you don't even need `git` installed.
 
-When looking at the contents, you'll find that there is only one actual file contained, called `swarm.json`. This is really all we need for now.
+When looking at the contents, you'll find there is a file called `swarm.json` which is really all we need for now.
 
 ## Checking the application config
 
@@ -67,27 +67,24 @@ In case you want to understand what your application is doing, let's have a look
 
 ```json
 {
-  "app_name": "helloworld",
-  "services": [
-    {
-      "service_name": "helloworld-service",
-      "components": [
+    "app_name": "helloworld",
+    "services": [
         {
-          "component_name": "helloworld-component",
-          "image": "python:3",
-          "args": ["sh", "-c", "echo \"Hello from Giant Swarm. \\o/\" > index.html && python -m http.server"],
-          "ports": [8000],
-          "domains": {
-            "$domain": 8000
-          }
+            "service_name": "helloworld-service",
+            "components": [
+                {
+                    "component_name": "helloworld-component",
+                    "image": "giantswarm/helloworld",
+                    "ports": [8080],
+                    "domains": {"$domain": 8080}
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 ``` 
 
-The file configures an application called `helloworld` with a single service. This service contains a single component named `helloworld-component`. This component uses the standard [python version 3](https://registry.hub.docker.com/_/python/) image from the public Docker registry. The `args` key defines arguments to be called when the container is started. In this case, the arguments form a command that writes an HTML file and then starts a little web server to serve it. The `ports` definition exposes port 8000 of the component, which is finally exposed via the `domains` entry via standard HTTP port 80.
+The file configures an application called `helloworld` with a single service. This service contains a single component named `helloworld-component`. This component uses a [custom helloworld image](https://registry.hub.docker.com/u/giantswarm/helloworld/) from the public Docker registry. The image is a simple HTTP server written in Go returning a HTML file. If you are interested in the implementation details have a look at the source code on our [Github page](https://github.com/giantswarm/helloworld). The `ports` definition exposes port 8080 of the component, which is finally exposed via the `domains` entry via standard HTTP port 80.
 
 There is a nifty thing: We use a variable `$domain` in this file, so that you can pick your own domain name for your application without even having to edit that file.
 
