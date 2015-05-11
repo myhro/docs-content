@@ -1,7 +1,7 @@
 +++
 title = "Accessing process logs"
 description = "This is the reference page for the 'swarm logs' command, which allows you to access the logs of your component instances."
-date = "2015-04-20"
+date = "2015-05-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm logs"]
@@ -61,12 +61,6 @@ Or
 
 ```nohighlight
 $ swarm logs <instance_id> --follow
-```
-
-You can also combine the `--tail`/`-t` and the `--follow`/`-f` switches to first cap the log output to a specific number of rows and then follow new messages as they come up. An example:
-
-```nohighlight
-$ swarm logs AfeLfIT1SeYy -t 100 -f
 ```
 
 ## Further reading
