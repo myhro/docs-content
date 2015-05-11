@@ -24,7 +24,7 @@ $ swarm exec <instance-id> [-d|--detach] [--] [<command>]
 
 * The `command` argument specifies the command to be executed on the target instance. If no command argument is given, the command `/bin/sh` is used to open a shell on the instance's container.
 
-* The option separator `--` should be used when a `command` argument contains whitespace.
+* The option separator `--` must be used when a `command` argument contains additional flags, e. g. `ls -la`.
 
 **Note: Use the [`swarm status`](../status/) command to list all instances of an application. You may use partial IDs, omitting characters from the end, as long as the partial ID is unique within your environment.**
 
