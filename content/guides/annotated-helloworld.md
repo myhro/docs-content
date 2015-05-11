@@ -84,7 +84,7 @@ In case you want to understand what your application is doing, let's have a look
 }
 ``` 
 
-The file configures an application called `helloworld` with a single service. This service contains a single component named `helloworld-component`. This component uses a [custom helloworld image](https://registry.hub.docker.com/u/giantswarm/helloworld/) from the public Docker registry. The image is a simple HTTP server written in Go returning a HTML file. If you are interested in the implementation details have a look at the source code on our [Github page](https://github.com/giantswarm/helloworld). The `ports` definition exposes port 8080 of the component, which is finally exposed via the `domains` entry via standard HTTP port 80.
+The file configures an application called `helloworld` with a single service. This service contains a single component named `helloworld-component`. This component uses a [custom helloworld image](https://registry.hub.docker.com/u/giantswarm/helloworld/) from the public Docker registry. The image is a simple HTTP server written in Go returning an HTML file. If you are interested in the implementation details have a look at the source code on our [Github page](https://github.com/giantswarm/helloworld). The `ports` definition exposes port 8080 of the component, which is finally exposed via the `domains` entry via standard HTTP port 80.
 
 There is a nifty thing: We use a variable `$domain` in this file, so that you can pick your own domain name for your application without even having to edit that file.
 
