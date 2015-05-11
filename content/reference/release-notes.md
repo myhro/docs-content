@@ -1,7 +1,7 @@
 +++
 title = "Release Notes"
 description = "Release notes and changelog for the swarm CLI, showing you what has changed form release to release."
-date = "2015-04-20"
+date = "2015-05-11"
 type = "page"
 weight = 10
 +++
@@ -9,6 +9,15 @@ weight = 10
 # Release Notes
 
 Here we list the more important changes we made between releases. See our [installation reference](../installation/) for information on how to update to the latest CLI.
+
+## Version 0.17.0
+
+Released 2015-05-11
+
+* The new function `swarm exec` allows to execute arbitrary commands in a running component instance, including opening a shell. Read more about it on the according [reference page](/reference/exec/).
+* The new component-level configuration key `entrypoint` has been introduced, allowing to override a Docker image's `ENTRYPOINT` directive. Read more in the according [Application configuration](/reference/swarm-json/#entrypoint) section.
+* Fixed a bug that broke the function of `swarm logs <instance-id> -f´.
+* Fixed a bug that slowed down the execution of calls to `swarm status` and `swarm stats`.
 
 ## Version 0.16.0
 
