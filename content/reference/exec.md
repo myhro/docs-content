@@ -1,7 +1,7 @@
 +++
 title = "Execute a command in a component instance"
 description = "This is the reference page for the 'swarm exec' command, which allows you to call a command inside an instance of a component or open a shell."
-date = "2015-05-08"
+date = "2015-05-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm exec"]
