@@ -5,7 +5,7 @@ date = "2015-05-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm exec"]
-weight = 40
+weight = 92
 +++
 
 # Executing a Command in a Component Instance
