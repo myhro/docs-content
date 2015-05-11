@@ -59,7 +59,7 @@ $ cd helloworld
 
 Alternatively you can [download a ZIP file](https://github.com/giantswarm/helloworld/archive/master.zip) file, so you don't even need `git` installed.
 
-When looking at the contents, you'll find there is a file called `swarm.json` which is really all we need for now.
+When looking at the contents, you'll find there is a file called `swarm.json`, which is really all we need for now.
 
 ## Checking the application config
 
