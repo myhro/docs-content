@@ -18,7 +18,7 @@ With the `swarm exec` command, you can start the execution of a new process insi
 $ swarm exec <instance-id> [-d|--detach] [--] [<command>]
 ```
 
-* The `instance_id` argument specifies an instance of a running application component.
+* The `instance-id` argument specifies an instance of a running application component.
 
 * When using the `-d` or `--detach` flags, the CLI will detach from the running process. The use of the detach flag is optional.
 
