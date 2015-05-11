@@ -98,7 +98,7 @@ $ swarm exec r6ckgljwxe37 -- grep -r foo * | cut -f 1 -d':'
 If you need to execute a long running process, use the afore mention `-d` or `--detach` flags:
 
 ```nohighlight
-$ swarm exec f00bar -d /path/to/tedious-task
+$ swarm exec r6ckgljwxe37 -d /path/to/tedious-task
 ```
 
 ## Considerations and Limitations
