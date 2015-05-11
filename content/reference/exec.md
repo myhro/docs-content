@@ -48,7 +48,7 @@ If the instance is running an image which has support for running a bash shell, 
 $ swarm exec r6ckgljwxe37 /bin/bash
 ```
 
-Here's a simple example of shelling into the Giant Swarm [*helloworld*](https://github.com/giantswarm/helloworld) example and getting a directory listing and process list:
+Here's a simple example of shelling into the Giant Swarm [helloworld](https://github.com/giantswarm/helloworld) example and getting a directory listing and process list:
 
 ```nohighlight
 $ swarm exec r6ckgljwxe37 /bin/bash
