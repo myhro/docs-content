@@ -26,7 +26,7 @@ $ swarm exec <instance-id> [-d|--detach] [--] [<command>]
 
 * The option separator `--` must be used when a `command` argument contains additional flags, e. g. `ls -la`.
 
-**Note: Use the [`swarm status`](../status/) command to list all instances of an application. You may use partial IDs, omitting characters from the end, as long as the partial ID is unique within your environment.**
+**Note:** Use the [`swarm status`](../status/) command to list all instances of an application. You may use partial IDs, omitting characters from the end, as long as the partial ID is unique within your environment.
 
 ## Examples
 
