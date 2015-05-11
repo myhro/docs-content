@@ -16,7 +16,8 @@ Released 2015-05-11
 
 * The new function `swarm exec` allows to execute arbitrary commands in a running component instance, including opening a shell. Read more about it on the according [reference page](/reference/exec/).
 * The new component-level configuration key `entrypoint` has been introduced, allowing to override a Docker image's `ENTRYPOINT` directive. Read more in the according [Application configuration](/reference/swarm-json/#entrypoint) section.
-* Fixed a bug that broke the function of `swarm logs <instance-id> -f´.
+* Change in the `swarm logs` mechanics: The flags `-t` and `-f` can no longer be combined. Background: an important architectural improvement in the implementation of historic log data access makes this difficult to achieve. Once real-time log access is unified, this function might return.
++ Fixed a bug that broke the function of `swarm logs <instance-id> -f´.
 * Fixed a bug that slowed down the execution of calls to `swarm status` and `swarm stats`.
 
 ## Version 0.16.0
