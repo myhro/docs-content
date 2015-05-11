@@ -1,7 +1,7 @@
 +++
 title = "Accessing process logs"
 description = "This is the reference page for the 'swarm logs' command, which allows you to access the logs of your component instances."
-date = "2015-04-20"
+date = "2015-05-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm logs"]
@@ -24,13 +24,13 @@ Notes:
 To quickly return the latest 10 log entries for an instance, simply give the instance ID as an argument:
 
 ```nohighlight
-$ swarm logs <instance_id>
+$ swarm logs <instance-id>
 ```
 
 Or
 
 ```nohighlight
-$ swarm logs <instance_id>
+$ swarm logs <instance-id>
 ```
 
 ## Returning more log messages
@@ -38,7 +38,7 @@ $ swarm logs <instance_id>
 To adjust the number of log messages to be returned from the end, use the `--tail` or `-t` parameter and use it to set the number of entries to return. The syntax is like this:
 
 ```nohighlight
-$ swarm logs <instance_id> -t <n>
+$ swarm logs <instance-id> -t <n>
 ```
 
 As a result, the latest `n` entries recorded so far for this instance will be printed to your console.
@@ -46,7 +46,7 @@ As a result, the latest `n` entries recorded so far for this instance will be pr
 To return all stored log entries for that instance, the special value `all` is accepted, like this:
 
 ```nohighlight
-$ swarm logs <instance_id> -t all
+$ swarm logs <instance-id> -t all
 ```
 
 ## Continuous output
@@ -54,19 +54,13 @@ $ swarm logs <instance_id> -t all
 You can print out new log messages as they occur. For this purpose, add the `--follow` or `-f` switch to the command.
 
 ```nohighlight
-$ swarm logs <instance_id> -f
+$ swarm logs <instance-id> -f
 ```
 
 Or
 
 ```nohighlight
-$ swarm logs <instance_id> --follow
-```
-
-You can also combine the `--tail`/`-t` and the `--follow`/`-f` switches to first cap the log output to a specific number of rows and then follow new messages as they come up. An example:
-
-```nohighlight
-$ swarm logs AfeLfIT1SeYy -t 100 -f
+$ swarm logs <instance-id> --follow
 ```
 
 ## Further reading
