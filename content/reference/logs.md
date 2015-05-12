@@ -1,7 +1,7 @@
 +++
 title = "Accessing process logs"
 description = "This is the reference page for the 'swarm logs' command, which allows you to access the logs of your component instances."
-date = "2015-05-11"
+date = "2015-05-12"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm logs"]
@@ -17,7 +17,8 @@ The command requires an instance ID for the instance your component is running o
 Notes:
 
 * For logs to be accessible in this way, processes have to send their log messages to STDOUT or STDERR. This is the standard with Docker containers running single processes each.
-* Log entries are stored for a couple of days only, for the time being.
+* Log data is only acessible as long as the originating instance still exists. Actions that result in an instance being deleted, like [scaling down a component](../scaledown/) or [deleting an entire application](../delete/) make the according log data inaccessible.
+* Log entries are stored for 14 days, for the time being.
 
 ## Return the latest log messages
 
