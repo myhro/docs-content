@@ -8,8 +8,6 @@ tags = ["api"]
 weight = 100
 +++
 
-# remove your key kord!
-
 # The Giant Swarm API V1
 
 The Giant Swarm API is a simple, mostly RESTful JSON based API, which can be accessed over an encrypted HTTPS connection. The API is used by the Giant Swarm `swarm` CLI command and should be incorporated into your software where programatic control over your infrastructure is required.
