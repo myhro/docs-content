@@ -146,7 +146,7 @@ https://api.giantswarm.io/v1/user/{username}/login
 Here's an example which uses a bash partial using `echo` with the `-n` (no line feed) option to populate the password dynamically and uses Python to clean up the output:
 
 ```json
-$ curl -sS \
+curl -sS \
 -H "Content-Type: application/json" \
 -X POST \
 --data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
@@ -179,7 +179,7 @@ This token must be passed in the headers of the API request. In this example `cu
 Here's an example of using a token to `curl` the `/v1/org/bantic/env/` endpoint to list available environments:
 
 ```json
-$ curl -sS \
+curl -sS \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
 
@@ -229,7 +229,7 @@ https://api.giantswarm.io/v1/org/{org}/env/
 ##### Example with JSON Response
 
 ```json
-$ curl -sS \ 
+curl -sS \ 
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
 
@@ -267,7 +267,7 @@ https://api.giantswarm.io/v1/org/
 ##### Example with JSON Response
 
 ```json
-$ curl -sS \
+curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
@@ -302,7 +302,7 @@ https://api.giantswarm.io/v1/org/{org}/
 ##### Example with JSON Response
 
 ```json
-$ curl -sS \
+curl -sS \
 -X DELETE \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/ | python -mjson.tool
@@ -335,7 +335,7 @@ https://api.giantswarm.io/v1/org/{org}
 ##### Example with JSON Response
 
 ```json
-$ curl -sS \
+curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic | python -mjson.tool
@@ -1229,14 +1229,14 @@ The following method tests connections to the API. It will respond with OK when 
 To ping the API connection, call the `GET` method on the `/v1/ping` endpoint.
 
 ```json
-$ curl -sS
+curl -sS
 https://api.giantswarm.io/v1/ping
 ```
 
 #### Example with TEXT Response
 
 ```json
-$ curl -sS \
+curl -sS \
 https://api.giantswarm.io/v1/ping
 
 "OK"
@@ -1276,7 +1276,7 @@ https://api.giantswarm.io/v1/user/<username>/login
 
 ##### Example with JSON Response
 ```json
-$ curl -sS \
+curl -sS \
 -X POST \
 -H "Content-Type: application/json" \
 --data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
@@ -1314,7 +1314,7 @@ https://api.giantswarm.io/v1/token/logout
 
 ##### Example with JSON Response
 ```json
-$ curl -sS \
+curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
@@ -1348,7 +1348,7 @@ https://api.giantswarm.io/v1/user/me/email/update
 
 ##### Example with JSON Response
 ```json
-$ curl -sS \
+curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
@@ -1388,7 +1388,7 @@ https://api.giantswarm.io/v1/user/me/password/update
 This example uses the `echo` command with a `-n` piped through `base64` to generated the strings necessary for setting a new password:
 
 ```json
-$ curl -sS \
+curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
@@ -1424,7 +1424,7 @@ https://api.giantswarm.io/v1/user/me
 ##### Example with JSON Response
 
 ```json
-$ curl -sS \
+curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
@@ -1462,7 +1462,7 @@ https://api.giantswarm.io/v1/user/me/memberships
 ##### Example with JSON Response
 
 ```json
-$ curl -sS \
+curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
