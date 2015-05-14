@@ -16,7 +16,7 @@ The Giant Swarm API is a simple, mostly RESTful JSON based API, which can be acc
 
 
 ## The Basics
-The following information is intended to familiarize you with the use of the Giant Swarm API. If you have a suggestion on how to improve the documentation, [Please open a ticket](https://github.com/giantswarm/docs-content/issues).
+The following information is intended to familiarize you with the use of the Giant Swarm API. If you have a suggestion on how to improve the documentation or have found an error, [please open a ticket](https://github.com/giantswarm/docs-content/issues).
 
 There are several types of management methods supported by the Giant Swarm API:
 
