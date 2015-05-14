@@ -540,7 +540,9 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/ | python -mjson.tool
 }
 ```
 
-##### Example hello-service swarm.json
+##### Example JSON File
+This file should be saved as `swarm.json`:
+
 ```json
 {
   "app_name": "helloworld",
