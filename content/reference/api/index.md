@@ -1201,7 +1201,7 @@ The following method tests connections to the API. It will respond with OK when 
 |-----|-----|-----|
 | /v1/ping | [GET](#Ping) | Ping Giant Swarm's API |
 
-<a name="ping""></a>
+<a name="Ping""></a>
 ### Ping the API Connection
 To ping the API connection, call the `GET` method on the `/v1/ping` endpoint.
 
