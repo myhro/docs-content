@@ -10,7 +10,7 @@ weight = 100
 
 # The Giant Swarm API V1
 
-The Giant Swarm API is a simple, mostly RESTful JSON based API, which can be accessed over an encrypted HTTPS connection. The API is used by the Giant Swarm `swarm` CLI command and should be incorporated into your software where programatic control over your infrastructure is required.
+The Giant Swarm API is a simple, mostly RESTful JSON based API, which can be accessed over an encrypted HTTPS connection. The API is used by the Giant Swarm `swarm` CLI command and should be incorporated into your software where programmatic control over your infrastructure is required.
 
 *Note: The Giant Swarm API and this documentation is still in alpha and should be expected to change over time.*
 
@@ -27,6 +27,12 @@ There are several types of management methods supported by the Giant Swarm API:
 1. [Instance](#instance)
 1. [Connection](#connection)
 1. [User](#user)
+
+<a name="ehelper"></a>
+### Example Helper
+For convenience, this page contains an <a id="link-helper" href="#helper">example helper</a> designed to replace variables used in examples on this page with ones that are valid for your account. The helper can be triggered by clicking on the link above, or hitting the `h` key while on this page. Please note the helper will not work when viewing this documentation on Github.
+
+You may jump to the [password authentication](#passwordauth) section for information on retrieving an authentication token for use with the example helper.
 
 <a name="naming"></a>
 ### Naming Conventions
@@ -90,9 +96,9 @@ Here is an example use of the CLI which lists all applications in the `bantic` o
 
 ```json
 $ swarm --debug ls
-DEBUG: GET https://api.giantswarm.io/v1/org/bant/env/dev/app/
+DEBUG: GET https://api.giantswarm.io/v1/org/bantic/env/dev/app/
 DEBUG: << 200 OK
-DEBUG: GET https://api.giantswarm.io/v1/org/bant/env/dev/app/currentweather/status
+DEBUG: GET https://api.giantswarm.io/v1/org/bantic/env/dev/app/currentweather/status
 DEBUG: << 200 OK
 1 application available in environment 'bant/dev':
 
@@ -100,7 +106,7 @@ application     created              status
 currentweather  2015-04-28 17:28:36  up
 ```
 
-In this example, we can see we should use a `GET` method on the `/v1/org/bant/env/dev/app/` endpoint to get a list of applications in our `dev` environment.
+In this example, we can see we should use a `GET` method on the `/v1/org/bantic/env/dev/app/` endpoint to get a list of applications in our `dev` environment.
 
 <a name="processjson"></a>
 ### Processing Responses with bash
@@ -109,7 +115,7 @@ You may occasionally wish to prototype API calls in `bash`. Here's an example wh
 ```json
 curl -sS \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bant/env/ | jq '.data.environments[0].name'
+https://api.giantswarm.io/v1/org/bantic/env/ | jq '.data.environments[0].name'
 
 "dev"
 ```
@@ -118,21 +124,26 @@ https://api.giantswarm.io/v1/org/bant/env/ | jq '.data.environments[0].name'
 
 <a name="auth"></a>
 ## Authentication
-The Giant Swarm API requires authentication for most of its URL endpoints. Authentication to the APIs may be done by using the `/v1/user/{username}/login` endpoint while sending `application/json` content type inside the `POST` request. 
+The Giant Swarm API requires authentication tokens for most of its URL endpoints. Tokens may be retrieved from the command line if the `swarm` client is [installed](/reference/cli/installation/) and [authenticated](/reference/cli/login/):
+
+    $ cat ~/.swarm/token; echo;
+    e5239484-2299-41df-b901-d0568db7e3f9
+
+Authentication tokens may also be obtained by using the `/v1/user/{username}/login` endpoint while sending an encoded password via an `application/json` content type inside the `POST` request. 
 
 <a name="passwordauth"></a>
 ### Password Authentication
-Here's an example which uses `curl` to `POST` JSON and a bash partial using `echo` with the `-n` (no line feed) option to populate the password dynamically:
+To authenticate and get a token, call the `POST` method on the `/v1/user/{username}/login` method using a JSON object containing a `base64` encoded password. :
 
 ```json
 curl -sS \
 -H "Content-Type: application/json" \
 -X POST \
--d '{"password":"'"$(echo -n <password> | base64)"'"}' \
-https://api.giantswarm.io/v1/user/<username>/login
+-d '{"password":"<base64_password>"}' \
+https://api.giantswarm.io/v1/user/{username}/login
 ```
 
-Let's take a look at an example which uses Python to clean up the output:
+Here's an example which uses a bash partial using `echo` with the `-n` (no line feed) option to populate the password dynamically and uses Python to clean up the output:
 
 ```json
 $ curl -sS \
@@ -159,18 +170,18 @@ https://api.giantswarm.io/v1/user/bant/login \
 ### Token Authentication
 Tokens for use with API calls may be obtained by requesting the `/v1/user/{username}/login` endpoint, as shown above. The token is identified by the `Id` key in the response. In the example above, the token would be:
 
-```json
+```text
 e5239484-2299-41df-b901-d0568db7e3f9
 ```
 
 This token must be passed in the headers of the API request. In this example `curl` request, we set the auth request header to `Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9`. Please note the string `giantswarm` is always required, and should not be substituted with another string.
 
-Here's an example of using a token to `curl` the `/v1/org/bant/env/` endpoint to list available environments:
+Here's an example of using a token to `curl` the `/v1/org/bantic/env/` endpoint to list available environments:
 
 ```json
 $ curl -sS \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bant/env/ | python -mjson.tool
+https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
 
 {
   "data": {
@@ -185,12 +196,7 @@ https://api.giantswarm.io/v1/org/bant/env/ | python -mjson.tool
 }
 ```
 
-Tokens may also be retrieved from the command line if the `swarm` client is installed and authenticated:
-
-    $ cat ~/.swarm/token; echo;
-    23f0097e-10cf-4076-b02d-087c0090e73d
-
-<a name="org"></a>
+<a name="organization"></a>
 ## Organization Methods
 The organization methods live under the `/v1/org/` endpoint. The following table lists the available methods for operating on organizations:
 
@@ -225,7 +231,7 @@ https://api.giantswarm.io/v1/org/{org}/env/
 ```json
 $ curl -sS \ 
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bant/env/ | python -mjson.tool
+https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
 
 {
   "data": {
@@ -710,7 +716,7 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/status | python -
                 "status": "up",
                 "create_date": "2015-05-12T22:49:43Z",
                 "image": "python:3",
-                "image_hash": "1c03bc124c06dfa3b8061235e9c97dbba3931b5a0b7e8129ce0b516b62e10338"
+                "image_hash": "1c03bc124c06dfa3b8061235e9c97dbba3931b5a0b7e8e1033"
               }
             ]
           }
