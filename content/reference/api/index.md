@@ -14,7 +14,7 @@ The Giant Swarm API is a simple, mostly RESTful JSON based API, which can be acc
 
 *Note: The Giant Swarm API and this documentation is still in alpha and should be expected to change over time.*
 
-
+<a name="basics"></a>
 ## The Basics
 The following information is intended to familiarize you with the use of the Giant Swarm API. If you have a suggestion on how to improve the documentation or have found an error, [please open a ticket](https://github.com/giantswarm/docs-content/issues).
 
@@ -28,9 +28,11 @@ There are several types of management methods supported by the Giant Swarm API:
 1. [Connection](#connection)
 1. [User](#user)
 
-### Naming Convention
+<a name="naming"></a>
+### Naming Conventions
 This document uses brackets `< >` to identify variables such as organization and application names where they appear in JSON based requests. The remainder of the document uses braces `{ }` to identify variables where they appear outside JSON requests, such as in paths and request headers.
 
+<a name="urls"></a>
 ### Resource URLs
 All Giant Swarm API resources live under the following URL:
 
@@ -52,9 +54,11 @@ Here is an example URL which refers to information about the organization named 
 https://api.giantswarm.io/v1/org/bantic/
 ```
 
+<a name="sdks"></a>
 ### SDKs
 No public SDKs exist for the Giant Swarm API at this time, but we plan on adding them to this section when they become available. Please feel free to [comment on Discourse](http://discourse.giantswarm.io/t/sdks-for-the-giant-swarm-api/32) if you are interested in developing an SDK in your favorite language!
 
+<a name="codes"></a>
 ### Response Codes
 Giant Swarm's API returns the standard [HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html). The API also uses a set of internal response codes which are returned with each request:
 
@@ -78,7 +82,7 @@ Giant Swarm's API returns the standard [HTTP status codes](http://www.w3.org/Pro
 | 10015 | STATUS_CODE_SERVER_ERROR |
 | 10016 | STATUS_CODE_INVALID_VERSION_ERROR |
 
-
+<a name="climethods"></a>
 ### Viewing API Methods via the CLI
 The [Giant Swarm CLI](/reference/installation/) can be used with the `--debug` flag to show the methods it uses when it talks to the API.
 
@@ -98,11 +102,26 @@ currentweather  2015-04-28 17:28:36  up
 
 In this example, we can see we should use a `GET` method on the `/v1/org/bant/env/dev/app/` endpoint to get a list of applications in our `dev` environment.
 
+<a name="processjson"></a>
+### Processing Responses with bash
+You may occasionally wish to prototype API calls in `bash`. Here's an example which uses the `jq` command to extract the required data from the JSON response data:
+
+```json
+curl -sS \
+-H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+https://api.giantswarm.io/v1/org/bant/env/ | jq '.data.environments[0].name'
+
+"dev"
+```
+
+*Note: If you are running on OSX, you may install the `jq` command by doing a `brew install jq`. You can find more information about `jq`, including install information for Linux, [on its website](http://stedolan.github.io/jq/)*.
+
 <a name="auth"></a>
 ## Authentication
 The Giant Swarm API requires authentication for most of its URL endpoints. Authentication to the APIs may be done by using the `/v1/user/{username}/login` endpoint while sending `application/json` content type inside the `POST` request. 
 
-#### Password Authentication
+<a name="passwordauth"></a>
+### Password Authentication
 Here's an example which uses `curl` to `POST` JSON and a bash partial using `echo` with the `-n` (no line feed) option to populate the password dynamically:
 
 ```json
@@ -136,7 +155,8 @@ https://api.giantswarm.io/v1/user/bant/login \
 
 *Note: Be careful when using the `base64` command to generate encoded data from STDIN. For example, the default behavior of `echo foo | base64` in bash will result in a line feed `'/n'` being encoded in the password. Giant Swarm's API will not authorize a password with an appended line feed or carriage return.*
 
-#### Token Authentication
+<a name="tokenauth"></a>
+### Token Authentication
 Tokens for use with API calls may be obtained by requesting the `/v1/user/{username}/login` endpoint, as shown above. The token is identified by the `Id` key in the response. In the example above, the token would be:
 
 ```json
@@ -169,20 +189,6 @@ Tokens may also be retrieved from the command line if the `swarm` client is inst
 
     $ cat ~/.swarm/token; echo;
     23f0097e-10cf-4076-b02d-087c0090e73d
-
-    
-#### Processing Responses with bash
-You may occasionally wish to prototype API calls in `bash`. Here's an example which uses the `jq` command to extract the required data from the JSON response data:
-
-```json
-curl -sS \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bant/env/ | jq '.data.environments[0].name'
-
-"dev"
-```
-
-*Note: If you are running on OSX, you may install the `jq` command by doing a `brew install jq`. You can find more information about `jq`, including install information for Linux, [on its website](http://stedolan.github.io/jq/)*.
 
 <a name="org"></a>
 ## Organization Methods
