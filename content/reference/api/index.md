@@ -1122,7 +1122,7 @@ https://api.giantswarm.io/v1/org/{org}/instance/{instance}/logs
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/instance/cgru7r0l5seq/logs
+https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/logs
 
 Q2015-05-13 03:17:36.414 +0000 UTC    - docker  - 495761b52d0e: Download complete
 Q2015-05-13 03:17:36.414 +0000 UTC    - docker  - 1c03bc124c06: Download complete
@@ -1146,7 +1146,7 @@ https://api.giantswarm.io/v1/org/{org}/instance/{instance}/stats
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/instance/cgru7r0l5seq/stats
+https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/stats
 
 {
   "status_code": 10000,
