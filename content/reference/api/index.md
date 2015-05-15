@@ -20,7 +20,7 @@ The following information is intended to familiarize you with the use of the Gia
 
 There are several types of management methods supported by the Giant Swarm API:
 
-1. [Organization](#org)
+1. [Organization](#organization)
 1. [Application](#app)
 1. [Service](#service)
 1. [Component](#component)
@@ -221,7 +221,7 @@ In addition to the path parameters shown above, the following JSON POST paramete
 To request a list of an organization's environments which contain appellations, call the `GET` method on the `/v1/org/{org}/env/` endpoint:
 
 ```json
-curl -sS\ 
+curl -sS \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/
 ```
@@ -229,7 +229,7 @@ https://api.giantswarm.io/v1/org/{org}/env/
 ##### Example with JSON Response
 
 ```json
-curl -sS \ 
+curl -sS \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
 
@@ -1120,7 +1120,7 @@ https://api.giantswarm.io/v1/org/{org}/instance/{instance}/logs
 ##### Example with TEXT Response
 ```json
 curl -sS \
--X POST \
+-X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/instance/cgru7r0l5seq/logs
 
@@ -1249,7 +1249,7 @@ https://api.giantswarm.io/v1/ping
 | 200 | string | 'OK'. |
 | 500 | string | 'FAILED'.|
 
-<a name="user""></a>
+<a name="user"></a>
 ## User Methods
 The user methods live under the `/v1/user/` endpoint. Where required, the `{user}` parameter indicates the value of the user's `username`. 
 
@@ -1428,7 +1428,8 @@ curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/user/me
+https://api.giantswarm.io/v1/user/me \
+| python -mjson.tool
 
 {
   "status_code": 10000,
@@ -1466,7 +1467,8 @@ curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/user/me/memberships
+https://api.giantswarm.io/v1/user/me/memberships \
+| python -mjson.tool
 
 {
   "status_code": 10000,
