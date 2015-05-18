@@ -117,5 +117,5 @@ Also be aware of this limitation in the current implementation: The return value
 
 ## Further Reading
 
-* [Getting an applications's status](../status/) and listing instance IDs available in an application
-* [Getting statistics of an application, service, component or instance](../stats/)
+* [Getting an applications's status](/reference/cli/status/) and listing instance IDs available in an application
+* [Getting statistics of an application, service, component or instance](/reference/cli/stats/)
