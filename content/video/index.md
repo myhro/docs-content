@@ -1,7 +1,7 @@
 +++
 title = "Videos"
 description = "Video guides about Giant Swarm"
-date = "2015-05-04"
+date = "2015-05-18"
 type = "page"
 +++
 
