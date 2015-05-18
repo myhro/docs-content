@@ -120,8 +120,9 @@ You may occasionally wish to prototype API calls in `bash`. Here's an example wh
 
 ```nohighlight
 curl -sS \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/ | jq '.data.environments[0].name'
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/ \
+    | jq '.data.environments[0].name'
 
 "dev"
 ```
@@ -143,21 +144,21 @@ To authenticate and get a token, call the `POST` method on the `/v1/user/{userna
 
 ```nohighlight
 curl -sS \
--H "Content-Type: application/json" \
--X POST \
--d '{"password":"<base64_password>"}' \
-https://api.giantswarm.io/v1/user/{username}/login
+    -H "Content-Type: application/json" \
+    -X POST \
+    -d '{"password":"<base64_password>"}' \
+    https://api.giantswarm.io/v1/user/{username}/login
 ```
 
 Here's an example which uses a bash partial using `echo` with the `-n` (no line feed) option to populate the password dynamically and uses Python to clean up the output:
 
 ```nohighlight
 curl -sS \
--H "Content-Type: application/json" \
--X POST \
---data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
-https://api.giantswarm.io/v1/user/terminal/login \
-| python -mjson.tool
+    -H "Content-Type: application/json" \
+    -X POST \
+    --data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
+    https://api.giantswarm.io/v1/user/terminal/login \
+    | python -mjson.tool
 
 {
     "data": {
@@ -186,8 +187,9 @@ Here's an example of using a token to `curl` the `/v1/org/bantic/env/` endpoint 
 
 ```nohighlight
 curl -sS \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/ \
+    | python -mjson.tool
 
 {
   "data": {
@@ -228,16 +230,17 @@ To request a list of an organization's environments which contain appellations, 
 
 ```nohighlight
 curl -sS \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/ \
+    | python -mjson.tool
 
 {
   "data": {
@@ -262,11 +265,11 @@ To create a new organization in an account, call the `POST` method on the `/v1/o
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
---data '{"org_id":"<org>"}' \
-https://api.giantswarm.io/v1/org/
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data '{"org_id":"<org>"}' \
+    https://api.giantswarm.io/v1/org/
 ```
 *Note: The default organization name will initially be the username of the account.*
 
@@ -274,11 +277,12 @@ https://api.giantswarm.io/v1/org/
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
---data '{"org_id":"bantic"}' \
-https://api.giantswarm.io/v1/org/ | python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    --data '{"org_id":"bantic"}' \
+    https://api.giantswarm.io/v1/org/ \
+    | python -mjson.tool
 
 {
   "status_code": 10003,
@@ -299,9 +303,9 @@ To remove an existing organization, call the `DELETE` method on the `/v1/org/{or
 
 ```nohighlight
 curl -sS \
--X DELETE \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/
+    -X DELETE \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/
 ```
 
 *Note: You must use a trailing slash on the end of the URL when doing a `DELETE` on an organization.*
@@ -310,9 +314,10 @@ https://api.giantswarm.io/v1/org/{org}/
 
 ```nohighlight
 curl -sS \
--X DELETE \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/ | python -mjson.tool
+    -X DELETE \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/ \
+    | python -mjson.tool
 
 {
   "status_code": 10007,
@@ -333,9 +338,9 @@ To get information on an existing organization, call the `GET` method on the `/v
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}
 ```
 
 *Note: You may NOT use a trailing slash on the end of the URL when doing a `GET` on an object.*
@@ -344,9 +349,10 @@ https://api.giantswarm.io/v1/org/{org}
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic | python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic \
+    | python -mjson.tool
 
 {
   "data": {
@@ -374,22 +380,23 @@ To add a new user/member to an existing organization, call the `POST` method on 
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
---data '{"username":"<username>"}' \
-https://api.giantswarm.io/v1/org/{org}/members/add
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data '{"username":"<username>"}' \
+    https://api.giantswarm.io/v1/org/{org}/members/add
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
---data '{"username":"terminal"}' \
-https://api.giantswarm.io/v1/org/bantic/members/add | python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    --data '{"username":"terminal"}' \
+    https://api.giantswarm.io/v1/org/bantic/members/add \
+    | python -mjson.tool
 
 {
   "status_code": 10006,
@@ -411,22 +418,23 @@ To add a remove a user/member from an existing organization, call the `POST` met
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
---data '{"username":"<username>"}' \
-https://api.giantswarm.io/v1/org/{org}/members/remove
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data '{"username":"<username>"}' \
+    https://api.giantswarm.io/v1/org/{org}/members/remove
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
---data '{"username":"terminal"}' \
-https://api.giantswarm.io/v1/org/bantic/members/remove | python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    --data '{"username":"terminal"}' \
+    https://api.giantswarm.io/v1/org/bantic/members/remove \
+    | python -mjson.tool
 
 {
   "status_code": 10006,
@@ -483,18 +491,19 @@ To list running applications for a given organization and environment, call the 
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/ | python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/ \
+    | python -mjson.tool
 
 {
   "data": [
@@ -533,11 +542,11 @@ To create a new application for a given organization and environment, call the `
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
---data @{json_file} \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data @{json_file} \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
 ```
 
 *Note: Once an application has been created, you will need to start it with the `start` API method.*
@@ -546,11 +555,12 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
---data @swarm.json \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/ | python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    --data @swarm.json \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/ \
+    | python -mjson.tool
 
 {
   "status_code": 10003,
@@ -601,18 +611,19 @@ To delete an existing application for a given organization and environment, call
 
 ```nohighlight
 curl -sS \
--X DELETE \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}
+    -X DELETE \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X DELETE \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld | python -mjson.tool
+    -X DELETE \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld \
+    | python -mjson.tool
 
 {
   "status_code": 10007,
@@ -634,17 +645,18 @@ To start an existing application for a given organization and environment, call 
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/start
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/start
 ```
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/start | python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/start \
+    | python -mjson.tool
 
 {
   "status_code": 10004,
@@ -666,18 +678,19 @@ To stop an existing application for a given organization and environment, call t
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/stop
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/stop
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/stop | python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/stop \
+    | python -mjson.tool
 
 {
   "status_code": 10005,
@@ -699,18 +712,19 @@ To get an existing application's status for a given organization and environment
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/status
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/status
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/status | python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/status \
+    | python -mjson.tool
 
 {
   "data": {
@@ -761,17 +775,18 @@ To get an existing application's configuration for a given organization and envi
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/config
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/config
 ```
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/config | python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/config \
+    | python -mjson.tool
 
 {
   "data": {
@@ -823,19 +838,19 @@ To start a service for a given application, call the `POST` method on the `/v1/o
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/start
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/start
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/start \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/start \
+    | python -mjson.tool
 
 {
   "status_code": 10004,
@@ -857,19 +872,19 @@ To stop a service for a given application, call the `POST` method on the `/v1/or
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/stop
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/stop
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/stop \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/stop \
+    | python -mjson.tool
 
 {
   "status_code": 10004,
@@ -891,19 +906,19 @@ To get a service's status for a given application, call the `GET` method on the 
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/status
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/status
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/status \
-| python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/status \
+    | python -mjson.tool
 ```
 
 #### Response Status Codes
@@ -931,19 +946,19 @@ To get the status a given component for an application's service, call the `GET`
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/status
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/status
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/status \
-| python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/status \
+    | python -mjson.tool
 
 {
   "data": {
@@ -988,9 +1003,9 @@ To update a service component's image for an application, call the `POST` method
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/version/{version}/update
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/version/{version}/update
 ```
 
 *Note: Updating a component's image is limited to changing the tagged version of the image. You may not change the image name with an update.* 
@@ -1000,10 +1015,10 @@ This example updates the current service component to use the [3.3.6 version of 
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/version/3.3.6/update \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/version/3.3.6/update \
+    | python -mjson.tool
 
 {
   "status_code": 10006,
@@ -1025,10 +1040,9 @@ To add instances to a service component, call the `POST` method on the `/v1/org/
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
-/service/{service}/component/{component}/scaleup/{scale}
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/scaleup/{scale}
 ```
 *Note: While in testing, Giant Swarm accounts support up to 10 instances per component.*
 
@@ -1038,11 +1052,11 @@ This example starts an additional `3` instances for the service component for th
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
-/service/webserver/component/flask/scaleup/3 \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
+    /service/webserver/component/flask/scaleup/3 \
+    | python -mjson.tool
 
 {
   "status_code": 10006,
@@ -1064,10 +1078,10 @@ To remove instances from a service component, call the `POST` method on the `/v1
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
-/service/{service}/component/{component}/scaledown/{scale}
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
+    /service/{service}/component/{component}/scaledown/{scale}
 ```
 *Note: While in testing, Giant Swarm accounts support up to 10 instances per component.*
 
@@ -1075,11 +1089,11 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
-/service/webserver/component/flask/scaledown/2 \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
+    /service/webserver/component/flask/scaledown/2 \
+    | python -mjson.tool
 
 {
   "status_code": 10006,
@@ -1112,10 +1126,10 @@ If you have the `jq` tool installed, instance IDs may be returned directly by qu
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/status \
-| jq .data.instances[0].id
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/status \
+    | jq .data.instances[0].id
 
 "by3we1wr77b7"
 ```
@@ -1125,19 +1139,19 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver
 To get an instance's logs, call the `GET` method on the `/v1/org/{org}/instance/{instance}/logs` endpoint.
 
 ```nohighlight
-curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/instance/{instance}/logs
+    curl -sS \
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/instance/{instance}/logs
 ```
 
 #### Example with TEXT Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/logs
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/logs
 
 2015-05-16 01:01:59.326 +0000 UTC    - docker  - * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 2015-05-16 01:03:03.839 +0000 UTC    - docker  - 172.17.42.1 - - [16/May/2015 01:03:03] "GET / HTTP/1.1" 200 -
@@ -1153,19 +1167,19 @@ To get an instance's stats, call the `GET` method on the `/v1/org/{org}/instance
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
-https://api.giantswarm.io/v1/org/{org}/instance/{instance}/stats
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    https://api.giantswarm.io/v1/org/{org}/instance/{instance}/stats
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/stats \
-| python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/stats \
+    | python -mjson.tool
 
 {
   "status_code": 10000,
@@ -1186,11 +1200,11 @@ To execute a command on a given instance, call the `POST` method on the `/v1/org
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
---data '{"cmd":["<command>"],"detach":true}' \
-https://api.giantswarm.io/v1/org/bantic/instance/{instance}/exec
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data '{"cmd":["<command>"],"detach":true}' \
+    https://api.giantswarm.io/v1/org/bantic/instance/{instance}/exec
 ```
 In addition to the path parameters above, the following parameters are used with the `exec` method:
 
@@ -1198,13 +1212,13 @@ In addition to the path parameters above, the following parameters are used with
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: text/plain" \
--H "Connection: Upgrade" \
--H "Upgrade: tcp" \
---data '{"cmd":["ps","-ax"],"detach":false,"attach-stdout":true,"attach-stdin":true,"raw":true}' \
-https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/exec
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: text/plain" \
+    -H "Connection: Upgrade" \
+    -H "Upgrade: tcp" \
+    --data '{"cmd":["ps","-ax"],"detach":false,"attach-stdout":true,"attach-stdin":true,"raw":true}' \
+    https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/exec
 
   PID TTY      STAT   TIME COMMAND
     1 ?        Ss     0:00 sh -c echo "Hello from Giant Swarm. \o/" > index.html
@@ -1250,15 +1264,13 @@ The following method tests connections to the API. It will respond with OK when 
 To ping the API connection, call the `GET` method on the `/v1/ping` endpoint.
 
 ```nohighlight
-curl -sS
-https://api.giantswarm.io/v1/ping
+curl -sS https://api.giantswarm.io/v1/ping
 ```
 
 #### Example with TEXT Response
 
 ```nohighlight
-curl -sS \
-https://api.giantswarm.io/v1/ping
+curl -sS https://api.giantswarm.io/v1/ping
 
 "OK"
 ```
@@ -1289,21 +1301,21 @@ To generate a new authentication token, do a `POST` to the `/v1/user/{user}/logi
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Content-Type: application/json" \
---data '{"password":"'"$(echo -n <password> | base64)"'"}' \
-https://api.giantswarm.io/v1/user/{user}/login
+    -X POST \
+    -H "Content-Type: application/json" \
+    --data '{"password":"'"$(echo -n <password> | base64)"'"}' \
+    https://api.giantswarm.io/v1/user/{user}/login
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Content-Type: application/json" \
---data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
-https://api.giantswarm.io/v1/user/terminal/login \
-| python -mjson.tool
+    -X POST \
+    -H "Content-Type: application/json" \
+    --data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
+    https://api.giantswarm.io/v1/user/terminal/login \
+    | python -mjson.tool
 
 {
   "data": {
@@ -1329,21 +1341,21 @@ To expire an authentication token, do a `POST` to the `/v1/token/logout` endpoin
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/token/logout
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    https://api.giantswarm.io/v1/token/logout
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/token/logout \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    https://api.giantswarm.io/v1/token/logout \
+    | python -mjson.tool
 
 {
   "status_code": 10007,
@@ -1364,23 +1376,23 @@ To update a user's email address, do a `POST` to the `/v1/user/me/email/update/`
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
---data '{"old_email":"{old_email}","new_email":"{new_email}"}' \
-https://api.giantswarm.io/v1/user/me/email/update
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data '{"old_email":"{old_email}","new_email":"{new_email}"}' \
+    https://api.giantswarm.io/v1/user/me/email/update
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
---data '{"old_email":"terminal@giantswarm.io","new_email":"aee@giantswarm.io"}' \
-https://api.giantswarm.io/v1/user/me/email/update \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    --data '{"old_email":"terminal@giantswarm.io","new_email":"aee@giantswarm.io"}' \
+    https://api.giantswarm.io/v1/user/me/email/update \
+    | python -mjson.tool
 
 {
   "status_code": 10006,
@@ -1402,11 +1414,11 @@ To update a user's password, do a `POST` to the `/v1/user/me/password/update/` e
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
---data '{"old_password":"{old_password}","new_password":"{new_password}"}' \
-https://api.giantswarm.io/v1/user/me/password/update
+    -X POST \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data '{"old_password":"{old_password}","new_password":"{new_password}"}' \
+    https://api.giantswarm.io/v1/user/me/password/update
 ```
 
 *Note: Changing a user's password will expire all tokens from the user's account.*
@@ -1417,12 +1429,12 @@ This example uses the `echo` command with a `-n` piped through `base64` to gener
 
 ```nohighlight
 curl -sS \
--X POST \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
---data '{"old_password":"'"$(echo -n f00bar | base64)"'","new_password":"'"$(echo -n bazf00 | base64)"'"}' \
-https://api.giantswarm.io/v1/user/me/password/update \
-| python -mjson.tool
+    -X POST \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    --data '{"old_password":"'"$(echo -n f00bar | base64)"'","new_password":"'"$(echo -n bazf00 | base64)"'"}' \
+    https://api.giantswarm.io/v1/user/me/password/update \
+    | python -mjson.tool
 
 {
   "status_code": 10006,
@@ -1444,21 +1456,21 @@ To show a user's status, do a `GET` to the `/v1/user/me/` endpoint:
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/user/me
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    https://api.giantswarm.io/v1/user/me
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/user/me \
-| python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    https://api.giantswarm.io/v1/user/me \
+    | python -mjson.tool
 
 {
   "status_code": 10000,
@@ -1483,21 +1495,21 @@ To show a user's organization memberships, do a `GET` to the `/v1/user/me/member
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm {token}" \
--H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/user/me/memberships
+    -X GET \
+    -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    https://api.giantswarm.io/v1/user/me/memberships
 ```
 
 #### Example with JSON Response
 
 ```nohighlight
 curl -sS \
--X GET \
--H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
--H "Content-Type: application/json" \
-https://api.giantswarm.io/v1/user/me/memberships \
-| python -mjson.tool
+    -X GET \
+    -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
+    -H "Content-Type: application/json" \
+    https://api.giantswarm.io/v1/user/me/memberships \
+    | python -mjson.tool
 
 {
   "status_code": 10000,
