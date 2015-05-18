@@ -97,12 +97,12 @@ Giant Swarm's API returns the standard [HTTP status codes](http://www.w3.org/Pro
 
 ### Viewing API Methods via the CLI
 
-The [Giant Swarm CLI](/reference/installation/) can be used with the `--debug=true` flag to show the methods it uses when it talks to the API.
+The [Giant Swarm CLI](/reference/installation/) can be used with the `--debug` flag to show the methods it uses when it talks to the API.
 
 Here is an example use of the CLI which lists all applications in the `bantic` organization's `dev` environment and then queries each one of them for its status:
 
 ```nohighlight
-$ swarm --debug=true ls
+$ swarm --debug ls
 DEBUG: GET https://api.giantswarm.io/v1/org/bantic/env/dev/app/
 DEBUG: << 200 OK
 DEBUG: GET https://api.giantswarm.io/v1/org/bantic/env/dev/app/currentweather/status
