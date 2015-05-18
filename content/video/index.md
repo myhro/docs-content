@@ -9,6 +9,11 @@ type = "page"
 Welcome to Giant Swarm's video collection. All of our guides which have videos will be listed here.
 
 ### Getting Started with Giant Swarm
-This is the video for the [Getting Started Guide](#getting-started).
+This guide walks through creating a simple [Pyton Flask](http://flask.pocoo.org/) application from scratch and then deploying and starting it on Giant Swarm:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MMr8e4usMGs" frameborder="0" allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/127507942" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+### Giant Swarm's API Introduction
+This guide give a short demo illustrating the use of [Giant Swarm's API](/reference/api/) using a handful of simple curl commands:
+
+<iframe src="https://player.vimeo.com/video/128089952" width="560" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

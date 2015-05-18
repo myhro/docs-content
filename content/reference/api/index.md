@@ -2,7 +2,7 @@
 title = "Giant Swarm API Reference"
 description = "The Giant Swarm API allows you to create, control and monitor applications programmatically. The reference contains descriptions of all building blocks."
 date = "2015-05-04"
-type = "reference"
+type = "_reference_api_"
 categories = ["Reference", "API"]
 tags = ["api"]
 weight = 100
@@ -28,17 +28,20 @@ There are several types of management methods supported by the Giant Swarm API:
 1. [Connection](#connection)
 1. [User](#user)
 
-<a name="ehelper"></a>
+### Introduction Video
+The following video gives a quick overview of the Giant Swarm API using simple curl commands provided in this guide.
+
+<iframe src="https://player.vimeo.com/video/128089952" width="500" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/128089952">Giant Swarm API Introduction</a> from <a href="https://vimeo.com/giantswarm">Giant Swarm's Vimeo Account</a>.</p>
+
+
 ### Example Helper
 For convenience, this page contains an <a id="link-helper" href="#helper">example helper</a> designed to replace variables used in examples on this page with ones that are valid for your account. The helper can be triggered by clicking on the link above, or hitting the `h` key while on this page. Please note the helper will not work when viewing this documentation on Github.
 
 You may jump to the [password authentication](#passwordauth) section for information on retrieving an authentication token for use with the example helper.
 
-<a name="naming"></a>
 ### Naming Conventions
 This document uses brackets `< >` to identify variables such as organization and application names where they appear in JSON based requests. The remainder of the document uses braces `{ }` to identify variables where they appear outside JSON requests, such as in paths and request headers.
 
-<a name="urls"></a>
 ### Resource URLs
 All Giant Swarm API resources live under the following URL:
 
@@ -54,17 +57,15 @@ https://api.giantswarm.io/v1/
 
 The `/org/`, `/env/` and `/app/` path parameters denote the concepts of organizations, environments and applications within the Giant Swarm service. These are respectively combined with their named objects within the system. 
 
-Here is an example URL which refers to information about the organization named `bantinc`:
+Here is an example URL which refers to information about the organization named `bantic`:
 
 ```bash
 https://api.giantswarm.io/v1/org/bantic/
 ```
 
-<a name="sdks"></a>
 ### SDKs
 No public SDKs exist for the Giant Swarm API at this time, but we plan on adding them to this section when they become available. Please feel free to [comment on Discourse](http://discourse.giantswarm.io/t/sdks-for-the-giant-swarm-api/32) if you are interested in developing an SDK in your favorite language!
 
-<a name="codes"></a>
 ### Response Codes
 Giant Swarm's API returns the standard [HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html). The API also uses a set of internal response codes which are returned with each request:
 
@@ -88,19 +89,18 @@ Giant Swarm's API returns the standard [HTTP status codes](http://www.w3.org/Pro
 | 10015 | STATUS_CODE_SERVER_ERROR |
 | 10016 | STATUS_CODE_INVALID_VERSION_ERROR |
 
-<a name="climethods"></a>
 ### Viewing API Methods via the CLI
-The [Giant Swarm CLI](/reference/installation/) can be used with the `--debug` flag to show the methods it uses when it talks to the API.
+The [Giant Swarm CLI](/reference/installation/) can be used with the `--debug=true` flag to show the methods it uses when it talks to the API.
 
 Here is an example use of the CLI which lists all applications in the `bantic` organization's `dev` environment and then queries each one of them for its status:
 
 ```json
-$ swarm --debug ls
+$ swarm --debug=true ls
 DEBUG: GET https://api.giantswarm.io/v1/org/bantic/env/dev/app/
 DEBUG: << 200 OK
 DEBUG: GET https://api.giantswarm.io/v1/org/bantic/env/dev/app/currentweather/status
 DEBUG: << 200 OK
-1 application available in environment 'bant/dev':
+1 application available in environment 'terminal/dev':
 
 application     created              status
 currentweather  2015-04-28 17:28:36  up
@@ -108,7 +108,6 @@ currentweather  2015-04-28 17:28:36  up
 
 In this example, we can see we should use a `GET` method on the `/v1/org/bantic/env/dev/app/` endpoint to get a list of applications in our `dev` environment.
 
-<a name="processjson"></a>
 ### Processing Responses with bash
 You may occasionally wish to prototype API calls in `bash`. Here's an example which uses the `jq` command to extract the required data from the JSON response data:
 
@@ -131,7 +130,6 @@ The Giant Swarm API requires authentication tokens for most of its URL endpoints
 
 Authentication tokens may also be obtained by using the `/v1/user/{username}/login` endpoint while sending an encoded password via an `application/json` content type inside the `POST` request. 
 
-<a name="passwordauth"></a>
 ### Password Authentication
 To authenticate and get a token, call the `POST` method on the `/v1/user/{username}/login` method using a JSON object containing a `base64` encoded password. :
 
@@ -150,7 +148,7 @@ curl -sS \
 -H "Content-Type: application/json" \
 -X POST \
 --data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
-https://api.giantswarm.io/v1/user/bant/login \
+https://api.giantswarm.io/v1/user/terminal/login \
 | python -mjson.tool
 
 {
@@ -166,7 +164,6 @@ https://api.giantswarm.io/v1/user/bant/login \
 
 *Note: Be careful when using the `base64` command to generate encoded data from STDIN. For example, the default behavior of `echo foo | base64` in bash will result in a line feed `'/n'` being encoded in the password. Giant Swarm's API will not authorize a password with an appended line feed or carriage return.*
 
-<a name="tokenauth"></a>
 ### Token Authentication
 Tokens for use with API calls may be obtained by requesting the `/v1/user/{username}/login` endpoint, as shown above. The token is identified by the `Id` key in the response. In the example above, the token would be:
 
@@ -226,7 +223,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -264,7 +261,7 @@ https://api.giantswarm.io/v1/org/
 ```
 *Note: The default organization name will initially be the username of the account.*
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -299,7 +296,7 @@ https://api.giantswarm.io/v1/org/{org}/
 
 *Note: You must use a trailing slash on the end of the URL when doing a `DELETE` on an organization.*
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -332,7 +329,7 @@ https://api.giantswarm.io/v1/org/{org}
 
 *Note: You may NOT use a trailing slash on the end of the URL when doing a `GET` on an object.*
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -345,7 +342,7 @@ https://api.giantswarm.io/v1/org/bantic | python -mjson.tool
     "default_cluster": "alpha.private.giantswarm.io",
     "id": "bantic",
     "members": [
-      "bant"
+      "terminal"
     ]
   },
   "status_code": 10000,
@@ -372,7 +369,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/members/add
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -408,7 +405,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/members/remove
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -477,7 +474,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -531,7 +528,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
 
 *Note: Once an application has been created, you will need to start it with the `start` API method.*
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
@@ -546,30 +543,27 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/ | python -mjson.tool
 }
 ```
 
-##### Example JSON File
-This file should be saved as `swarm.json`:
+*Note: If you run this example, you will need to checkout the repo:*
+
+`git clone https://github.com/giantswarm/python-flask-helloworld.git` 
+
+#### Example JSON File
+This JSON should be saved as `swarm.json` for the above example to work:
 
 ```json
 {
   "app_name": "helloworld",
   "services": [
     {
-      "service_name": "hello-service",
+      "service_name": "webserver",
       "components": [
         {
-          "args": [
-            "sh",
-            "-c",
-            "echo 'Hello from Giant Swarm. \o/' > index.html && python -m http.server"
-          ],
-          "component_name": "hello-component",
+          "component_name": "flask",
+          "image": "registry.giantswarm.io/bantic/helloworld",
+          "ports": [5000],
           "domains": {
-            "bantic-hello.gigantic.io": "8000"
-          },
-          "image": "python:3",
-          "ports": [
-            "8000/tcp"
-          ]
+            "apidocsdemo.gigantic.io": 5000
+          }
         }
       ]
     }
@@ -595,7 +589,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X DELETE \
@@ -625,7 +619,7 @@ curl -sS \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/start
 ```
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
@@ -655,7 +649,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/stop
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
@@ -685,7 +679,7 @@ curl -sS \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/status
 ```
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X GET \
@@ -693,37 +687,37 @@ curl -sS \
 https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/status | python -mjson.tool
 
 {
-  "status_code": 10000,
-  "status_text": "success",
   "data": {
     "name": "helloworld",
-    "status": "up",
     "services": [
       {
-        "name": "hello-service",
-        "min": 1,
-        "max": 10,
-        "status": "up",
         "components": [
           {
-            "name": "hello-component",
-            "min": 1,
-            "max": 10,
-            "status": "up",
             "instances": [
               {
-                "id": "hwyzi1lvfmqq",
-                "status": "up",
-                "create_date": "2015-05-12T22:49:43Z",
-                "image": "python:3",
-                "image_hash": "1c03bc124c06dfa3b8061235e9c97dbba3931b5a0b7e8e1033"
+                "create_date": "2015-05-16T01:01:20Z",
+                "id": "by3we1wr77b7",
+                "image": "registry.giantswarm.io/bantic/helloworld",
+                "image_hash": "",
+                "status": "down"
               }
-            ]
+            ],
+            "max": 10,
+            "min": 1,
+            "name": "flask",
+            "status": "down"
           }
-        ]
+        ],
+        "max": 10,
+        "min": 1,
+        "name": "webserver",
+        "status": "down"
       }
-    ]
-  }
+    ],
+    "status": "down"
+  },
+  "status_code": 10000,
+  "status_text": "success"
 }
 ```
 
@@ -744,7 +738,7 @@ curl -sS \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/config
 ```
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X GET \
@@ -752,33 +746,28 @@ curl -sS \
 https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/config | python -mjson.tool
 
 {
-  "status_code": 10000,
-  "status_text": "success",
   "data": {
     "app_name": "helloworld",
     "services": [
       {
-        "service_name": "hello-service",
         "components": [
           {
-            "component_name": "hello-component",
-            "image": "python:3",
-            "ports": [
-              "8000\/tcp"
-            ],
-            "args": [
-              "sh",
-              "-c",
-              "echo \"Hello from Giant Swarm. \\o\/\" > index.html && python -m http.server"
-            ],
+            "component_name": "flask",
             "domains": {
-              "$domain": "8000"
-            }
+              "apidocsdemo.gigantic.io": 5000
+            },
+            "image": "registry.giantswarm.io/bantic/helloworld",
+            "ports": [
+              5000
+            ]
           }
-        ]
+        ],
+        "service_name": "webserver"
       }
     ]
-  }
+  },
+  "status_code": 10000,
+  "status_text": "success"
 }
 ```
 
@@ -810,12 +799,12 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/start
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/hello-service/start \
+https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/start \
 | python -mjson.tool
 
 {
@@ -841,12 +830,12 @@ curl -sS \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/stop
 ```
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/hello-service/stop \
+https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/stop \
 | python -mjson.tool
 
 {
@@ -873,41 +862,15 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/status
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/hello-service/status \
+https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/status \
 | python -mjson.tool
 
-{
-  "data": {
-    "components": [
-      {
-        "instances": [
-          {
-            "create_date": "2015-05-12T22:49:43Z",
-            "id": "hwyzi1lvfmqq",
-            "image": "python:3",
-            "image_hash": "1c03bc124c06dfa3b8061235e9c97dbba3931b5a0b7e8129ce0b516b62e10338",
-            "status": "up"
-          }
-        ],
-        "max": 10,
-        "min": 1,
-        "name": "hello-component",
-        "status": "up"
-      }
-    ],
-    "max": 10,
-    "min": 1,
-    "name": "hello-service",
-    "status": "up"
-  },
-  "status_code": 10000,
-  "status_text": "success"
-}
+
 ```
 
 #### Response Status Codes
@@ -939,32 +902,40 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/status
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/hello-service/component/hello-component/status \
+https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/status \
 | python -mjson.tool
 
 {
-  "status_code": 10000,
-  "status_text": "success",
   "data": {
-    "name": "hello-component",
-    "min": 1,
-    "max": 10,
-    "status": "starting",
-    "instances": [
+    "components": [
       {
-        "id": "hwyzi1lvfmqq",
-        "status": "starting",
-        "create_date": "2015-05-12T22:49:43Z",
-        "image": "python:3",
-        "image_hash": ""
+        "instances": [
+          {
+            "create_date": "2015-05-16T01:01:20Z",
+            "id": "by3we1wr77b7",
+            "image": "registry.giantswarm.io/startup/helloworld",
+            "image_hash": "9fa830d596f3ba5841ca3d632db4132a53699358e1ad9853d9b9c84e080af27b",
+            "status": "up"
+          }
+        ],
+        "max": 10,
+        "min": 1,
+        "name": "flask",
+        "status": "up"
       }
-    ]
-  }
+    ],
+    "max": 10,
+    "min": 1,
+    "name": "webserver",
+    "status": "up"
+  },
+  "status_code": 10000,
+  "status_text": "success"
 }
 ```
 
@@ -988,14 +959,14 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/com
 
 *Note: Updating a component's image is limited to changing the tagged version of the image. You may not change the image name with an update.* 
 
-##### Example with JSON Response
+#### Example with JSON Response
 This example updates the current service component to use the [3.3.6 version of the Python image](https://registry.hub.docker.com/_/python/) in the Docker Index:
 
 ```json
 curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/hello-service/component/hello-component/version/3.3.6/update \
+https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/version/3.3.6/update \
 | python -mjson.tool
 
 {
@@ -1024,7 +995,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
 ```
 *Note: While in testing, Giant Swarm accounts support up to 10 instances per component.*
 
-##### Example with JSON Response
+#### Example with JSON Response
 This example starts an additional `3` instances for the service component for the `helloworld` application:
 
 ```json
@@ -1032,7 +1003,8 @@ curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
-/service/hello-service/component/hello-component/scaleup/3
+/service/webserver/component/flask/scaleup/3 \
+| python -mjson.tool
 
 {
   "status_code": 10006,
@@ -1056,17 +1028,18 @@ curl -sS \
 -X POST \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
-/service/{service}/component/{component}/scaleup/{scale}
+/service/{service}/component/{component}/scaledown/{scale}
 ```
 *Note: While in testing, Giant Swarm accounts support up to 10 instances per component.*
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
-/service/hello-service/component/hello-component/scaleup/3
+/service/webserver/component/flask/scaledown/2 \
+| python -mjson.tool
 
 {
   "status_code": 10006,
@@ -1100,7 +1073,7 @@ If you have the `jq` tool installed, instance IDs may be returned directly by qu
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/hello-service/component/hello-component/status \
+https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/component/flask/status \
 | jq .data.instances[0].id
 
 "by3we1wr77b7"
@@ -1117,16 +1090,18 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/instance/{instance}/logs
 ```
 
-##### Example with TEXT Response
+#### Example with TEXT Response
 ```json
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/logs
 
-Q2015-05-13 03:17:36.414 +0000 UTC    - docker  - 495761b52d0e: Download complete
-Q2015-05-13 03:17:36.414 +0000 UTC    - docker  - 1c03bc124c06: Download complete
-Z2015-05-13 03:17:36.423 +0000 UTC    - docker  - Status: Image is up to date for python:3
+2015-05-16 01:01:59.326 +0000 UTC    - docker  - * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2015-05-16 01:03:03.839 +0000 UTC    - docker  - 172.17.42.1 - - [16/May/2015 01:03:03] "GET / HTTP/1.1" 200 -
+2015-05-16 01:03:04.223 +0000 UTC    - docker  - 172.17.42.1 - - [16/May/2015 01:03:04] "GET /favicon.ico HTTP/1.1" 404 -
+2015-05-16 01:03:04.393 +0000 UTC    - docker  - 172.17.42.1 - - [16/May/2015 01:03:04] "GET /favicon.ico HTTP/1.1" 404 -
+2015-05-16 01:03:12.283 +0000 UTC    - docker  - 172.17.42.1 - - [16/May/2015 01:03:12] "GET /hello/kord HTTP/1.1" 200 -
 ```
 *Note: The response from the `logs` method is TEXT formatted.*
 
@@ -1141,22 +1116,23 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/instance/{instance}/stats
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
-https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/stats
+https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/stats \
+| python -mjson.tool
 
 {
   "status_code": 10000,
   "status_text": "success",
   "data": {
-    "ComponentName": "helloworld\/hello-service\/hello-component",
-    "MemoryUsageMb": 28.34375,
+    "ComponentName": "helloworld/webserver/flask",
+    "MemoryUsageMb": 25.21875,
     "MemoryCapacityMb": 512,
-    "MemoryUsagePercent": 5.535888671875,
-    "CpuUsagePercent": 0.0100461
+    "MemoryUsagePercent": 4.925537109375,
+    "CpuUsagePercent": 0.0120874
   }
 }
 ```
@@ -1175,7 +1151,7 @@ https://api.giantswarm.io/v1/org/bantic/instance/{instance}/exec
 In addition to the path parameters above, the following parameters are used with the `exec` method:
 
 
-##### Example with TEXT Response:
+#### Example with TEXT Response:
 ```json
 curl -sS \
 -X POST \
@@ -1242,7 +1218,7 @@ https://api.giantswarm.io/v1/ping
 "OK"
 ```
 
-##### Response Status Codes
+#### Response Status Codes
 
 | Code | Type | Message |
 |-----|-----|-----|
@@ -1274,13 +1250,13 @@ curl -sS \
 https://api.giantswarm.io/v1/user/<username>/login
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
 -H "Content-Type: application/json" \
 --data '{"password":"'"$(echo -n f00bar | base64)"'"}' \
-https://api.giantswarm.io/v1/user/bant/login \
+https://api.giantswarm.io/v1/user/terminal/login \
 | python -mjson.tool
 
 {
@@ -1312,7 +1288,7 @@ curl -sS \
 https://api.giantswarm.io/v1/token/logout
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
@@ -1346,13 +1322,13 @@ curl -sS \
 https://api.giantswarm.io/v1/user/me/email/update
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 ```json
 curl -sS \
 -X POST \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 -H "Content-Type: application/json" \
---data '{"old_email":"bant@giantswarm.io","new_email":"aee@giantswarm.io"}' \
+--data '{"old_email":"terminal@giantswarm.io","new_email":"aee@giantswarm.io"}' \
 https://api.giantswarm.io/v1/user/me/email/update \
 | python -mjson.tool
 
@@ -1384,7 +1360,7 @@ https://api.giantswarm.io/v1/user/me/password/update
 
 *Note: Changing a user's password will expire all tokens from the user's account.*
 
-##### Example with JSON Response
+#### Example with JSON Response
 This example uses the `echo` command with a `-n` piped through `base64` to generated the strings necessary for setting a new password:
 
 ```json
@@ -1421,7 +1397,7 @@ curl -sS \
 https://api.giantswarm.io/v1/user/me
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -1435,8 +1411,8 @@ https://api.giantswarm.io/v1/user/me \
   "status_code": 10000,
   "status_text": "success",
   "data": {
-    "username": "bant",
-    "email": "bant@giantswarm.io"
+    "username": "terminal",
+    "email": "terminal@giantswarm.io"
   }
 }
 ```
@@ -1460,7 +1436,7 @@ curl -sS \
 https://api.giantswarm.io/v1/user/me/memberships
 ```
 
-##### Example with JSON Response
+#### Example with JSON Response
 
 ```json
 curl -sS \
@@ -1474,7 +1450,7 @@ https://api.giantswarm.io/v1/user/me/memberships \
   "status_code": 10000,
   "status_text": "success",
   "data": [
-    "bant",
+    "terminal",
     "giantswarm",
     "bantic"
   ]
