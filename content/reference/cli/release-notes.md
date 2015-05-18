@@ -14,7 +14,7 @@ Here we list the more important changes we made between releases. See our [insta
 
 Released 2015-05-11
 
-* The new function `swarm exec` allows to execute arbitrary commands in a running component instance, including opening a shell. Read more about it on the according [reference page](/reference/exec/).
+* The new function `swarm exec` allows to execute arbitrary commands in a running component instance, including opening a shell. Read more about it on the according [reference page](/reference/cli/exec/).
 * For any component that creates log output, log data is now reliably retained for a fixed period (currently 14 days) as long as the source component instance still exists. Deleting a component instance makes the according log data inaccessible.
 * This also results in a change in the `swarm logs` mechanics: the flags `-t` and `-f` can no longer be combined. The new implementation of historic log data access makes this difficult to achieve. Once real-time log access is unified, this function might return.
 * The new component-level configuration key `entrypoint` has been introduced, allowing to override a Docker image's `ENTRYPOINT` directive. Read more in the according [Application configuration](/reference/swarm-json/#entrypoint) section.
