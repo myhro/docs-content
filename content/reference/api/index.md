@@ -32,8 +32,9 @@ There are several types of management methods supported by the Giant Swarm API:
 
 The following video gives a quick overview of the Giant Swarm API using simple curl commands provided in this guide.
 
-<iframe src="https://player.vimeo.com/video/128089952" width="500" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/128089952">Giant Swarm API Introduction</a> from <a href="https://vimeo.com/giantswarm">Giant Swarm's Vimeo Account</a>.</p>
-
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" width="560" height="315" src="https://player.vimeo.com/video/128089952" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
 ### Example Helper
 
