@@ -1240,14 +1240,14 @@ The user methods live under the `/v1/user/` endpoint. Where required, the `{user
 
 <a name="LoginUser"></a>
 ### Generate Token
-To generate a new authentication token, do a `POST` to the `/v1/user/<username>/login` endpoint with a JSON object containing the user's password:
+To generate a new authentication token, do a `POST` to the `/v1/user/{user}/login` endpoint with a JSON object containing the user's password:
 
 ```json
 curl -sS \
 -X POST \
 -H "Content-Type: application/json" \
 --data '{"password":"'"$(echo -n <password> | base64)"'"}' \
-https://api.giantswarm.io/v1/user/<username>/login
+https://api.giantswarm.io/v1/user/{user}/login
 ```
 
 #### Example with JSON Response
