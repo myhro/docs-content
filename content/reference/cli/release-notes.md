@@ -8,13 +8,13 @@ weight = 10
 
 # Release Notes
 
-Here we list the more important changes we made between releases. See our [installation reference](../installation/) for information on how to update to the latest CLI.
+Here we list the more important changes we made between releases. See our [installation reference](/reference/cli/installation/) for information on how to update to the latest CLI.
 
 ## Version 0.17.0
 
 Released 2015-05-11
 
-* The new function `swarm exec` allows to execute arbitrary commands in a running component instance, including opening a shell. Read more about it on the according [reference page](/reference/exec/).
+* The new function `swarm exec` allows to execute arbitrary commands in a running component instance, including opening a shell. Read more about it on the according [reference page](/reference/cli/exec/).
 * For any component that creates log output, log data is now reliably retained for a fixed period (currently 14 days) as long as the source component instance still exists. Deleting a component instance makes the according log data inaccessible.
 * This also results in a change in the `swarm logs` mechanics: the flags `-t` and `-f` can no longer be combined. The new implementation of historic log data access makes this difficult to achieve. Once real-time log access is unified, this function might return.
 * The new component-level configuration key `entrypoint` has been introduced, allowing to override a Docker image's `ENTRYPOINT` directive. Read more in the according [Application configuration](/reference/swarm-json/#entrypoint) section.
@@ -26,12 +26,12 @@ Released 2015-05-11
 Released 2015-04-20
 
 * What was called "company" so far is now called an "organization". The `swarm company` CLI command has been renamed to `swarm org`.
-* The `swarm update` command is back and allows to update the docker image run by a component. Check the [reference page](../update/) for details.
-* The `swarm stats` command now allows showing the stats for more than one instance. it can be called with an application, service or component name as a selector. Check the [reference page](../stats/) for details.
+* The `swarm update` command is back and allows to update the docker image run by a component. Check the [reference page](/reference/cli/update/) for details.
+* The `swarm stats` command now allows showing the stats for more than one instance. it can be called with an application, service or component name as a selector. Check the [reference page](/reference/cli/stats/) for details.
 * The `swarm ls` command can now list applications from all organizations and environments accessible for the current user, using the `--all`/`-a` flag (`swarm ls -a`). Also the command executes faster than before due to parallelization.
 * Commands which accept an instance ID as argument (`swarm logs`, `swarm stats`) now also accept partial instance IDs, as long as this part is not ambigious. If, for example, an instance ID is `3nFK77aEF88NnSww`, it will in most cases suffice to call its stats using `swarm stats 3n` or even `swarm stats 3`.
-* The `swarm logs` command now defaults to showing the 10 latest rows. Use `-t <n>` to show a specific number of entries or `-t all` to show all entries. See the [reference page](../logs/) for details.
-* We now publish SHA1 and MD5 checksums/hashes for our CLI release files. Check the [install reference ](../installation/) for details.
+* The `swarm logs` command now defaults to showing the 10 latest rows. Use `-t <n>` to show a specific number of entries or `-t all` to show all entries. See the [reference page](/reference/cli/logs/) for details.
+* We now publish SHA1 and MD5 checksums/hashes for our CLI release files. Check the [install reference ](/reference/cli/installation/) for details.
 
 
 ## Version 0.15.0

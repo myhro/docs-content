@@ -13,7 +13,7 @@ categories = ["advanced"]
 
 ## Organizations and environments
 
-An [organization](/reference/org/) on Giant Swarm is a simply a named group of users. An [environment](/reference/env/) is a named context in which to deploy applications. Each environment belongs to an organization. This is visible in the environment name, which is always prefixed with an organization name: `<organization_name>/<environment_suffix>`.
+An [organization](/reference/cli/org/) on Giant Swarm is a simply a named group of users. An [environment](/reference/cli/env/) is a named context in which to deploy applications. Each environment belongs to an organization. This is visible in the environment name, which is always prefixed with an organization name: `<organization_name>/<environment_suffix>`.
 
 Whenever you're logged in with the `swarm` CLI and interact with our infrastructure, an environment is selected as your context. This even happens without you knowing about these concepts. With your first login, an organization named after your username is created and an environment with the name pattern `<organization_name>/dev` is created and selected. This is called the default environment.
 
@@ -115,7 +115,7 @@ This is all there is to it. You have just learned how to create an organization 
 
 ## Further reading
 
-* [Reference: Managing organizations](/reference/org/)
-* [Reference: Managing Environments](/reference/env/)
+* [Reference: Managing organizations](/reference/cli/org/)
+* [Reference: Managing Environments](/reference/cli/env/)
 * [Reference: Using the Registry](/reference/registry/)
 * [Reference: Application configuraiton (swarm.json)](/reference/swarm-json/)

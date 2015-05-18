@@ -105,7 +105,7 @@ On the application level, both the `app_name` and the `services` keys are requir
 
 The name of the application. You can refer to this name when controlling the application, for example when starting or stopping the application.
 
-The application name has to be unique within the [environment](../env/) you're deploying it to. An attempt to create an application with the same name twice within one environment will result in an error message.
+The application name has to be unique within the [environment](/reference/cli/env/) you're deploying it to. An attempt to create an application with the same name twice within one environment will result in an error message.
 
 ### `services`
 
@@ -135,7 +135,7 @@ The name of the component.
 
 The name of a docker image. This can be a name like `ubuntu` or `redis` when using "standard" images from the public Docker registry. In order to address images from the Giant Swarm registry, a fully qualified image name in the form `registry.giantswarm.io/<organization_namespace>/<image_name>[:<tag>]` is required.
 
-Find out more on the [registry reference page](../registry/).
+Find out more on the [registry reference page](/reference/registry/).
 
 ### `entrypoint`
 
@@ -300,17 +300,17 @@ The `volumes` key expects an array of simple objects as value, one object for ea
 
 ## Making use of configuration variables
 
-Imagine you would like to run an almost identical application in two different [environments](../env/), say each one with only a different version of an image.
+Imagine you would like to run an almost identical application in two different [environments](/reference/cli/env/), say each one with only a different version of an image.
 
 To prevent you from having to copy your entire configuration file and make those tiny changes, our application configuration supports the use of variables.
 
-The use of variables is explained in more detail in the documentation of the [`swarm create`](../create/) command.
+The use of variables is explained in more detail in the documentation of the [`swarm create`](/reference/cli/create/) command.
 
 ## Further reading
 
-* More application configuration examples can be found in our [Guides](../)
-* [Creating an application](../create/)
-* [Handling environments](../env/)
+* More application configuration examples can be found in our [Guides](/guides/)
+* [Creating an application](/reference/cli/create/)
+* [Handling environments](/reference/cli/env/)
 
 <!--
 see

@@ -10,7 +10,7 @@ weight = 100
 
 # Organizations
 
-Organizations allow for sharing resources between users. Users belonging to the same organization can, for example, control applications of that organization or access the organization's docker images on our [registry](../registry/).
+Organizations allow for sharing resources between users. Users belonging to the same organization can, for example, control applications of that organization or access the organization's docker images on our [registry](/reference/registry/).
 
 ## Your default organization
 
@@ -18,9 +18,9 @@ As a Giant Swarm user you automatically have a _default organization_ assigned t
 
 This is especially relevant for two reasons:
 
-* All your applications on Giant Swarm are associated with a distinct [environment](../env/). When you first login with the `swarm` CLI as user `yourname`, an environment is automatically created and selected. This default environment is called `yourname/dev` and belongs to your default organization.
+* All your applications on Giant Swarm are associated with a distinct [environment](/reference/cli/env/). When you first login with the `swarm` CLI as user `yourname`, an environment is automatically created and selected. This default environment is called `yourname/dev` and belongs to your default organization.
 
-* When using our [private registry](../registry/) for your Docker images, organization names are used as namespace identifiers. When starting with Giant Swarm, simply use your default organization name (your username) as image namespace.
+* When using our [private registry](/reference/registry/) for your Docker images, organization names are used as namespace identifiers. When starting with Giant Swarm, simply use your default organization name (your username) as image namespace.
 
 ## Creating an organization
 
@@ -91,11 +91,11 @@ lawrence.taylor
 
 ## Using organizations
 
-As the member of an organization, you can control all existing applications and create new applications within any environment of that organization. Have a look at the [environments](../env/) reference for details.
+As the member of an organization, you can control all existing applications and create new applications within any environment of that organization. Have a look at the [environments](/reference/cli/env/) reference for details.
 
-You can also push images to the namespaces of any of your organizations in the private registry and use all images with your organizations namespaces in your applications. Please refer to the [registry reference](../registry/) for further information.
+You can also push images to the namespaces of any of your organizations in the private registry and use all images with your organizations namespaces in your applications. Please refer to the [registry reference](/reference/registry/) for further information.
 
 ## Further Reading
 
-* [Environments](../env/)
-* [Using the registry](../registry/)
+* [Environments](/reference/cli/env/)
+* [Using the registry](/reference/registry/)
