@@ -14,8 +14,8 @@ The Giant Swarm API is a simple, mostly RESTful JSON based API, which can be acc
 
 *Note: The Giant Swarm API and this documentation is still in alpha and should be expected to change over time.*
 
-<a name="basics"></a>
-## The Basics
+## The Basics {#basics}
+
 The following information is intended to familiarize you with the use of the Giant Swarm API. If you have a suggestion on how to improve the documentation or have found an error, [please open a ticket](https://github.com/giantswarm/docs-content/issues).
 
 There are several types of management methods supported by the Giant Swarm API:
@@ -29,20 +29,24 @@ There are several types of management methods supported by the Giant Swarm API:
 1. [User](#user)
 
 ### Introduction Video
+
 The following video gives a quick overview of the Giant Swarm API using simple curl commands provided in this guide.
 
 <iframe src="https://player.vimeo.com/video/128089952" width="500" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/128089952">Giant Swarm API Introduction</a> from <a href="https://vimeo.com/giantswarm">Giant Swarm's Vimeo Account</a>.</p>
 
 
 ### Example Helper
+
 For convenience, this page contains an <a id="link-helper" href="#helper">example helper</a> designed to replace variables used in examples on this page with ones that are valid for your account. The helper can be triggered by clicking on the link above, or hitting the `h` key while on this page. Please note the helper will not work when viewing this documentation on Github.
 
 You may jump to the [password authentication](#passwordauth) section for information on retrieving an authentication token for use with the example helper.
 
 ### Naming Conventions
+
 This document uses brackets `< >` to identify variables such as organization and application names where they appear in JSON based requests. The remainder of the document uses braces `{ }` to identify variables where they appear outside JSON requests, such as in paths and request headers.
 
 ### Resource URLs
+
 All Giant Swarm API resources live under the following URL:
 
 ```bash
@@ -64,9 +68,11 @@ https://api.giantswarm.io/v1/org/bantic/
 ```
 
 ### SDKs
+
 No public SDKs exist for the Giant Swarm API at this time, but we plan on adding them to this section when they become available. Please feel free to [comment on Discourse](http://discourse.giantswarm.io/t/sdks-for-the-giant-swarm-api/32) if you are interested in developing an SDK in your favorite language!
 
 ### Response Codes
+
 Giant Swarm's API returns the standard [HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html). The API also uses a set of internal response codes which are returned with each request:
 
 | Response Code | Response Type |
@@ -90,6 +96,7 @@ Giant Swarm's API returns the standard [HTTP status codes](http://www.w3.org/Pro
 | 10016 | STATUS_CODE_INVALID_VERSION_ERROR |
 
 ### Viewing API Methods via the CLI
+
 The [Giant Swarm CLI](/reference/installation/) can be used with the `--debug=true` flag to show the methods it uses when it talks to the API.
 
 Here is an example use of the CLI which lists all applications in the `bantic` organization's `dev` environment and then queries each one of them for its status:
@@ -121,8 +128,8 @@ https://api.giantswarm.io/v1/org/bantic/env/ | jq '.data.environments[0].name'
 
 *Note: If you are running on OSX, you may install the `jq` command by doing a `brew install jq`. You can find more information about `jq`, including install information for Linux, [on its website](http://stedolan.github.io/jq/)*.
 
-<a name="auth"></a>
-## Authentication
+## Authentication {#auth}
+
 The Giant Swarm API requires authentication tokens for most of its URL endpoints. Tokens may be retrieved from the command line if the `swarm` client is [installed](/reference/cli/installation/) and [authenticated](/reference/cli/login/):
 
     $ cat ~/.swarm/token; echo;
@@ -131,6 +138,7 @@ The Giant Swarm API requires authentication tokens for most of its URL endpoints
 Authentication tokens may also be obtained by using the `/v1/user/{username}/login` endpoint while sending an encoded password via an `application/json` content type inside the `POST` request. 
 
 ### Password Authentication
+
 To authenticate and get a token, call the `POST` method on the `/v1/user/{username}/login` method using a JSON object containing a `base64` encoded password. :
 
 ```json
@@ -165,6 +173,7 @@ https://api.giantswarm.io/v1/user/terminal/login \
 *Note: Be careful when using the `base64` command to generate encoded data from STDIN. For example, the default behavior of `echo foo | base64` in bash will result in a line feed `'/n'` being encoded in the password. Giant Swarm's API will not authorize a password with an appended line feed or carriage return.*
 
 ### Token Authentication
+
 Tokens for use with API calls may be obtained by requesting the `/v1/user/{username}/login` endpoint, as shown above. The token is identified by the `Id` key in the response. In the example above, the token would be:
 
 ```text
@@ -193,8 +202,8 @@ https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
 }
 ```
 
-<a name="organization"></a>
-## Organization Methods
+## Organization Methods {#organization}
+
 The organization methods live under the `/v1/org/` endpoint. The following table lists the available methods for operating on organizations:
 
 | Resource Path | Operation | Description |
@@ -213,8 +222,8 @@ In addition to the path parameters shown above, the following JSON POST paramete
 | org_id | string | The new organization's name. | Yes |
 | username | string | The username for the new user. | Yes |
 
-<a name="ListEnvironments"></a>
-### Listing an Organization's Environments
+### Listing an Organization's Environments {#ListEnvironments}
+
 To request a list of an organization's environments which contain appellations, call the `GET` method on the `/v1/org/{org}/env/` endpoint:
 
 ```json
@@ -247,8 +256,8 @@ https://api.giantswarm.io/v1/org/bantic/env/ | python -mjson.tool
 ```
 *Note: The use of the `| python -mjson.tool` is optional, and used for formatting purposes only.*
 
-<a name="CreateOrganization"></a>
-### Create a New Organization
+### Create a New Organization {#CreateOrganization}
+
 To create a new organization in an account, call the `POST` method on the `/v1/org/` endpoint with JSON data containing the new org's name:
 
 ```json
@@ -278,13 +287,14 @@ https://api.giantswarm.io/v1/org/ | python -mjson.tool
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10003 | The organization was created. |
 | 400 | 10015 | An organization with the same name already exists. |
 
-<a name="DeleteOrganization"></a>
-### Remove an Organization
+### Remove an Organization {#DeleteOrganization}
+
 To remove an existing organization, call the `DELETE` method on the `/v1/org/{org}/` endpoint:
 
 ```json
@@ -311,13 +321,14 @@ https://api.giantswarm.io/v1/org/bantic/ | python -mjson.tool
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10007 | The organization was removed. |
 | 403 | n/a | The organization does not exist or removal is forbidden. |
 
-<a name="GetOrganization"></a>
-### Get Information on Organization
+### Get Information on Organization {#GetOrganization}
+
 To get information on an existing organization, call the `GET` method on the `/v1/org/{org}/` endpoint:
 
 ```json
@@ -351,13 +362,14 @@ https://api.giantswarm.io/v1/org/bantic | python -mjson.tool
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The organization data was returned. |
 | 404 | n/a | The organization was not found. |
 
-<a name="AddOrganizationMember"></a>
-### Add a Member to an Organization
+### Add a Member to an Organization {#AddOrganizationMember}
+
 To add a new user/member to an existing organization, call the `POST` method on the `/v1/org/{org}/members/add` endpoint with JSON data containing the new member's username:
 
 ```json
@@ -386,14 +398,15 @@ https://api.giantswarm.io/v1/org/bantic/members/add | python -mjson.tool
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10006 | The user was added. |
 | 400 | 10013 | The username was not found or has already been added. |
 | 403 | n/a | The organization was not found or update is forbidden. |
 
-<a name="RemoveOrganizationMember"></a>
-### Remove a Member from an Organization
+### Remove a Member from an Organization {#RemoveOrganizationMember}
+
 To add a remove a user/member from an existing organization, call the `POST` method on the `/v1/org/{org}/members/remove` endpoint with JSON data containing the member's username:
 
 ```json
@@ -422,6 +435,7 @@ https://api.giantswarm.io/v1/org/bantic/members/remove | python -mjson.tool
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10006 | The resource was updated and the member removed. |
@@ -429,8 +443,8 @@ https://api.giantswarm.io/v1/org/bantic/members/remove | python -mjson.tool
 | 403 | n/a | The organization was not found or update is forbidden. |
 
 
-<a name="app"></a>
-## Application Methods
+## Application Methods {#app}
+
 The operations methods for applications live under the `/v1/org/{org}/env/{env}/app/` endpoint. The following table lists the available methods for operating on applications:
 
 | Resource Path | Operation | Description |
@@ -463,8 +477,8 @@ In addition to the path parameters shown above, the following parameters are use
 
 You may refer to the [application configuration reference](/reference/swarm-json/) for more information about the ```swarm.json``` file format.
 
-<a name="ListApps"></a>
-### List Running Applications
+### List Running Applications {#ListApps}
+
 To list running applications for a given organization and environment, call the `GET` method on the `/v1/org/{org}/env/{env}/app/` endpoint:
 
 ```json
@@ -513,8 +527,8 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/ | python -mjson.tool
 | 400 | 10008 | The organization or environment could not be found. |
 | 403 | n/a | Access to the resource was denied. |
 
-<a name="CreateApp"></a>
-### Create a New Application
+### Create a New Application {#CreateApp}
+
 To create a new application for a given organization and environment, call the `POST` method on the `/v1/org/{org}/env/{env}/app/` endpoint using a JSON formatted file:
 
 ```json
@@ -529,6 +543,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/
 *Note: Once an application has been created, you will need to start it with the `start` API method.*
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -548,6 +563,7 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/ | python -mjson.tool
 `git clone https://github.com/giantswarm/python-flask-helloworld.git` 
 
 #### Example JSON File
+
 This JSON should be saved as `swarm.json` for the above example to work:
 
 ```json
@@ -572,14 +588,15 @@ This JSON should be saved as `swarm.json` for the above example to work:
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10003 | The application was created. |
 | 400 | 10009 | The application already exists. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="DeleteApp"></a>
-### Delete an Application
+### Delete an Application {#DeleteApp}
+
 To delete an existing application for a given organization and environment, call the `DELETE` method on the `/v1/org/{org}/env/{env}/app/{app}` endpoint:
 
 ```json
@@ -590,6 +607,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X DELETE \
@@ -603,14 +621,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld | python -mjson.t
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10007 | The application was deleted. |
 | 403 | n/a | Access to the resource is forbidden. |
 | 404 | n/a | The application was not found. |
 
-<a name="StartApp"></a>
-### Start an Application
+### Start an Application {#StartApp}
+
 To start an existing application for a given organization and environment, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/start` endpoint:
 
 ```json
@@ -620,6 +639,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/start
 ```
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -631,15 +651,17 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/start | python -m
   "status_text": "resource started"
 }
 ```
+
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10004 | The application was started. |
 | 400 | 10008 | The application was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="StopApp"></a>
-### Stop an Application
+### Stop an Application {#StopApp}
+
 To stop an existing application for a given organization and environment, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/stop` endpoint:
 
 ```json
@@ -650,6 +672,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/stop
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -663,14 +686,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/stop | python -mj
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10005 | The application was stopped. |
 | 400 | 10008 | The application was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="StatusApp"></a>
-### Get an Application's Status
+### Get an Application's Status {#StatusApp}
+
 To get an existing application's status for a given organization and environment, call the `GET` method on the `/v1/org/{org}/env/{env}/app/{app}/status` endpoint:
 
 ```json
@@ -679,7 +703,9 @@ curl -sS \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/status
 ```
+
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X GET \
@@ -722,14 +748,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/status | python -
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The resource data was returned. |
 | 400 | 10008 | The application was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="ConfigApp"></a>
-### Get an Application's Configuration
+### Get an Application's Configuration {#ConfigApp}
+
 To get an existing application's configuration for a given organization and environment, call the `GET` method on the `/v1/org/{org}/env/{env}/app/{app}/config` endpoint:
 
 ```json
@@ -739,6 +766,7 @@ curl -sS \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/config
 ```
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X GET \
@@ -772,14 +800,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/config | python -
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The resource data was returned. |
 | 400 | 10008 | The application was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="service"></a>
-## Service Methods
+## Service Methods {#service}
+
 The service methods live under the `/v1/org/{org}/env/{env}/app/{app}/service/` endpoint. The following table lists the available methods for operating on services:
 
 | Resource Path | Operation | Description |
@@ -788,8 +817,8 @@ The service methods live under the `/v1/org/{org}/env/{env}/app/{app}/service/` 
 | /v1/org/\{org\}/env/\{env\}/app/\{app\}/service/\{service\}/stop | [POST](#StopService) | Stop a service. |
 | /v1/org/\{org\}/env/\{env\}/app/\{app\}/service/\{service\}/status | [GET](#StatusService) | Get the status of an existing service. |
 
-<a name="StartService"></a>
-### Starting a Service
+### Starting a Service {#StartService}
+
 To start a service for a given application, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/start` endpoint:
 
 ```json
@@ -800,6 +829,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/sta
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -814,14 +844,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10004 | The service was started. |
 | 400 | 10008 | The service was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="StopService"></a>
-### Stop a Service
+### Stop a Service {#StopService}
+
 To stop a service for a given application, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/stop` endpoint:
 
 ```json
@@ -830,7 +861,9 @@ curl -sS \
 -H "Authorization: giantswarm {token}" \
 https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/stop
 ```
+
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -845,14 +878,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10004 | The service was stopped. |
 | 400 | 10008 | The service was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="StatusService"></a>
-### Get a Service's Status
+### Get a Service's Status {#StatusService}
+
 To get a service's status for a given application, call the `GET` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/status` endpoint:
 
 ```json
@@ -863,25 +897,25 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/sta
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X GET \
 -H "Authorization: giantswarm e5239484-2299-41df-b901-d0568db7e3f9" \
 https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver/status \
 | python -mjson.tool
-
-
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The resource data was returned. |
 | 400 | 10008 | The service was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="component"></a>
-## Component Methods
+## Component Methods {#component}
+
 The component methods live under the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}` endpoint. The following table lists the available and very long methods for operating on a service component:
 
 | Resource Path | Operation | Description |
@@ -891,8 +925,8 @@ The component methods live under the `/v1/org/{org}/env/{env}/app/{app}/service/
 | /v1/org/\{org\}/env/\{env\}/app/\{app\}/service/\{service\}/<br/>component/\{component\}/scaleup/\{scale\} | [POST](#ScaleUpComponent) | Add instances of an existing component. |
 | /v1/org/\{org\}/env/\{env\}/app/\{app\}/service/\{service\}/<br/>component/\{component\}/scaledown/\{scale\} | [POST](#ScaleDownComponent) | Remove instances of an existing component. |
 
-<a name="StatusComponent"></a>
-### Query the Status of an Existing Component
+### Query the Status of an Existing Component {#StatusComponent}
+
 To get the status a given component for an application's service, call the `GET` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/status` endpoint:
 
 ```json
@@ -903,6 +937,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/com
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X GET \
@@ -940,14 +975,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The resource data was returned. |
 | 400 | 10008 | The service was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="UpdateComponent"></a>
-### Update an Existing Component
+### Update an Existing Component {#UpdateComponent}
+
 To update a service component's image for an application, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/version/{version}/update` endpoint:
 
 ```json
@@ -976,14 +1012,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10006 | The component was updated. |
 | 400 | 10008 | The service was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="ScaleUpComponent"></a>
-### Add an Instance to a Component
+### Add an Instance to a Component {#ScaleUpComponent}
+
 To add instances to a service component, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/scaleup/{scale}` endpoint.  Use the `{scale}` path parameter as the number of additional instances to start for the service component:
 
 ```json
@@ -996,6 +1033,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
 *Note: While in testing, Giant Swarm accounts support up to 10 instances per component.*
 
 #### Example with JSON Response
+
 This example starts an additional `3` instances for the service component for the `helloworld` application:
 
 ```json
@@ -1013,14 +1051,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10006 | The component was updated. |
 | 400 | 10008 | The component was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="ScaleDownComponent"></a>
-### Remove Instances from a Component
+### Remove Instances from a Component {#ScaleDownComponent}
+
 To remove instances from a service component, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/scaledown/{scale}` endpoint. Use the `{scale}` path parameter as the number of instances to remove from the service component:
 
 ```json
@@ -1033,6 +1072,7 @@ https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}\
 *Note: While in testing, Giant Swarm accounts support up to 10 instances per component.*
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -1048,14 +1088,15 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld\
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10006 | The component was updated. |
 | 400 | 10008 | The component was not found. |
 | 403 | n/a | Access to the resource is forbidden. |
 
-<a name="instance"></a>
-## Instance Methods
+## Instance Methods {#instance}
+
 The instance methods live under the /v1/org/{org}/instance/{instance} endpoint. The following table lists the available methods for operating on a component's instances:
 
 | Resource Path | Operation | Description |
@@ -1079,8 +1120,8 @@ https://api.giantswarm.io/v1/org/bantic/env/dev/app/helloworld/service/webserver
 "by3we1wr77b7"
 ```
 
-<a name="LogInstance"></a>
-### Get an Instance's Logs
+### Get an Instance's Logs {#LogInstance}
+
 To get an instance's logs, call the `GET` method on the `/v1/org/{org}/instance/{instance}/logs` endpoint.
 
 ```json
@@ -1091,6 +1132,7 @@ https://api.giantswarm.io/v1/org/{org}/instance/{instance}/logs
 ```
 
 #### Example with TEXT Response
+
 ```json
 curl -sS \
 -X GET \
@@ -1105,8 +1147,8 @@ https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/logs
 ```
 *Note: The response from the `logs` method is TEXT formatted.*
 
-<a name="StatInstance"></a>
-### Get an Instance's Statistics
+### Get an Instance's Statistics {#StatInstance}
+
 To get an instance's stats, call the `GET` method on the `/v1/org/{org}/instance/{instance}/stats` endpoint.
 
 ```json
@@ -1117,6 +1159,7 @@ https://api.giantswarm.io/v1/org/{org}/instance/{instance}/stats
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X GET \
@@ -1136,8 +1179,9 @@ https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/stats \
   }
 }
 ```
-<a name="ExecInstance"></a>
-### Execute a Remote Command on an Instance
+
+### Execute a Remote Command on an Instance {#ExecInstance}
+
 To execute a command on a given instance, call the `POST` method on the `/v1/org/{org}/instance/{instance}/exec` endpoint:
 
 ```json
@@ -1150,8 +1194,8 @@ https://api.giantswarm.io/v1/org/bantic/instance/{instance}/exec
 ```
 In addition to the path parameters above, the following parameters are used with the `exec` method:
 
-
 #### Example with TEXT Response:
+
 ```json
 curl -sS \
 -X POST \
@@ -1170,6 +1214,7 @@ https://api.giantswarm.io/v1/org/bantic/instance/by3we1wr77b7/exec
 ```
 
 #### Upgrading the Connection with Your Language of Choice
+
 For full interactive `exec` mode, you must have set these HTTP header fields within your `POST`:
 
 * `Content-Type: text/plain`
@@ -1192,16 +1237,16 @@ When the ```POST``` arrives, the server will do a normal HTTP response and then 
 
 In case of hijacking, the server will copy all bytes from the HTTP request into stdin (of the executed process) and multiplex stdout/stderr onto the HTTP response. This multiplexing uses the same protocol that is used by `docker exec`.
 
-<a name="connection"></a>
-## Connection Methods
+## Connection Methods {#connection}
+
 The following method tests connections to the API. It will respond with OK when the API is up and essential infrastructure components are reachable. It will return FAILED if the API is up, but not all essential infrastructure components are reachable.
 
 | Resource Path | Operation | Description |
 |-----|-----|-----|
 | /v1/ping | [GET](#Ping) | Ping Giant Swarm's API |
 
-<a name="Ping"></a>
-### Ping the API Connection
+### Ping the API Connection {#Ping}
+
 To ping the API connection, call the `GET` method on the `/v1/ping` endpoint.
 
 ```json
@@ -1225,8 +1270,8 @@ https://api.giantswarm.io/v1/ping
 | 200 | string | 'OK'. |
 | 500 | string | 'FAILED'.|
 
-<a name="user"></a>
-## User Methods
+## User Methods {#user}
+
 The user methods live under the `/v1/user/` endpoint. Where required, the `{user}` parameter indicates the value of the user's `username`. 
 
 | Resource Path | Operation | Description |
@@ -1238,8 +1283,8 @@ The user methods live under the `/v1/user/` endpoint. Where required, the `{user
 | /v1/user/me | [GET](#GetMe) | Get information about the currently logged in user. |
 | /v1/user/me/memberships | [GET](#GetMemberships) | Get the names of the organizations the currently logged in user is a member of. |
 
-<a name="LoginUser"></a>
-### Generate Token
+### Generate Token {#LoginUser}
+
 To generate a new authentication token, do a `POST` to the `/v1/user/{user}/login` endpoint with a JSON object containing the user's password:
 
 ```json
@@ -1251,6 +1296,7 @@ https://api.giantswarm.io/v1/user/{user}/login
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -1271,13 +1317,14 @@ https://api.giantswarm.io/v1/user/terminal/login \
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The resource data was returned. |
 | 400 | 10010 | The request was not authenticated. |
 
-<a name="LogoutUser"></a>
-### Expire Token
+### Expire Token {#LogoutUser}
+
 To expire an authentication token, do a `POST` to the `/v1/token/logout` endpoint with a JSON object containing the user's password:
 
 ```json
@@ -1289,6 +1336,7 @@ https://api.giantswarm.io/v1/token/logout
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -1304,13 +1352,14 @@ https://api.giantswarm.io/v1/token/logout \
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10007 | The token was deleted. |
 | 401 | n/a | The request was unauthorized. |
 
-<a name="UpdateEmail"></a>
-### Update User's Email Address
+### Update User's Email Address {#UpdateEmail}
+
 To update a user's email address, do a `POST` to the `/v1/user/me/email/update/` endpoint with a JSON payload containing the old and new email address:
 
 ```json
@@ -1323,6 +1372,7 @@ https://api.giantswarm.io/v1/user/me/email/update
 ```
 
 #### Example with JSON Response
+
 ```json
 curl -sS \
 -X POST \
@@ -1339,14 +1389,15 @@ https://api.giantswarm.io/v1/user/me/email/update \
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10006 | The email was updated. |
 | 400 | 10010 | The old email address did not match the address on record. |
 | 401 | n/a | The request was unauthorized. |
 
-<a name="UpdatePassword"></a>
-### Update User's Password
+### Update User's Password {#UpdatePassword}
+
 To update a user's password, do a `POST` to the `/v1/user/me/password/update/` endpoint with a JSON payload containing the old and new password:
 
 ```json
@@ -1361,6 +1412,7 @@ https://api.giantswarm.io/v1/user/me/password/update
 *Note: Changing a user's password will expire all tokens from the user's account.*
 
 #### Example with JSON Response
+
 This example uses the `echo` command with a `-n` piped through `base64` to generated the strings necessary for setting a new password:
 
 ```json
@@ -1379,14 +1431,15 @@ https://api.giantswarm.io/v1/user/me/password/update \
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10006 | The password was updated. |
 | 400 | 10010 | The hash of the old password did not match the hash on record. |
 | 401 | n/a | The request was unauthorized. |
 
-<a name="GetMe"></a>
-### Show User's Status
+### Show User's Status {#GetMe}
+
 To show a user's status, do a `GET` to the `/v1/user/me/` endpoint:
 
 ```json
@@ -1418,15 +1471,15 @@ https://api.giantswarm.io/v1/user/me \
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The resource data was returned. |
 | 401 | n/a | The request was unauthorized. |
 
-<a name="GetMemberships"></a>
-### Show User's Memberships
-To show a user's organization memberships, do a `GET` to the `/v1/user/me/memberships` endpoint:
+### Show User's Memberships {#GetMemberships}
 
+To show a user's organization memberships, do a `GET` to the `/v1/user/me/memberships` endpoint:
 
 ```json
 curl -sS \
@@ -1458,6 +1511,7 @@ https://api.giantswarm.io/v1/user/me/memberships \
 ```
 
 #### Response Status Codes
+
 | Status Code | Response Code | Description |
 |-----|-----|-----|
 | 200 | 10000 | The resource data was returned. |
