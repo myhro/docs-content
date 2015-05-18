@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Java"
 description = "Your first Java application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-03-18"
+date = "2015-05-07"
 type = "page"
 weight = 55
 categories = ["basic"]
@@ -33,11 +33,11 @@ If you're not the type who likes to read a lot, we have a [Makefile](https://git
 
 ```nohighlight
 $ swarm login <yourusername>
-$ make build
-$ make run-redis
-$ make run-application
-$ make push
-$ make up
+$ make docker-build
+$ make docker-run-redis
+$ make docker-run-application
+$ make docker-push
+$ make swarm-up
 ```
 
 Everybody else, follow the path to wisdom and read on.

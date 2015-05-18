@@ -58,8 +58,9 @@ This example makes use of all possible keys to illustrate their use.
         {
           "component_name": "appserver",
           "image": "registry.giantswarm.io/mycorp/mycomponent:latest",
+          "entrypoint": "/opt/bin/yourprogram",
           "args": [
-            "/usr/bin/some_process"
+            "--some-args", "hello world"
           ],
           "volumes": [
             {
@@ -135,6 +136,10 @@ The name of the component.
 The name of a docker image. This can be a name like `ubuntu` or `redis` when using "standard" images from the public Docker registry. In order to address images from the Giant Swarm registry, a fully qualified image name in the form `registry.giantswarm.io/<organization_namespace>/<image_name>[:<tag>]` is required.
 
 Find out more on the [registry reference page](/reference/registry/).
+
+### `entrypoint`
+
+The `entrypoint` key is optional. If given, it overwrites the default `ENTRYPOINT` configured in the image on startup. You can provide the path to a binary here, e.g. `/opt/app/bin/myapp`.
 
 ### `args`
 
