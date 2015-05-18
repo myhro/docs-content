@@ -133,8 +133,10 @@ curl -sS \
 
 The Giant Swarm API requires authentication tokens for most of its URL endpoints. Tokens may be retrieved from the command line if the `swarm` client is [installed](/reference/cli/installation/) and [authenticated](/reference/cli/login/):
 
-    $ cat ~/.swarm/token; echo;
-    e5239484-2299-41df-b901-d0568db7e3f9
+```nohighlight
+$ cat ~/.swarm/token; echo;
+e5239484-2299-41df-b901-d0568db7e3f9
+```
 
 Authentication tokens may also be obtained by using the `/v1/user/{username}/login` endpoint while sending an encoded password via an `application/json` content type inside the `POST` request. 
 
