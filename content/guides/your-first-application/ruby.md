@@ -15,7 +15,7 @@ This tutorial guides you through the creation of an application using two interl
 
 * You should have done the [Quick Start](/) or the [Annotated Hello World Example](/guides/annotated-helloworld/) and everything should have worked fine.
 
-* We assume that you have a basic understanding of Docker and you have Docker installed. If you don't have that yet, check out our [Introduction to Docker](/guides/introduction-to-docker/) and come back later.
+* We assume that you have a basic understanding of Docker and you have Docker installed. If you don't have that, yet, check out our [Introduction to Docker](/guides/introduction-to-docker/) and come back later.
 
 
 ## For the impatient
