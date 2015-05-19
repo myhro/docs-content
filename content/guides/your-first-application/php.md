@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in PHP"
 description = "Your first PHP application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-03-18"
+date = "2015-05-19"
 type = "page"
 weight = 60
 categories = ["basic"]
@@ -15,7 +15,7 @@ This tutorial guides you through the creation of an application using two interl
 
 * You should have done the [Quick Start](/) or the [Annotated Hello World Example](/guides/annotated-helloworld/) and everything should have worked fine.
 
-* We assume that you have a basic understanding of Docker and you have Docker installed. Docker provides extensive [installation instructions](https://docs.docker.com/installation/) and [user guides](https://docs.docker.com/userguide/).
+* We assume that you have a basic understanding of Docker and you have Docker installed. If you don't have that yet, check out our [Introduction to Docker](/guides/introduction-to-docker/) and come back later.
 
 
 ## For the impatient
