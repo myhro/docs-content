@@ -1,3 +1,12 @@
++++
+title = "Introduction to Docker"
+description = "This guide gives an introduction on how to use Docker locally as well as with Giant Swarm."
+date = "2015-05-19"
+type = "page"
+weight = 20
+categories = ["basic"]
++++
+
 # Introduction to Docker
 
 ## What is Docker and why should I care?
@@ -20,7 +29,9 @@ Before we start let’s make sure that your have [Docker installed on your devel
 
 After that you should have the docker command available. You can run a first Hello World like follows (keep in mind that if you’re running the docker daemon directly on your system, i.e. on Linux, then you need to put ‘sudo’ in front of every docker command):
 
-	$ docker run hello-world
+```nohighlight
+$ docker run hello-world
+```
 
 This will pull the Docker hello-world image (and all underlying images) and run them on your Docker daemon. So, let’s get started and familiarize ourselves with running containers.
 
@@ -28,33 +39,47 @@ This will pull the Docker hello-world image (and all underlying images) and run 
 
 We start with a deeper look into what we can do with `docker run`
 
-	$ docker run debian:wheezy /bin/echo 'Hello world'
+```nohighlight
+$ docker run debian:wheezy /bin/echo 'Hello world'
+```
 
 What this does, is download and run the Debian container in its “wheezy” version (we call these tags, but more on that later) and run `/bin/echo 'Hello world'` inside that container. What happens after that, is that the container stops again. Docker runs the container only as long as the command you specify is active, so if you want your container to stay, give it a command that stays active. A lot of containers come pre-built like this, e.g. the standard Redis container:
 
-	$ docker run redis
+```nohighlight
+$ docker run redis
+```
 
 Note that this image uses debian:wheezy as its base image, so the download is a lot faster this time, as we only need the additional layers on top of that now (more on that later). However, now you’re stuck inside the container, which wouldn’t be what you want, if you usually start a Redis. Thus, we need a way to start a container in the background:
 
-	$ docker run -d redis
+```nohighlight
+$ docker run -d redis
+```
 
 Now we have a daemonized Redis and could connect to it from outside or from other containers. We do this by connecting to the IP of our docker daemon, which in boot2docker we get with:
 
-	$ boot2docker ip
+```nohighlight
+$ boot2docker ip
+```
 
 However, we have not specified a port, so let’s do this again, this time with a port. Let’s stop our container. For this we need the container ID, so first:
 
-	$ docker ps
-	CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS               NAMES
-	113f2a688eb2        redis:latest        "/entrypoint.sh redi   30 minutes ago      Up 5 seconds        6379/tcp            goofy_wozniak
+```nohighlight
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS               NAMES
+113f2a688eb2        redis:latest        "/entrypoint.sh redi   30 minutes ago      Up 5 seconds        6379/tcp            goofy_wozniak
+```
 
 Now that we have the Container ID: `113f2a688eb2 ` (note this will be different every time you run an image), we can stop the container:
 
-	$ docker stop 113f2a688eb2
+```nohighlight
+$ docker stop 113f2a688eb2
+```
 
 To make this easier we can assign a name to a container, let’s combine that with assigning ports:
 
-	$ docker run -d redis -p 9736:6379 -name redis_container
+```nohighlight
+$ docker run -d redis -p 9736:6379 -name redis_container
+```
 
 We just started a Redis container in the background, which is called redis_container. It exposes the host port 9736, which it connects to port 6379 (the standard Redis port) inside the container. So now, let's work with it.
 
@@ -66,27 +91,37 @@ To see which containers are currently running we can use the `docker ps` command
 
 To look at our application’s logs we can use `docker logs` like following:
 
-	$ docker logs -f redis
+```nohighlight
+$ docker logs -f redis
+```
 
 The `-f` flag makes the command work like `tail -f` and watch the standard out of the container.
 
 If we want to go deeper into the container we can also let Docker show us the processes running inside a container:
 
-	$ docker top redis
+```nohighlight
+$ docker top redis
+```
 
 Going even deeper we can let Docker give us an overview of configuration and status information for a given container:
 
-	$ docker inspect redis
+```nohighlight
+$ docker inspect redis
+```
 
 Stopping and restarting a container is simple, too:
 
-	$ docker stop redis
-	$ docker start redis
+```nohighlight
+$ docker stop redis
+$ docker start redis
+```
 
 In case we don’t want the application anymore we can also remove it completely. Keep in mind that for removing a container you need to stop it first:
 
-	$ docker stop redis
-	$ docker remove redis
+```nohighlight
+$ docker stop redis
+$ docker remove redis
+```
 
 Now `docker ps -a` shouldn’t show our container anymore. 
 
@@ -94,19 +129,25 @@ Now `docker ps -a` shouldn’t show our container anymore.
 
 Images are the basis of containers in Docker and as you will see also in Giant Swarm. We have worked with images already in the previous sections of this guide, but let’s go into a bit more detail here. We’ll start with simply listing all containers on our host:
 
-	$ docker images
+```nohighlight
+$ docker images
+```
 
 You should see the image we used in the previous sections and some crucial information about them, incl. their repository, tags, the image ID and the size.
 
 If you want to just download a new image without (or usually in preparation for) running it. You can use ‘docker pull’:
 
-	$ docker pull hello-world
+```nohighlight
+$ docker pull hello-world
+```
 
 You can see that docker downloads all layers that this image consists of. In case you have a different image on your host that already uses some of these layers, docker just keeps that and skips downloading that part of the image. This makes the process of running new instances or variations of your stack extremely fast.
 
 If you want to find public images the Docker Hub has a nice searchable interface with many standard images, incl. some basic images that are officially maintained supported from Docker. If you want to search for images on the command line you can use the ‘docker search’ command:
 
-	$ docker search redis
+```nohighlight
+$ docker search redis
+```
 
 ## Creating your Own Images
 
@@ -119,24 +160,31 @@ Note, we recommend always trying to build an image from a Dockerfile, as this al
 
 However, let’s see what we have to do to change an existing container. For changing a container you have to first run it:
 
-	$ docker run -t -i ubuntu:14.04 /bin/bash -name changing_container
+```nohighlight
+$ docker run -t -i ubuntu:14.04 /bin/bash -name changing_container
+```
 
 Now when you’re inside the container, you can change it to your liking, e.g.:
 
-	$ apt-get update
-	$ apt-get install default-jdk 
+```nohighlight
+$ apt-get update
+$ apt-get install default-jdk 
+```
 
 Once you’re done, you need to exit your container using the `exit` command.
 
 Now that we have a new container, we can “save” it by committing it to a new image. This can either be a new version of an existing image, or a completely new image.
 
-	$ docker commit -m “Added OpenJDK 7” -a “Mr. Smith” changing_container yourusername/java:7
-
+```nohighlight
+$ docker commit -m “Added OpenJDK 7” -a “Mr. Smith” changing_container yourusername/java:7
+```
 Here we used the `-m` flag to add a commit message and the `-a` flag to specify an author. Further, we specified a target `yourusername/java:7`, which consists of a user `yourusername`, an image name `java` and a tag `7`.
 
 This image will now be available to us locally, so we can run it like any other image:
 
-	$ docker run -t -i yourusername/java:7 /bin/bash
+```nohighlight
+$ docker run -t -i yourusername/java:7 /bin/bash
+```
 
 Like mentioned above, the better way to create an image is to build it from a Dockerfile. For this we have create a Dockerfile in our projects directory and open it with the editor of our choice. A Dockerfile that recreates the image we created manually above would look like following:
 
@@ -151,34 +199,46 @@ Dockerfiles always consist of `INSTRUCTIONS` and `statements`. They always start
 
 Now let’s build our image:
 
-	$ docker build -t yourusername/java:7 .
+```nohighlight
+$ docker build -t yourusername/java:7 .
+```
 
 This will result in a similar image as the above, only that we don’t need the `/bin/bash` now anymore to run it:
 
-	$ docker run -t -i yourusername/java:7 -name our_java
+```nohighlight
+$ docker run -t -i yourusername/java:7 -name our_java
+```
 
 Again use the `exit` command to exit the container. Additionally, you can add tags to an image after you have commited or built it.
 
-	$ docker tag yourusername/java:7 yourusername/java:seven
+```nohighlight
+$ docker tag yourusername/java:7 yourusername/java:seven
+```
 
 Looking at our images we can see that there’s two tags representing the same image now:
 
-	$ docker images
-	REPOSITORY                                              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-	yourusername/java                                            7                   0e5da60a9318        16 minutes ago      572.1 MB
-	yourusername/java                                            seven               0e5da60a9318        16 minutes ago      572.1 MB
+```nohighlight
+$ docker images
+REPOSITORY                                              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+yourusername/java                                            7                   0e5da60a9318        16 minutes ago      572.1 MB
+yourusername/java                                            seven               0e5da60a9318        16 minutes ago      572.1 MB
+```
 
 The `:7` and `:seven` tags both point to the same image and will stay like that even with further updates of this image.
 
 Finally, we can push an image to the Docker Hub, so we can share it with others or use it on other hosts (or in Giant Swarm).
 
-	$ docker push yourusername/java
+```nohighlight
+$ docker push yourusername/java
+```
 
 This will push the whole repository of `yourusername/java`, incl. all tags and changes to the Docker Hub. If you want to keep your images private, you can use our [private registry](http://docs.giantswarm.io/reference/registry/). This also creates a new `:latest` tag, which always points to the last image under the same name, even if the last one has a lower “version number”, e.g. `:6` (, which can happen e.g. when you fix an old version after already having a new one).
 
 If you want to remove an image from your host, you can use the `docker rmi` command.
 
-	$ docker rmi yourusername/java
+```nohighlight
+$ docker rmi yourusername/java
+```
 
 Note that this does only delete the local images on your host, not the images that you have already pushed to a Registry.
 
