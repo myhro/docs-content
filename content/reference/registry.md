@@ -169,6 +169,7 @@ Be aware that you can use variables in your `swarm.json` file, which can be defi
 
 * [swarm.json reference page](/reference/swarm-json/)
 * [Creating an app](/reference/cli/create/)
+* [Introduction to Docker](/guides/introduction-to-docker/)
 
 External resources:
 

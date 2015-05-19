@@ -1,7 +1,7 @@
 +++
 title = "Introduction to Giant Swarm"
 description = "A general introduction into what Giant Swarm is and does. Start here if you are interested in using our service."
-date = "2015-05-05"
+date = "2015-05-19"
 type = "page"
 +++
 
@@ -21,7 +21,9 @@ Docker is the most popular application container format. It lets you package you
 
 Docker makes a great tool for developers since it allows you to package different parts of your applications in your own containers. These containers can run on different environments like your and your colleagues notebook as well as different server environments like Giant Swarm.
 
-Another great aspect of Docker is that there are lots of predefined containers available. From different languages like JavaScript to Golang over different webstacks like Spring to Rails down to databases like Redis or MySQL. In addition defining your own Docker container is very easy. 
+Another great aspect of Docker is that there are lots of predefined containers available. From different languages like JavaScript to Golang over different webstacks like Spring to Rails down to databases like Redis or MySQL. In addition defining your own Docker container is very easy.
+
+To learn more about Docker and how to use it, see our [Introduction to Docker](/guides/introduction-to-docker/).
 
 ## What is a Giant Swarm application?
 
