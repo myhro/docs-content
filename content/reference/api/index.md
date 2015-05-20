@@ -36,6 +36,10 @@ The following video gives a quick overview of the Giant Swarm API using simple c
   <iframe class="embed-responsive-item" width="560" height="315" src="https://player.vimeo.com/video/128089952" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
+### Changelog
+
+Follow the [API changelog](/reference/api/changelog/) for information on new functionality as well as changes and bug fixes in existing methods.
+
 ### Example Helper
 
 For convenience, this page contains an <a id="link-helper" href="#helper">example helper</a> designed to replace variables used in examples on this page with ones that are valid for your account. The helper can be triggered by clicking on the link above, or hitting the `h` key while on this page. Please note the helper will not work when viewing this documentation on Github.
