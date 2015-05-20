@@ -1,7 +1,7 @@
 +++
 title = "Introduction to Giant Swarm"
 description = "A general introduction into what Giant Swarm is and does. Start here if you are interested in using our service."
-date = "2015-05-19"
+date = "2015-05-20"
 type = "page"
 +++
 
@@ -110,3 +110,23 @@ Giant Swarm helps you creating apps in microservice fashion. Each service is tru
 * Once you have an acccount, check that everything is working fine using the Quick Start on the [documentation start page](/).
 
 * Then we recommend to create [Your first application - in your language](/guides/your-first-application/) on Giant Swarm.
+
+## Further Reading
+
+If you like to read (hear or watch) some more about Docker and Microservices, here are some recommendations from our side.
+
+### Docker
+
+* [Docker Documentation](https://docs.docker.com/) - The official Docker docs
+
+* [The Docker Book](http://www.dockerbook.com/) - For book lovers, by James Turnbull
+
+### Microservices
+
+* [Microservices](http://martinfowler.com/articles/microservices.html) - The widely-shared introduction article by Martin Fowler and James Lewis
+
+* [Building Microservices](http://shop.oreilly.com/product/0636920033158.do) - For book lovers, by Sam Newman
+
+* [State of the Art in Microservices](https://www.youtube.com/watch?v=nMTaS07i3jk) - Presentation on DockerCon 14|EU by Adrian Cockcroft
+
+* [Architecture and Micro Services](https://www.innoq.com/de/links/microservices-se-radio/) - Software Engineering Radio Podcast with Stefan Tilkov
