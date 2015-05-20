@@ -38,7 +38,7 @@ The following video gives a quick overview of the Giant Swarm API using simple c
 
 ### Changelog
 
-Follow the [API changelog](/reference/api/changelog/) for information on new functionality as well as changes and bug fixes in existing methods.
+Follow the [API changelog](/reference/api/changelog/) for information on new functionality as well as changes and bug fixes to existing methods.
 
 ### Example Helper
 
