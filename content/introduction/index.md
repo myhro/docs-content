@@ -127,6 +127,6 @@ If you like to read (hear or watch) some more about Docker and Microservices, he
 
 * [Building Microservices](http://shop.oreilly.com/product/0636920033158.do) - For book lovers, by Sam Newman
 
-* [State of the Art in Microservices](https://www.youtube.com/watch?v=nMTaS07i3jk) - Presentation on DockerCon 14|EU by Adrian Cockcroft
+* [State of the Art in Microservices](https://www.youtube.com/watch?v=nMTaS07i3jk) - Presentation on DockerCon 14|EU by Adrian Cockcroft (Video)
 
 * [Architecture and Micro Services](https://www.innoq.com/de/links/microservices-se-radio/) - Software Engineering Radio Podcast with Stefan Tilkov
