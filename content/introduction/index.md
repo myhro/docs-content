@@ -7,7 +7,7 @@ type = "page"
 
 # Introduction to Giant Swarm
 
-With Giant Swarm you can build deploy and manage your containerized applications. There are no restrictions regarding programming languages, frameworks, or databases. We are especially optimized for applications that are built in a microservice style. We offer an opinionated solution for microservice architectures, but keep your flexibility to change the microservice tooling to your own liking and needs.
+With Giant Swarm you can build deploy and manage your containerized applications. There are no restrictions regarding programming languages, frameworks, or databases. We are especially optimized for applications that are built in a microservices style. We offer an opinionated solution, but keep your flexibility to change the tooling to your own liking and needs.
 
 A Swarm application consists of an application configuration (`swarm.json`) and one or more Docker containers. To deploy and start an application you use the `docker` client to build and push containers and `swarm` to push the application configuration as well as manage your application:
 
