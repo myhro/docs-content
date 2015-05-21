@@ -1,7 +1,7 @@
 +++
 title = "Execute a command in a component instance"
 description = "This is the reference page for the 'swarm exec' command, which allows you to call a command inside an instance of a component or open a shell."
-date = "2015-05-11"
+date = "2015-05-21"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm exec"]
@@ -36,47 +36,49 @@ Here are a few examples you can try out on your instances.  Let's start by getti
 $ swarm status helloworld
 App helloworld is up
 
-service             component             image     instanceid    created              status
-helloworld-service  helloworld-component  python:3  r6ckgljwxe37  2015-05-08 21:42:24  up
+service             component             image                  instanceid    created              status
+helloworld-service  helloworld-component  giantswarm/helloworld  hvuos3dhlgha  2015-05-12 14:50:35  up
 ```
 
 ### Shell Into the Instance
 
-If the instance is running an image which has support for running a bash shell, you should be able to do the following:
+If the instance is running an image which has support for running a shell, you should be able to do the following:
 
 ```nohighlight
-$ swarm exec r6ckgljwxe37 /bin/bash
+$ swarm exec hvuos3dhlgha /bin/sh
 ```
 
 Here's a simple example of shelling into the Giant Swarm [helloworld](https://github.com/giantswarm/helloworld) example and getting a directory listing and process list:
 
 ```nohighlight
-$ swarm exec r6ckgljwxe37 /bin/bash
-root@r6ckgljwxe37:/# ls
-bin   dev  home        lib    media  opt   root  sbin  sys  usr
-boot  etc  index.html  lib64  mnt    proc  run	 srv   tmp  var
-root@r6ckgljwxe37:/# ps -ax
-  PID TTY      STAT   TIME COMMAND
-    1 ?        Ss     0:00 sh -c echo "Hello from Giant Swarm. \o/" > index.html
-    7 ?        S      0:00 python -m http.server
-   16 ?        S      0:00 /bin/bash
-   23 ?        R+     0:00 ps -ax
+$ swarm exec hvuos3dhlgha /bin/sh
+
+BusyBox v1.21.1 (Ubuntu 1:1.21.0-1ubuntu1) built-in shell (ash)
+Enter 'help' for a list of built-in commands.
+
+~ # ls
+bin    dev    etc    lib    lib64  proc   sbin   sys    tmp    usr
+~ # ps -a
+PID   USER     COMMAND
+    1 root     helloworld
+   42 root     /bin/sh
+   49 root     {busybox} ps -a
 ```
 
 The `swarm exec` command uses `/bin/sh` by default. This results in a simple way to quickly check in on an instance:
 
 ```nohighlight
-$ swarm exec r6ckgljwxe37
+$ swarm exec hvuos3dhlgha
 ```
 
 Quitting a shell session usually requires the `exit` command or hitting `Ctrl + D`.
 
 ### Listing Instance Directories
 
-Listing the contents of the default path in an instance with ID `r6ckgljwxe37` can be done by doing the following:
+Listing the contents of the default path in an instance with ID `hvuos3dhlgha` can be done by doing the following:
 
 ```nohighlight
-$ swarm exec r6ckgljwxe37 ls
+$ swarm exec hvuos3dhlgha ls
 ```
 
 *Note: The use of `ls` requires the `ls` binary be available on the instance. If it fails, try shelling into the instance to debug!*
@@ -85,10 +87,10 @@ $ swarm exec r6ckgljwxe37 ls
 
 Using arguments with a `command` requires the use of the option separator `--` to keep the Swarm CLI from parsing the command's arguments for itself.
 
-Running `grep -r foo * | cut -f 1 -d':'` on an instance with ID `r6ckgljwxe37` can done by doing the following:
+Running `grep -r foo /etc` on an instance with ID `hvuos3dhlgha` can done by doing the following:
 
 ```nohighlight
-$ swarm exec r6ckgljwxe37 -- grep -r foo * | cut -f 1 -d':'
+$ swarm exec hvuos3dhlgha -- grep -r foo /etc
 ```
 
 *Note: STDOUT and STDERR for the command will be outputted to your terminal. To detach a blocking process, use the `-d` or `--detach` flag.*
@@ -98,7 +100,7 @@ $ swarm exec r6ckgljwxe37 -- grep -r foo * | cut -f 1 -d':'
 If you need to execute a long running process, use the afore mention `-d` or `--detach` flags:
 
 ```nohighlight
-$ swarm exec r6ckgljwxe37 -d /path/to/tedious-task
+$ swarm exec hvuos3dhlgha -d /path/to/tedious-task
 ```
 
 ## Considerations and Limitations
