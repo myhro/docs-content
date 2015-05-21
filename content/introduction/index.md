@@ -1,7 +1,7 @@
 +++
 title = "Introduction to Giant Swarm"
 description = "A general introduction into what Giant Swarm is and does. Start here if you are interested in using our service."
-date = "2015-05-20"
+date = "2015-05-21"
 type = "page"
 +++
 
