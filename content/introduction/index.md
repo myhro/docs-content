@@ -1,13 +1,13 @@
 +++
 title = "Introduction to Giant Swarm"
 description = "A general introduction into what Giant Swarm is and does. Start here if you are interested in using our service."
-date = "2015-05-20"
+date = "2015-05-21"
 type = "page"
 +++
 
 # Introduction to Giant Swarm
 
-With Giant Swarm you can build and host server-side applications. There are no restrictions regarding programming languages, web frameworks, or databases. We are especially optimized for applications that are built in a microservice style.
+With Giant Swarm you can build deploy and manage your containerized applications. There are no restrictions regarding programming languages, frameworks, or databases. We are especially optimized for applications that are built in a microservices style. We offer an opinionated solution, but maintain the flexibility to change the tooling to your own liking and needs.
 
 A Swarm application consists of an application configuration (`swarm.json`) and one or more Docker containers. To deploy and start an application you use the `docker` client to build and push containers and `swarm` to push the application configuration as well as manage your application:
 
