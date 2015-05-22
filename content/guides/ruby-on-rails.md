@@ -54,7 +54,7 @@ If you now run your container with `docker run -p 3000:3000 sample_rails_4` you 
 
 ## Adding MySQL
 
-As a database we chose MySQL, which should run in its own container. Fortunatly we can use the predefined [MySQL docker image](https://registry.hub.docker.com/_/mysql/), which automatically creates a `root` user. It also supports reading the initial password from the `MYSQL_ROOT_PASSWORD` environment variable. So to start our database we run this:
+As a database we chose MySQL, which should run in its own container. Fortunately we can use the predefined [MySQL docker image](https://registry.hub.docker.com/_/mysql/), which automatically creates a `root` user. It also supports reading the initial password from the `MYSQL_ROOT_PASSWORD` environment variable. So to start our database we run this:
 
 ```bash
 $ PASS=somesecretpassword
@@ -208,7 +208,7 @@ You can either use your own domains (which you have to configure to forward to u
 
 ### Run 
 
-Thats it. With the `swarm` command line tool we can now create and start our containers on the Giant Swarm cluster:
+That's it. With the `swarm` command line tool we can now create and start our containers on the Giant Swarm cluster:
 
 ```
 $ swarm create

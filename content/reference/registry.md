@@ -56,7 +56,7 @@ The full image name format is
 registry.giantswarm.io/<organization_namespace>/<image_name>:<tag>
 ```
 
-Note that the URL scheme (`https://`) is ommited here.
+Note that the URL scheme (`https://`) is omitted here.
 
 Example of a full image name:
 
@@ -80,7 +80,7 @@ registry.giantswarm.io/acmecorp/exampleimage:1.4.2
 
 We will be using the organization name `acmecorp` throughout this page as a placeholder for your respective organization name.
 
-If you aren't planning to share your images with other users, you can of course use your default organization name, which is identitcal with your user name.
+If you aren't planning to share your images with other users, you can of course use your default organization name, which is identical with your user name.
 
 ## Logging in
 
@@ -105,7 +105,7 @@ You have several choices on when to name the image with its final name:
 * During build time, using the `docker build` command with the `-t` or `--tag` flag
 * After building, using the `docker tag` command
 
-Naming the image _during build time_ saves you an extra step but also requires you to plan ahead. When in the directory containg the `Dockerfile` for your `exampleimage` image, any of the following commands would create a named image:
+Naming the image _during build time_ saves you an extra step but also requires you to plan ahead. When in the directory containing the `Dockerfile` for your `exampleimage` image, any of the following commands would create a named image:
 
 ```nohighlight
 $ docker build -t registry.giantswarm.io/acmecorp/exampleimage .

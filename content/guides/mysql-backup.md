@@ -15,7 +15,7 @@ Setting up a MySQL database on Giant Swarm is simple. The Docker Hub provides a 
 
 In this guide we show you how you can add a service to your Giant Swarm application that accomplishes one thing only: Create a database dump and store it to Amazon S3. This way you don't have to touch your existing services. Each function has it's place. Truly microservistic. :-) However, be aware that this is only one possible solution and might not be ideal for you.
 
-This guide proposes Amazon S3 as a means to store backups, because it's well-known. And it has the advantage that it is possble to create user accounts with very specific permissions. You might adapt this guide to use different cloud storage services or your own (S)FTP server. If you write this up, let us know. We're happy to learn.
+This guide proposes Amazon S3 as a means to store backups, because it's well-known. And it has the advantage that it is possible to create user accounts with very specific permissions. You might adapt this guide to use different cloud storage services or your own (S)FTP server. If you write this up, let us know. We're happy to learn.
 
 ## Prerequisites
 
@@ -187,7 +187,7 @@ What these environment variables mean:
 
 Except for `AWS_DEFAULT_REGION`, all these variables are in fact required.
 
-If you have looked at the `backup.sh` script really closely, you may have noticed that uses two variables which we do not pass here: `MYSQL_PORT_3306_TCP_ADDR` and `MYSQL_PORT_3306_TCP_PORT`. These are automatically set by "container links", which are enabled by naming the MySQL container `mysql` and refering to that name in the `--link` flag when running the `mysql-archiver` container.
+If you have looked at the `backup.sh` script really closely, you may have noticed that uses two variables which we do not pass here: `MYSQL_PORT_3306_TCP_ADDR` and `MYSQL_PORT_3306_TCP_PORT`. These are automatically set by "container links", which are enabled by naming the MySQL container `mysql` and referring to that name in the `--link` flag when running the `mysql-archiver` container.
 
 Now, adapt the `docker run` command above to match your requirements and give it a try. Hint: Set a low `BACKUP_INTERVAL`, for example `10` seconds, when testing so you don't have to wait too long for a second and third backup to be made.
 
@@ -292,7 +292,7 @@ The example shows how the Docker image you created, tested locally and pushed to
 
 The `env` key of the component definition gets the familiar environment variable definitions that are needed for the backup script working in the container.
 
-Worth a special note: We use two variables in the configuration file, `$mysqldb` and `$mysqlpass` which you can detect by the `$` prefix. These help you to prevent repeating yourself in the config and also save you from setting a password in a file which you might want to upload into a versionb control system. We show you how to replace these variables in a minute.
+Worth a special note: We use two variables in the configuration file, `$mysqldb` and `$mysqlpass` which you can detect by the `$` prefix. These help you to prevent repeating yourself in the config and also save you from setting a password in a file which you might want to upload into a version control system. We show you how to replace these variables in a minute.
 
 Pay special attention to the `dependencies` definition. The `archiver` component is made to depend on the `db/mysql` component, aliased as `mysql`, with exposed port 3306. As a result, the environment variables named `MYSQL_PORT_3306_TCP_ADDR` and `MYSQL_PORT_3306_TCP_PORT`, which we already talked about above, are declared when the component is started.
 

@@ -46,14 +46,14 @@ hannibal
 To add a user to an organization, you need to know the Giant Swarm username of the user to add. To add a user called `murdoch` to the organization `ateam`, use this command:
 
 ```nohighlight
-$ swarm org add-user ateam murdock
+$ swarm org add-user ateam murdoch
 ```
 
 ## Naming images for team access
 
 The building blocks of your Giant Swarm applications are Docker containers, which can be created from images on any public registry or the [private registry](/reference/registry/) Giant Swarm provides. This section assumes that you want to make use of our private registry.
 
-When working only on your own, you can simply tag images for your application components using your username as a namespace identifer. The schema is:
+When working only on your own, you can simply tag images for your application components using your username as a namespace identifier. The schema is:
 
 ```nohighlight
 registry.giantswarm.io/<yourusername>/<imagename>:<tag>
@@ -65,7 +65,7 @@ When your applications are supposed to belong to a team, all team members should
 registry.giantswarm.io/<organization_name>/<image_name>:<tag>
 ```
 
-You can set the appropriate image name either immediately when creating an image using `docker build`, or in a seperate step after creating the image, using `docker tag`.
+You can set the appropriate image name either immediately when creating an image using `docker build`, or in a separate step after creating the image, using `docker tag`.
 
 For our organization called `ateam`, an image with the name `myimage` and some tag could look like this:
 
@@ -85,7 +85,7 @@ Now that it's set that the team has access to our images, we can deploy the acco
 
 As said in the introduction, whenever you work on the Giant Swarm infrastructure, you act in a distinct environment. To make your application accessible to your team (organization), the environment running the application has to be owned by the according organization.
 
-When you just created a new organization as explained above, you will now have to cerate a new environment belonging to that organization.
+When you just created a new organization as explained above, you will now have to create a new environment belonging to that organization.
 
 ### Creating an environment and selecting it
 
@@ -118,4 +118,4 @@ This is all there is to it. You have just learned how to create an organization 
 * [Reference: Managing organizations](/reference/cli/org/)
 * [Reference: Managing Environments](/reference/cli/env/)
 * [Reference: Using the Registry](/reference/registry/)
-* [Reference: Application configuraiton (swarm.json)](/reference/swarm-json/)
+* [Reference: Application configuration (swarm.json)](/reference/swarm-json/)
