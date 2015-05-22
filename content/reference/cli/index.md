@@ -37,6 +37,7 @@ Command | Description
 [`swarm start`](start/) | Start an application or service
 [`swarm up`](up/) | Define and start a new application
 [`swarm stop`](stop/) | Stop an application or service
+[`swarm update`](update/) | Update a single component of an application
 [`swarm status`](status/) | Show current status of an application or service
 [`swarm scaleup`](scaleup/) | Increase number of instances running a component
 [`swarm scaledown`](scaledown/) | Reduce number of instances running a component
