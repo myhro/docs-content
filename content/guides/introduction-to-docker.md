@@ -161,8 +161,7 @@ Note, we recommend always trying to build an image from a Dockerfile, as this al
 However, let’s see what we have to do to change an existing container. For changing a container you have to first run it:
 
 ```nohighlight
-$ docker run -t -i --name changing_container  ubuntu:14.04 /bin/bash
-
+$ docker run -t -i --name changing_container ubuntu:14.04 /bin/bash
 ```
 
 Now when you’re inside the container, you can change it to your liking, e.g.:
