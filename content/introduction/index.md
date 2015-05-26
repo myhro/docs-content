@@ -31,7 +31,7 @@ To learn more about Docker and how to use it, see our [Introduction to Docker](/
 
 A Giant Swarm application consists of one or more services. These form logical units in your application describing domain or technical services. Examples would be a `user-service` or a `redis-service.` 
 
-Each service itself consists of one or more components. A component is backed by a Docker container by referencing its image. These images can be one of the many predifined images from the [Docker Hub](https://registry.hub.docker.com/) or can be built by yourself. If you follow our [Your first application](/guides/your-first-application/) tutorial, you will define your first Docker container within the next half an hour or less.
+Each service itself consists of one or more components. A component is backed by a Docker container by referencing its image. These images can be one of the many predefined images from the [Docker Hub](https://registry.hub.docker.com/) or can be built by yourself. If you follow our [Your first application](/guides/your-first-application/) tutorial, you will define your first Docker container within the next half an hour or less.
 
 ## What is the swarm.json?
 
@@ -101,13 +101,13 @@ helloworld      luebken/dev  2014-11-28 14:01:43  up
 
 The days of big monolith applications are long over. Modularizing your applications in services has been the way to go for some time. Each self-contained functionality constitutes a separate service. This makes them independently developable, deployable, and scalable. Each with its own potential database and programming language. The right tool for the job! The [12factor Apps](http://12factor.net/) paradigm goes even further by describing twelve fundamental requirements of modern Software-as-a-Service apps - worth looking at.
 
-Giant Swarm helps you creating apps in microservice fashion. Each service is truely separate and independently developable, deployable, and scalable. In the end it's up to you how much or little you put in a service.
+Giant Swarm helps you creating apps in microservice fashion. Each service is truly separate and independently developable, deployable, and scalable. In the end it's up to you how much or little you put in a service.
 
 ## Where to go from here?
 
 * If you don't have an account for Giant Swarm yet, [request an invite](https://giantswarm.io/) now. We have a waiting list and the sooner you get on the list, the sooner you will be able to start using Giant Swarm.
 
-* Once you have an acccount, check that everything is working fine using the Quick Start on the [documentation start page](/).
+* Once you have an account, check that everything is working fine using the Quick Start on the [documentation start page](/).
 
 * Then we recommend to create [Your first application - in your language](/guides/your-first-application/) on Giant Swarm.
 

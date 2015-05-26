@@ -8,7 +8,7 @@ weight = 40
 
 # Application configuration (`swarm.json`)
 
-Giant Swarm applications are defined using a JSON configuration file format. The configuration file is ususlly called `swarm.json`.
+Giant Swarm applications are defined using a JSON configuration file format. The configuration file is usually called `swarm.json`.
 
 This page explains in detail which configuration directives are available and how they work.
 
@@ -278,7 +278,7 @@ This key expects as value an array of one or more port numbers to be exposed for
 
 This key can hold an object which defines the number of minimum and maximum instances of this component to be allowed.
 
-If this is ommitted, exactly one instance of the according component is started during application startup.
+If this is omitted, exactly one instance of the according component is started during application startup.
 
 The Object given with this key can have two optional keys:
 
