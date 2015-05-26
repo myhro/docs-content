@@ -78,7 +78,7 @@ $ docker stop 113f2a688eb2
 To make this easier we can assign a name to a container, let’s combine that with assigning ports:
 
 ```nohighlight
-$ docker run -d redis -p 9736:6379 -name redis_container
+$ docker run -d -p 9736:6379 --name redis_container redis
 ```
 
 We just started a Redis container in the background, which is called redis_container. It exposes the host port 9736, which it connects to port 6379 (the standard Redis port) inside the container. So now, let's work with it.
@@ -92,7 +92,7 @@ To see which containers are currently running we can use the `docker ps` command
 To look at our application’s logs we can use `docker logs` like following:
 
 ```nohighlight
-$ docker logs -f redis
+$ docker logs -f redis_container
 ```
 
 The `-f` flag makes the command work like `tail -f` and watch the standard out of the container.
@@ -100,30 +100,30 @@ The `-f` flag makes the command work like `tail -f` and watch the standard out o
 If we want to go deeper into the container we can also let Docker show us the processes running inside a container:
 
 ```nohighlight
-$ docker top redis
+$ docker top redis_container
 ```
 
 Going even deeper we can let Docker give us an overview of configuration and status information for a given container:
 
 ```nohighlight
-$ docker inspect redis
+$ docker inspect redis_container
 ```
 
 Stopping and restarting a container is simple, too:
 
 ```nohighlight
-$ docker stop redis
-$ docker start redis
+$ docker stop redis_container
+$ docker start redis_container
 ```
 
 In case we don’t want the application anymore we can also remove it completely. Keep in mind that for removing a container you need to stop it first:
 
 ```nohighlight
-$ docker stop redis
-$ docker remove redis
+$ docker stop redis_container
+$ docker rm redis_container
 ```
 
-Now `docker ps -a` shouldn’t show our container anymore. 
+Now `docker ps -a` shouldn’t show our container anymore.
 
 ## Working with Images
 
@@ -161,14 +161,15 @@ Note, we recommend always trying to build an image from a Dockerfile, as this al
 However, let’s see what we have to do to change an existing container. For changing a container you have to first run it:
 
 ```nohighlight
-$ docker run -t -i ubuntu:14.04 /bin/bash -name changing_container
+$ docker run -t -i --name changing_container  ubuntu:14.04 /bin/bash
+
 ```
 
 Now when you’re inside the container, you can change it to your liking, e.g.:
 
 ```nohighlight
 $ apt-get update
-$ apt-get install default-jdk 
+$ apt-get install default-jdk
 ```
 
 Once you’re done, you need to exit your container using the `exit` command.
@@ -206,7 +207,7 @@ $ docker build -t yourusername/java:7 .
 This will result in a similar image as the above, only that we don’t need the `/bin/bash` now anymore to run it:
 
 ```nohighlight
-$ docker run -t -i yourusername/java:7 -name our_java
+$ docker run -t -i --name our_java yourusername/java:7
 ```
 
 Again use the `exit` command to exit the container. Additionally, you can add tags to an image after you have commited or built it.
