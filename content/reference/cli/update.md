@@ -10,7 +10,7 @@ weight = 70
 
 # Updating a component
 
-The `swarm update` command enables you to update the container version that's running in a specific component. This results in the component being stopped, the new image being pulled from the registry and then the component being restarted.
+The `swarm update` command enables you to update the container version that's running in a specific component. This results in the component being stopped, the new image being pulled from the registry and then the component being restarted. If your component is scaled to at least two instances, `swarm update` performs a rolling update, giving you zero downtime deployment out of the box.
 
 If a component was not running before the `swarm update` command is issued on it, it will be started as a result.
 
