@@ -232,7 +232,7 @@ Finally, we can push an image to the Docker Hub, so we can share it with others 
 $ docker push yourusername/java
 ```
 
-This will push the whole repository of `yourusername/java`, incl. all tags and changes to the Docker Hub. If you want to keep your images private, you can use our [private registry](http://docs.giantswarm.io/reference/registry/). This also creates a new `:latest` tag, which always points to the last image under the same name, even if the last one has a lower “version number”, e.g. `:6` (, which can happen e.g. when you fix an old version after already having a new one).
+This will push the whole repository of `yourusername/java`, incl. all tags and changes to the Docker Hub. If you want to keep your images private, you can use our [private registry](/reference/registry/). This also creates a new `:latest` tag, which always points to the last image under the same name, even if the last one has a lower “version number”, e.g. `:6` (, which can happen e.g. when you fix an old version after already having a new one).
 
 If you want to remove an image from your host, you can use the `docker rmi` command.
 
@@ -244,4 +244,4 @@ Note that this does only delete the local images on your host, not the images th
 
 You should now be equipped to use Docker enough, to get started and running with Giant Swarm in most use-cases. If you want to go a bit deeper, the Docker Documentation is a good place to start.
 
-When using Giant Swarm you usually need to use the Docker client mainly for building and pushing images to either the public Docker Hub (as described above) or our private registry. For the latter you can consult our [registry reference page](http://docs.giantswarm.io/reference/registry/).
+When using Giant Swarm you usually need to use the Docker client mainly for building and pushing images to either the public Docker Hub (as described above) or our private registry. For the latter you can consult our [registry reference page](/reference/registry/).
