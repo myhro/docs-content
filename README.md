@@ -2,7 +2,7 @@
 
 This is the source for all [Giant Swarm](https://giantswarm.io) documentation.
 
-Go to [http://docs.giantswarm.io/](http://docs.giantswarm.io/) for the production version of our documentation. That version also includes integrated search.
+Go to [https://docs.giantswarm.io/](https://docs.giantswarm.io/) for the production version of our documentation. That version also includes integrated search.
 
 ## Contributing
 
