@@ -21,6 +21,6 @@ This guide walks through creating a simple [Python Flask](http://flask.pocoo.org
 
 This guide give a short demo illustrating the use of [Giant Swarm's API](/reference/api/) using a handful of simple curl commands:
 
-<div class="embed-responsive embed-responsive-16by9">
+<div class="embed-responsive embed-responsive-16by9" style="padding-bottom: 56.5%">
   <iframe class="embed-responsive-item" width="560" height="315" src="https://player.vimeo.com/video/128089952" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
