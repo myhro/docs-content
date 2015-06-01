@@ -1,7 +1,7 @@
 +++
 title = "Giant Swarm API Reference"
 description = "The Giant Swarm API allows you to create, control and monitor applications programmatically. The reference contains descriptions of all building blocks."
-date = "2015-05-18"
+date = "2015-06-01"
 type = "page"
 categories = ["Reference", "API"]
 tags = ["api"]
