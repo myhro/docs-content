@@ -117,6 +117,8 @@ If you like to read (hear or watch) some more about Docker and Microservices, he
 
 ### Docker
 
+* [Introduction to Docker](/guides/introduction-to-docker/) - our own introductory Docker tutorial
+
 * [Docker Documentation](https://docs.docker.com/) - The official Docker docs
 
 * [The Docker Book](http://www.dockerbook.com/) - For book lovers, by James Turnbull
