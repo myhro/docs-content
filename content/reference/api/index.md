@@ -1292,7 +1292,7 @@ The user methods live under the `/v1/user/` endpoint. Where required, the `{user
 | Resource Path | Operation | Description |
 |-----|-----|-----|
 | /v1/user/\{user\}/login | [POST](#LoginUser) | Login as an existing user. |
-| /v1/token/logout | [POST](#LogoutUser) | Logout. This will invalidate all tokens of the currently logged in user. |
+| /v1/token/logout | [POST](#LogoutUser) | Logout. This will invalidate the token of the current request. |
 | /v1/user/me/email/update | [POST](#UpdateEmail) | Update the email address of the currently logged in user. |
 | /v1/user/me/password/update | [POST](#UpdatePassword) | Update the password of the currently logged in user. |
 | /v1/user/me | [GET](#GetMe) | Get information about the currently logged in user. |
