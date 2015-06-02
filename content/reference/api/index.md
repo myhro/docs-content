@@ -165,16 +165,14 @@ curl -sS \
 
 {
     "data": {
-        "Created": "2015-05-09 20:03:29.523713815 +0000 UTC",
         "Id": "e5239484-2299-41df-b901-d0568db7e3f9",
-        "UserId": "31928724-522b-4941-bb6b-35286622ff65"
     },
     "status_code": 10000,
     "status_text": "success"
 }
 ```
 
-*Note: Be careful when using the `base64` command to generate encoded data from STDIN. For example, the default behavior of `echo foo | base64` in bash will result in a line feed `'/n'` being encoded in the password. Giant Swarm's API will not authorize a password with an appended line feed or carriage return.*
+*Note: Be careful when using the `base64` command to generate encoded data from STDIN. For example, the default behavior of `echo foo | base64` in bash will result in a line feed `'\n'` being encoded in the password. Giant Swarm's API will not authorize a password with an appended line feed or carriage return.*
 
 ### Token Authentication
 
@@ -1322,9 +1320,7 @@ curl -sS \
 
 {
   "data": {
-    "Created": "2015-05-09 20:03:29.523713815 +0000 UTC",
     "Id": "e5239484-2299-41df-b901-d0568db7e3f9",
-    "UserId": "31928724-522b-4941-bb6b-35286622ff65"
   },
   "status_code": 10000,
   "status_text": "success"
