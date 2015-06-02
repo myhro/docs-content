@@ -1,7 +1,7 @@
 +++
 title = "API Changelog"
 description = "Description of all changes affecting the public Giant Swarm API, in reverse chronological order."
-date = "2015-05-20"
+date = "2015-06-02"
 type = "page"
 categories = ["Reference", "API"]
 tags = ["api"]
