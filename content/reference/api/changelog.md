@@ -12,9 +12,7 @@ weight = 100
 
 Here we list all changes affecting the mechanics of our public [API](/reference/api/), including new functionality and bug fixes, in reverse chronological order.
 
-## 2015-05-20
+## 2015-06-02
 
-* This is a test entry.
-* Whenever the first API changes are pushed, this content should be modified to describe the actual changes.
-* Also, please update the date sub-headline in the format `YYYY-MM-DD`.
-* All changes during one day, even if deployed in multiple steps, should appear under the same date sub-headline.
+* The `LoginUser` route at `/v1/user/{nameOrEmail}/login` now returns only the `Id` field in its `data` response. 
+
