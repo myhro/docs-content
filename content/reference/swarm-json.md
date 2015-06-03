@@ -244,7 +244,7 @@ When deciding on what domain name to use, you have two general options available
 
 Both options are explained in detail below.
 
-__Using the gigantic.io domain for your app__
+#### Using the gigantic.io domain for your app
 
 This option is the easiest, especially for applications in their early stage.
 
@@ -252,7 +252,7 @@ If you want to make your application available as `my-super-app.gigantic.io`, fi
 
 <i class="fa fa-exclamation-triangle"></i> As of now we do not yet have checks in place to ensure a `gigantic.io` subdomain is used only by one application. This could theoretically result in another user's application grabbing a name you want for yourself. This is clearly to be solved and we will come up with a solution rather sooner than later.
 
-__Using your own domain name__
+#### Using your own domain name
 
 If you plan to use your own domain name in your configuration, there is one configuration step to take care of on your side: please set up a CNAME entry for the desired subdomain pointing to `loadbalancer.giantswarm.io`. This can usually be done wherever the DNS settings for that domain are administered.
 
