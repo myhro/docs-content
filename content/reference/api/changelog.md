@@ -14,7 +14,8 @@ Here we list all changes affecting the mechanics of our public [API](/reference/
 
 <div class="well">
 <h4>Deprecation Notice</h4>
-<p>Route <code>/v1/org/{org}/env/{env}/app/</code>: The output provides, per listed application, the two keys <code>org</code> and <code>company</code> with identical values. Please prepare for the legacy <code>company</code> key disappearing some time soon.
+<p>Route <code>/v1/org/{org}/env/{env}/app/</code>: The output provides, per listed application, the two keys <code>org</code> and <code>company</code> with identical values. Please prepare for the legacy <code>company</code> key disappearing after June 30, 2015.</p>
+<p>Previous, undocumented API versions provided methods under routes starting with <code>/v1/company/</code>. Please use the according routes starting with <code>/v1/org/</code>. All routes under <code>/v1/company/</code> are deprecated and won't be provided any longer after June 30, 2015.</p>
 </div>
 
 
