@@ -306,11 +306,11 @@ Note that there currently is a hard [limit](https://giantswarm.io/limits/) of 10
 
 ### `namespace<TBD>`
 
-With the `namespace<TBD>` property you can group components closer together. All components in a `namespace<TBD>` share the same IP address, TCP/UDP port space, IPC objects, optionally share volumes and they will be scheduled on the same machine. If one of the components fail, all others will be restart as well.
+With the `namespace<TBD>` property you can group components closer together. All components in a `namespace<TBD>` share the same IP address, TCP/UDP port space, IPC objects, optionally share volumes, and will be scheduled on the same machine. If one of the components fails, all others in the group will be restarted as well.
 
-To put multiple components in a single `namespace<TBD>`, give all of them the same value for the `namespace<TBD>` property. Note that you can only group components from a single service together.
+To put multiple components in a single `namespace<TBD>`, give all of them the same value in the `namespace<TBD>` property. Note that you can only group components from a single service.
 
-If you scale a component in a `namespace<TBD>` all components in that group will be scaled. Note that each group on scaled instances will have their own namespaces and can be scheduled on different machines.
+If you scale a component in a `namespace<TBD>` all components in that group will be scaled. Note that each group of scaled instances will have their own namespace and can be scheduled on different machines. However, the grouping only occurs intra-machine, i.e. no instances are grouped between machines.
 
 ### `volumes`
 
@@ -318,7 +318,7 @@ When you stop an application component, all data written to the file system in t
 
 The `volumes` key expects an array of simple objects as value, one object for each volume you want to define. Each of these objects must have the following keys:
 
-* `path`: The path in which the volume will be mounted, as a string
+* `path`: The path, in which the volume will be mounted, as a string
 * `size`: A string defining the volume size in gigabytes in a format like `<n> GB`.
 
 or
@@ -329,7 +329,7 @@ or
 
 * `volume-from`: The name of another component in the same `namespace<TBD>`. 
 * `volume-path`: The `path` of a volume in the component referenced by `volume-from`. This volume from the referenced component will be mounted inside this component.
-* `path` (optional): If specified, this will be used as mounting point of the volume from the referenced component. If not specific, the mounting point will be equal to the mounting point of the referenced component.
+* `path` (optional): If specified, this will be used as mounting point of the volume from the referenced component. If not specified, the mounting point will be equal to the mounting point of the referenced component.
 
 <i class="fa fa-exclamation-triangle"></i> Please note that we currently do not provide a backup mechanism. If you need to preserve the data on your volumes, please think about a solution using for example an FTP server or cloud storage like Amazon S3 from within your component.
 
