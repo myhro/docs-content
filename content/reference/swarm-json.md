@@ -89,7 +89,24 @@ This example makes use of all possible keys to illustrate their use.
         {
           "component_name": "redis",
           "image": "dockerfile/redis",
-          "ports": [ 6379 ]
+          "ports": [ 6379 ],
+          "namespace<TDB>": "redis-group",
+          "volumes": [
+            {
+              "path": "/var/data",
+              "size": "10 GB"
+            }
+          ]
+        },
+        {
+          "component_name": "redis-backup",
+          "image": "custom/my-redis-backup-image",
+          "namespace<TBD>": "redis-group",
+          "volumes": [
+            {
+              "volumes-from": "redis"
+            }
+          ]
         }
       ]
     }
@@ -287,6 +304,14 @@ The Object given with this key can have two optional keys:
 
 Note that there currently is a hard [limit](https://giantswarm.io/limits/) of 10 instances per component.
 
+### `namespace<TBD>`
+
+With the `namespace<TBD>` property you can group components closer together. All components in a `namespace<TBD>` share the same IP address, TCP/UDP port space, IPC objects, optionally share volumes and they will be scheduled on the same machine. If one of the components fail, all others will be restart as well.
+
+To put multiple components in a single `namespace<TBD>`, give all of them the same value for the `namespace<TBD>` property. Note that you can only group components from a single service together.
+
+If you scale a component in a `namespace<TBD>` all components in that group will be scaled. Note that each group on scaled instances will have their own namespaces and can be scheduled on different machines.
+
 ### `volumes`
 
 When you stop an application component, all data written to the file system in the docker container representing this component is lost. With volumes you can preserve your data to survive stops and starts. The volumes you define will be created when the application is created and will be deleted upon application deletion.
@@ -295,6 +320,16 @@ The `volumes` key expects an array of simple objects as value, one object for ea
 
 * `path`: The path in which the volume will be mounted, as a string
 * `size`: A string defining the volume size in gigabytes in a format like `<n> GB`.
+
+or
+
+* `volumes-from`: The name of another component in the same `namespace<TBD>`. This component will have all volumes from the referenced component mounted at the same mount points.
+
+or
+
+* `volume-from`: The name of another component in the same `namespace<TBD>`. 
+* `volume-path`: The `path` of a volume in the component referenced by `volume-from`. This volume from the referenced component will be mounted inside this component.
+* `path` (optional): If specified, this will be used as mounting point of the volume from the referenced component. If not specific, the mounting point will be equal to the mounting point of the referenced component.
 
 <i class="fa fa-exclamation-triangle"></i> Please note that we currently do not provide a backup mechanism. If you need to preserve the data on your volumes, please think about a solution using for example an FTP server or cloud storage like Amazon S3 from within your component.
 
