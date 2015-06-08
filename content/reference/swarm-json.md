@@ -308,9 +308,9 @@ Note that there currently is a hard [limit](https://giantswarm.io/limits/) of 10
 
 With the `namespace<TBD>` property you can group components closer together. All components in a `namespace<TBD>` share the same IP address, TCP/UDP port space, IPC objects, optionally share volumes, and will be scheduled on the same machine. If one of the components fails, all others in the group will be restarted as well.
 
-To put multiple components in a single `namespace<TBD>`, give all of them the same value in the `namespace<TBD>` property. Note that you can only group components from a single service.
+To put multiple components in a single `namespace<TBD>`, give the `namespace<TBD>` property the same value for all of them. Note that you can only group components from a single service.
 
-If you scale a component in a `namespace<TBD>` all components in that group will be scaled. Note that each group of scaled instances will have their own namespace and can be scheduled on different machines. However, the grouping only occurs intra-machine, i.e. no instances are grouped between machines.
+If you scale a component in a `namespace<TBD>` all components in that group will be scaled. Note that each group of scaled instances will have their own namespaces and can be scheduled on different machines. Thus, each group of component instances is only part of their respective namspaces on one host, instances on different hosts do not share namespaces.
 
 ### `volumes`
 
