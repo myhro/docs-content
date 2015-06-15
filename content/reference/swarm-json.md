@@ -90,7 +90,7 @@ This example makes use of all possible keys to illustrate their use.
           "component_name": "redis",
           "image": "dockerfile/redis",
           "ports": [ 6379 ],
-          "namespace<TDB>": "redis-group",
+          "pod": "redis-group",
           "volumes": [
             {
               "path": "/var/data",
@@ -101,7 +101,7 @@ This example makes use of all possible keys to illustrate their use.
         {
           "component_name": "redis-backup",
           "image": "custom/my-redis-backup-image",
-          "namespace<TBD>": "redis-group",
+          "pod": "redis-group",
           "volumes": [
             {
               "volumes-from": "redis"
@@ -304,13 +304,13 @@ The Object given with this key can have two optional keys:
 
 Note that there currently is a hard [limit](https://giantswarm.io/limits/) of 10 instances per component.
 
-### `namespace<TBD>`
+### `pod`
 
-With the `namespace<TBD>` property you can group components closer together. All components in a `namespace<TBD>` share the same IP address, TCP/UDP port space, IPC objects, optionally share volumes, and will be scheduled on the same machine. If one of the components fails, all others in the group will be restarted as well.
+With the `pod` property you can group components closer together. All components in a `pod` share the same IP address, TCP/UDP port space, IPC objects, optionally share volumes, and will be scheduled on the same machine. If one of the components fails, all others in the group will be restarted as well.
 
-To put multiple components in a single `namespace<TBD>`, give the `namespace<TBD>` property the same value for all of them. Note that you can only group components from a single service.
+To put multiple components in a single `pod`, give the `pod` property the same value for all of them. Note that you can only group components from a single service.
 
-If you scale a component in a `namespace<TBD>` all components in that group will be scaled. Note that each group of scaled instances will have their own namespaces and can be scheduled on different machines. Thus, each group of component instances is only part of their respective namspaces on one host, instances on different hosts do not share namespaces.
+If you scale a component in a `pod` all components in that group will be scaled. Note that each group of scaled instances will have their own namespaces and can be scheduled on different machines. Thus, each group of component instances is only part of their respective namspaces on one host, instances on different hosts do not share namespaces.
 
 ### `volumes`
 
@@ -323,11 +323,11 @@ The `volumes` key expects an array of simple objects as value, one object for ea
 
 or
 
-* `volumes-from`: The name of another component in the same `namespace<TBD>`. This component will have all volumes from the referenced component mounted at the same mount points.
+* `volumes-from`: The name of another component in the same `pod`. This component will have all volumes from the referenced component mounted at the same mount points.
 
 or
 
-* `volume-from`: The name of another component in the same `namespace<TBD>`. 
+* `volume-from`: The name of another component in the same `pod`. 
 * `volume-path`: The `path` of a volume in the component referenced by `volume-from`. This volume from the referenced component will be mounted inside this component.
 * `path` (optional): If specified, this will be used as mounting point of the volume from the referenced component. If not specified, the mounting point will be equal to the mounting point of the referenced component.
 
