@@ -28,12 +28,6 @@ To quickly return the latest 10 log entries for an instance, simply give the ins
 $ swarm logs <instance-id>
 ```
 
-Or
-
-```nohighlight
-$ swarm logs <app/service/component>
-```
-
 ## Returning more log messages
 
 To adjust the number of log messages to be returned from the end, use the `--tail` or `-t` parameter and use it to set the number of entries to return. The syntax is like this:
