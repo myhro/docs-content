@@ -64,7 +64,7 @@ The API is currently in Version 1.0, indicated by the `/v1/` path:
 https://api.giantswarm.io/v1/
 ```
 
-The `/org/`, `/env/` and `/app/` path parameters denote the concepts of organizations, environments and applications within the Giant Swarm service. These are respectively combined with their named objects within the system. 
+The `/org/`, `/env/` and `/app/` path parameters denote the concepts of organizations, environments and applications within the Giant Swarm service. These are respectively combined with their named objects within the system.
 
 Here is an example URL which refers to information about the organization named `bantic`:
 
@@ -143,7 +143,7 @@ $ cat ~/.swarm/token; echo;
 e5239484-2299-41df-b901-d0568db7e3f9
 ```
 
-Authentication tokens may also be obtained by using the `/v1/user/{username}/login` endpoint while sending an encoded password via an `application/json` content type inside the `POST` request. 
+Authentication tokens may also be obtained by using the `/v1/user/{username}/login` endpoint while sending an encoded password via an `application/json` content type inside the `POST` request.
 
 ### Password Authentication
 
@@ -575,7 +575,7 @@ curl -sS \
 
 *Note: If you run this example, you will need to checkout the repo:*
 
-`git clone https://github.com/giantswarm/python-flask-helloworld.git` 
+`git clone https://github.com/giantswarm/python-flask-helloworld.git`
 
 #### Example JSON File
 
@@ -1004,16 +1004,26 @@ curl -sS \
 
 ### Update an Existing Component {#UpdateComponent}
 
-To update a service component's image for an application, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/version/{version}/update` endpoint:
+To update a service component's image for an application, call the `POST` method on the `/v1/org/{org}/env/{env}/app/{app}/service/{service}/version/{version}/update` endpoint.
+You can optionally choose among three different rolling update strategies that will
+change the way this update operation is triggered over your component.
+
+These strategies are:
+
+* `one-for-one(default)` updates one after the other all the instances of your component.
+* `all-at-once` updates all the instances of your component at once.
+* `hot-swap` replaces the current instances by new ones with the desired version.
 
 ```nohighlight
 curl -sS \
     -X POST \
     -H "Authorization: giantswarm {token}" \
+    -H "Content-Type: application/json" \
+    --data '{"strategy":"one-for-one|all-at-once|hot-swap"}' \
     https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/version/{version}/update
 ```
 
-*Note: Updating a component's image is limited to changing the tagged version of the image. You may not change the image name with an update.* 
+*Note: Updating a component's image is limited to changing the tagged version of the image. You may not change the image name with an update.*
 
 #### Example with JSON Response
 This example updates the current service component to use the [3.3.6 version of the Python image](https://registry.hub.docker.com/_/python/) in the Docker Index:
@@ -1289,7 +1299,7 @@ curl -sS https://api.giantswarm.io/v1/ping
 
 ## User Methods {#user}
 
-The user methods live under the `/v1/user/` endpoint. Where required, the `{user}` parameter indicates the value of the user's `username`. 
+The user methods live under the `/v1/user/` endpoint. Where required, the `{user}` parameter indicates the value of the user's `username`.
 
 | Resource Path | Operation | Description |
 |-----|-----|-----|

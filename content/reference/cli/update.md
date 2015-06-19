@@ -10,7 +10,13 @@ weight = 70
 
 # Updating a component
 
-The `swarm update` command enables you to update the container version that's running in a specific component. This results in the component being stopped, the new image being pulled from the registry and then the component being restarted. If your component is scaled to at least several instances, `swarm update` performs a rolling update. Ideally, this gives you zero downtime deployment out of the box. However, the current implementation may lead to short downtimes in cases with rather few instances (e.g. 2 or 3).
+The `swarm update` command enables you to update the container version that's running in a specific component. This results in the component being stopped, the new image being pulled from the registry and then the component being restarted. If your component is scaled to at least several instances, `swarm update` performs a rolling update. According to that, we offer three different rolling update strategies which ideally gives you zero downtime deployment out of the box.
+
+These rolling update strategies are:
+
+* `one-for-one (default)`: It updates all the instances of your component one after the other.
+* `all-at-once`: It updates all the instances of your component at a time.
+* `hot-swap`: It replaces all the instances of your component by new ones with the desired version.
 
 If a component was not running before the `swarm update` command is issued on it, it will be started as a result.
 
@@ -60,6 +66,18 @@ For example, to update `yourapp/yourservice/yourcomponent` to use version `2.7.3
 ```nohighlight
 $ swarm update yourapp/yourservice/yourcomponent 2.7.3
 ```
+
+## Updating a component using a specific strategy {#specificversion}
+
+Based on the example shown above, you can also specify the type of rolling uptade strategy you want to use
+when updating your component. To do so, you would add the flag `-s|--strategy` followed by the selected strategy.
+
+```nohighlight
+$ swarm update -s hot-plug yourapp/yourservice/yourcomponent 2.7.3
+$ swarm update -s one-for-one yourapp/yourservice/yourcomponent 2.7.3
+$ swarm update -s all-at-once yourapp/yourservice/yourcomponent 2.7.3
+```
+
 
 ### Further reading
 
