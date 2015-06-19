@@ -18,4 +18,4 @@ Here we list all changes affecting the mechanics of our public [API](/reference/
 
 ## 2015-06-19
 
-* The `UpdateComponent` route at `/v1/company/{company}/env/{env}/app/{app}/service/{service}/component/{component}/version/{version}/update` now requires a body specifying the `rolling update strategy` to use, e.g. `{"strategy": "one-by-one"}`.
+* The `UpdateComponent` route at `/v1/company/{company}/env/{env}/app/{app}/service/{service}/component/{component}/version/{version}/update` now could optionally include in body the `rolling update strategy` to use, e.g. `{"strategy": "one-by-one"}`.
