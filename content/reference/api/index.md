@@ -1010,9 +1010,9 @@ change the way this update operation is triggered over your component.
 
 These strategies are:
 
-* `one-for-one(default)` updates one after the other all the instances of your component.
+* `one-for-one`(default) updates all the instances of your component one after the other.
 * `all-at-once` updates all the instances of your component at once.
-* `hot-swap` replaces the current instances by new ones with the desired version.
+* `hot-swap` replaces all current instances by new ones with the desired version with zero-downtime.
 
 ```nohighlight
 curl -sS \
