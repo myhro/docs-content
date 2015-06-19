@@ -89,7 +89,24 @@ This example makes use of all possible keys to illustrate their use.
         {
           "component_name": "redis",
           "image": "dockerfile/redis",
-          "ports": [ 6379 ]
+          "ports": [ 6379 ],
+          "pod": "redis-group",
+          "volumes": [
+            {
+              "path": "/var/data",
+              "size": "10 GB"
+            }
+          ]
+        },
+        {
+          "component_name": "redis-backup",
+          "image": "custom/my-redis-backup-image",
+          "pod": "redis-group",
+          "volumes": [
+            {
+              "volumes-from": "redis"
+            }
+          ]
         }
       ]
     }
@@ -287,14 +304,32 @@ The Object given with this key can have two optional keys:
 
 Note that there currently is a hard [limit](https://giantswarm.io/limits/) of 10 instances per component.
 
+### `pod`
+
+With the `pod` property you can group components closer together. All components in a `pod` share the same IP address, TCP/UDP port space, IPC objects, optionally share volumes, and will be scheduled on the same machine. If one of the components fails, all others in the group will be restarted as well.
+
+To put multiple components in a single `pod`, give the `pod` property the same value for all of them. Note that you can only group components from a single service.
+
+If you scale a component in a `pod` all components in that group will be scaled. Note that each group of scaled instances will have their own namespaces and can be scheduled on different machines. Thus, each group of component instances is only part of their respective namspaces on one host, instances on different hosts do not share namespaces.
+
 ### `volumes`
 
 When you stop an application component, all data written to the file system in the docker container representing this component is lost. With volumes you can preserve your data to survive stops and starts. The volumes you define will be created when the application is created and will be deleted upon application deletion.
 
 The `volumes` key expects an array of simple objects as value, one object for each volume you want to define. Each of these objects must have the following keys:
 
-* `path`: The path in which the volume will be mounted, as a string
+* `path`: The path, in which the volume will be mounted, as a string
 * `size`: A string defining the volume size in gigabytes in a format like `<n> GB`.
+
+or
+
+* `volumes-from`: The name of another component in the same `pod`. This component will have all volumes from the referenced component mounted at the same mount points.
+
+or
+
+* `volume-from`: The name of another component in the same `pod`. 
+* `volume-path`: The `path` of a volume in the component referenced by `volume-from`. This volume from the referenced component will be mounted inside this component.
+* `path` (optional): If specified, this will be used as mounting point of the volume from the referenced component. If not specified, the mounting point will be equal to the mounting point of the referenced component.
 
 <i class="fa fa-exclamation-triangle"></i> Please note that we currently do not provide a backup mechanism. If you need to preserve the data on your volumes, please think about a solution using for example an FTP server or cloud storage like Amazon S3 from within your component.
 
