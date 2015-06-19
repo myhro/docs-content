@@ -1012,7 +1012,7 @@ These strategies are:
 
 * `one-for-one`(default) updates all the instances of your component one after the other.
 * `all-at-once` updates all the instances of your component at once.
-* `hot-swap` replaces all current instances by new ones with the desired version with zero-downtime.
+* `hot-swap` replaces all current instances by new ones with the desired version with zero downtime.
 
 ```nohighlight
 curl -sS \
