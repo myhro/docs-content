@@ -31,7 +31,7 @@ $ swarm logs <instance-id>
 Or
 
 ```nohighlight
-$ swarm logs <instance-id>
+$ swarm logs <app/service/component>
 ```
 
 ## Returning more log messages
