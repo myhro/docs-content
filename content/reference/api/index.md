@@ -1010,7 +1010,7 @@ change the way this update operation is triggered over your component.
 
 These strategies are:
 
-* `one-for-one`(default) updates all the instances of your component one after the other.
+* `one-by-one`(default) updates all the instances of your component one after the other.
 * `all-at-once` updates all the instances of your component at once.
 * `hot-swap` replaces all current instances by new ones with the desired version with zero downtime.
 
@@ -1019,7 +1019,7 @@ curl -sS \
     -X POST \
     -H "Authorization: giantswarm {token}" \
     -H "Content-Type: application/json" \
-    --data '{"strategy":"one-for-one|all-at-once|hot-swap"}' \
+    --data '{"strategy":"one-by-one|all-at-once|hot-swap"}' \
     https://api.giantswarm.io/v1/org/{org}/env/{env}/app/{app}/service/{service}/component/{component}/version/{version}/update
 ```
 

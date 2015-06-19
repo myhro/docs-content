@@ -14,7 +14,7 @@ The `swarm update` command enables you to update the container version that's ru
 
 These rolling update strategies are:
 
-* `one-for-one (default)`: It updates all the instances of your component one after the other.
+* `one-by-one (default)`: It updates all the instances of your component one after the other.
 * `all-at-once`: It updates all the instances of your component at a time.
 * `hot-swap`: It replaces all the instances of your component by new ones with the desired version.
 
@@ -74,7 +74,7 @@ when updating your component. To do so, you would add the flag `-s|--strategy` f
 
 ```nohighlight
 $ swarm update -s hot-plug yourapp/yourservice/yourcomponent 2.7.3
-$ swarm update -s one-for-one yourapp/yourservice/yourcomponent 2.7.3
+$ swarm update -s one-by-one yourapp/yourservice/yourcomponent 2.7.3
 $ swarm update -s all-at-once yourapp/yourservice/yourcomponent 2.7.3
 ```
 
