@@ -14,11 +14,11 @@ Here we list the more important changes we made between releases. See our [insta
 
 Released 2015-06-19
 
-* There's a new component-level configuration key `pod`, with which you can group several components for sharing namespaces between them- You can read more about it on the [`swarm.json` reference page](/reference/cli/swarm-json#pod).
+* There's a new component-level configuration key `pod`, with which you can group several components for sharing namespaces between them. You can read more about it on the [`swarm.json` reference page](/reference/cli/swarm-json#pod).
 * Above mentioned `pod` key allows for the new `volumes-from`and `volume-from` keys under the `volumes` key. Read more on the respective [`swarm.json` reference page](/reference/cli/swarm-json#volumes).
-* You can now choose update strategies for `swarm update`. Choose between `one-by-one`, `all-together`, and `hot-swap`. Read more at XXX
+* You can now choose update strategies for `swarm update` with `-s <update-strategy>. Choose between `one-by-one`, `all-at-once`, and `hot-swap`. Read more on the [`update` reference page](/reference/cli/update).
 * `swarm` is now compiled statically, making it possible to run inside boot2docker. For example on a Windows machine.
-* The new `--config-dir` option has been introduced. You can use it for custom configuration directories.
+* The new `--config-dir` option has been introduced, to define custom configuration directories.
 
 ## Version 0.17.0
 
