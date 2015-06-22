@@ -1,7 +1,7 @@
 +++
 title = "Global command line options"
 description = "This is the reference page for the global command line options of the 'swarm' CLI."
-date = "2014-11-08"
+date = "2015-06-22"
 type = "page"
 weight = 30
 +++
