@@ -1,7 +1,7 @@
 +++
 title = "Global command line options"
 description = "This is the reference page for the global command line options of the 'swarm' CLI."
-date = "2014-11-08"
+date = "2015-06-22"
 type = "page"
 weight = 30
 +++
@@ -45,3 +45,7 @@ Explicitly sets the [environment](/reference/cli/env/) used. If set, this overri
 Example:
 
     --env="myorganization/production"
+
+### `--config-dir`
+
+Explicitly sets the configuration directory of your swarm CLI. If set, this overrides the default directory (´$HOME/.swarm´), but only for this very command. You can use this to easily switch between users on the same computer.
