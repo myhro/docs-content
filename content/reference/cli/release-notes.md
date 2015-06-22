@@ -18,7 +18,7 @@ Released 2015-06-22
 * Above mentioned `pod` key allows for the new `volumes-from`and `volume-from` keys under the `volumes` key. Read more on the respective [`swarm.json` reference page](/reference/cli/swarm-json#volumes).
 * You can now choose update strategies for `swarm update` with `-s <update-strategy>`. Choose between `one-by-one`, `all-at-once`, and `hot-swap`. Read more on the [`update` reference page](/reference/cli/update).
 * `swarm` is now compiled statically, making it possible to run inside boot2docker (e.g. on a Windows machine).
-* The new `--config-dir` option has been introduced, to set custom configuration directories. Read more on the [global ooptions reference page](/reference/cli/global-options).
+* The new `--config-dir` option has been introduced, to set custom configuration directories. Read more on the [global options reference page](/reference/cli/global-options).
 
 ## Version 0.17.0
 
