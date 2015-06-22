@@ -1,7 +1,7 @@
 +++
 title = "Release Notes"
 description = "Release notes and changelog for the swarm CLI, showing you what has changed form release to release."
-date = "2015-06-19"
+date = "2015-06-22"
 type = "page"
 weight = 10
 +++
@@ -12,7 +12,7 @@ Here we list the more important changes we made between releases. See our [insta
 
 ## Version 0.18.0
 
-Released 2015-06-19
+Released 2015-06-22
 
 * There's a new component-level configuration key `pod`, with which you can group several components for sharing namespaces between them. You can read more about it on the [`swarm.json` reference page](/reference/cli/swarm-json#pod).
 * Above mentioned `pod` key allows for the new `volumes-from`and `volume-from` keys under the `volumes` key. Read more on the respective [`swarm.json` reference page](/reference/cli/swarm-json#volumes).
