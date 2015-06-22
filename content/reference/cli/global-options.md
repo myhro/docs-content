@@ -45,3 +45,7 @@ Explicitly sets the [environment](/reference/cli/env/) used. If set, this overri
 Example:
 
     --env="myorganization/production"
+
+### `--config-dir`
+
+Explicitly sets the configuration directory of your swarm CLI. If set, this overrides the default directory (´$HOME/.swarm´), but only for this very command. You can use this to easily switch between users on one computer.
