@@ -48,4 +48,4 @@ Example:
 
 ### `--config-dir`
 
-Explicitly sets the configuration directory of your swarm CLI. If set, this overrides the default directory (´$HOME/.swarm´), but only for this very command. You can use this to easily switch between users on one computer.
+Explicitly sets the configuration directory of your swarm CLI. If set, this overrides the default directory (´$HOME/.swarm´), but only for this very command. You can use this to easily switch between users on the same computer.
