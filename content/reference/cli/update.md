@@ -15,7 +15,7 @@ The `swarm update` command enables you to update the container version that's ru
 These rolling update strategies are:
 
 * `one-by-one`(default): Updates all instances of your component one after the other.
-* `all-at-once`: Updates all instances of your component one at a time.
+* `all-at-once`: Updates all instances of your component at the same time.
 * `hot-swap`: Replaces all instances of your component by new ones with the desired version with zero downtime.
 
 If a component was not running before the `swarm update` command is issued on it, it will be started as a result.
