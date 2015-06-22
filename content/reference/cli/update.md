@@ -69,7 +69,7 @@ $ swarm update yourapp/yourservice/yourcomponent 2.7.3
 
 ## Updating a component using a specific strategy {#specificversion}
 
-Based on the example shown above, you can also specify the type of rolling uptade strategy you want to use
+Based on the example shown above, you can also specify the type of rolling update strategy you want to use
 when updating your component. To do so, you would add the flag `-s|--strategy` followed by the selected strategy.
 
 ```nohighlight
