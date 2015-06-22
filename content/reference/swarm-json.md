@@ -267,7 +267,7 @@ This option is the easiest, especially for applications in their early stage.
 
 If you want to make your application available as `my-super-app.gigantic.io`, fine. Simply enter that string as a key in the `domains` setting and make it point to the correct port. There is nothing else you have to take care of. (You might want to test before if that subdomain is already in use by someone.)
 
-<i class="fa fa-exclamation-triangle"></i> As of now we do not yet have checks in place to ensure a `gigantic.io` subdomain is used only by one application. This could theoretically result in another user's application grabbing a name you want for yourself. This is clearly to be solved and we will come up with a solution rather sooner than later.
+<i class="fa fa-exclamation-triangle"></i> As of now we do not yet have checks in place to ensure a `gigantic.io` subdomain is used only by one application. This could theoretically result in another user's application grabbing a name you want for yourself. This is clearly to be solved and we will come up with a solution sooner rather than later.
 
 #### Using your own domain name {#own-domain-name}
 
