@@ -73,7 +73,7 @@ Based on the example shown above, you can also specify the type of rolling uptad
 when updating your component. To do so, you would add the flag `-s|--strategy` followed by the selected strategy.
 
 ```nohighlight
-$ swarm update -s hot-plug yourapp/yourservice/yourcomponent 2.7.3
+$ swarm update -s hot-swap yourapp/yourservice/yourcomponent 2.7.3
 $ swarm update -s one-by-one yourapp/yourservice/yourcomponent 2.7.3
 $ swarm update -s all-at-once yourapp/yourservice/yourcomponent 2.7.3
 ```
