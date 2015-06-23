@@ -310,7 +310,7 @@ With the `pod` property you can group components closer together. All components
 
 To put multiple components in a single `pod`, give the `pod` property the same value for all of them. Note that you can only group components from a single service.
 
-If you scale a component in a `pod` all components in that group will be scaled. Note that each group of scaled instances will have their own namespaces and can be scheduled on different machines. Thus, each group of component instances is only part of their respective namspaces on one host, instances on different hosts do not share namespaces.
+If you scale a component in a `pod` all components in that group will be scaled. Note that each group of scaled instances will have their own namespaces and can be scheduled on different machines. Thus, each group of component instances is only part of their respective namespaces on one host, instances on different hosts do not share namespaces.
 
 ### `volumes`
 
