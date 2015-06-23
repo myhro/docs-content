@@ -1,7 +1,7 @@
 +++
 title = "Application configuration (swarm.json)"
 description = "This is the reference page for the application configuration file, usually called 'swarm.json'."
-date = "2015-02-10"
+date = "2015-06-23"
 type = "page"
 weight = 40
 +++
