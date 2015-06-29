@@ -9,7 +9,7 @@ categories = ["basic"]
 
 # Your first application — in your language
 
-<p class="lead">Get real with your first application on Giant Swarm. Learn how to configure an application, build a custom Docker image, link containers and control your application.</p>
+Get real with your first application on Giant Swarm. Learn how to configure an application, build a custom Docker image, link containers and control your application.
 
 ## Select your preferred language/platform
 
