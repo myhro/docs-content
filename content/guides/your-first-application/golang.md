@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Go"
 description = "Your first Go/Golang application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-05-19"
+date = "2015-06-29"
 type = "page"
 weight = 50
 categories = ["basic"]
@@ -30,13 +30,13 @@ $ cd giantswarm-firstapp-go
 If you're not the type who likes to read a lot, we have a [Makefile](https://github.com/giantswarm/giantswarm-firstapp-go/blob/master/Makefile) in the repository. This file helps you to get everything described below going using these commands:
 
 ```nohighlight
-$ swarm login <yourusername>
-$ make # Build the linux go binary
-$ make docker-build # Build the Docker image
-$ make docker-run-redis # Run the redis container
-$ make docker-run # Run the Go container
-$ make docker-push # Push the Go container
-$ make swarm-up # Start the application on Giant Swarm
+$ swarm login
+$ make
+$ make docker-build
+$ make docker-run-redis
+$ make docker-run
+$ make docker-push
+$ make swarm-up
 ```
 
 Everybody else, follow the path to wisdom and read on.
