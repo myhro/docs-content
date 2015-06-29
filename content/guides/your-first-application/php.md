@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in PHP"
 description = "Your first PHP application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-05-19"
+date = "2015-06-29"
 type = "page"
 weight = 60
 categories = ["basic"]
@@ -31,7 +31,7 @@ $ cd giantswarm-firstapp-php
 If you're not the type who likes to read a lot, we have a [Makefile](https://github.com/giantswarm/giantswarm-firstapp-php/blob/master/Makefile) in the repository. This file helps you to get everything described below going using these commands:
 
 ```nohighlight
-$ swarm login <yourusername>
+$ swarm login
 $ make docker-build
 $ make docker-run-redis
 $ make docker-run
@@ -45,16 +45,16 @@ Everybody else, follow the path to wisdom and read on.
 
 We have a Docker task ahead of us that could be a little time-consuming. The good thing is that we can make things a lot faster with some preparation. As a side effect, you can make sure that `docker` is working as expected on your system.
 
-We need to pull two images from the public Docker library, namely `redis` and `php:5.6-cli`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
+We need to pull two images from the public Docker library, namely `redis:latest` and `php:5.6-cli`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
 
 ```nohighlight
-$ docker pull redis && docker pull php:5.6-cli
+$ docker pull redis:latest && docker pull php:5.6-cli
 ```
 
 __For Linux users__: You probably have to call the `docker` binary with root privileges, so please use `sudo docker` whenever the docker command is required here. For example, initiate the prefetching like this:
 
 ```nohighlight
-$ sudo docker pull redis && sudo docker pull php:5.6-cli
+$ sudo docker pull redis:latest && sudo docker pull php:5.6-cli
 ```
 
 We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
@@ -80,34 +80,43 @@ Our PHP component consists of only one file called [index.php](https://github.co
 We now create a Docker image for the PHP component. Here is the `Dockerfile` we use for that purpose:
 
 ```Dockerfile
+# https://registry.hub.docker.com/_/php/
 FROM php:5.6-cli
 
-RUN apt-get update && apt-get install -y zlib1g-dev
-RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz
-RUN tar xvfz /tmp/redis.tar.gz
-RUN mv phpredis-2.2.7 /usr/src/php/ext/redis
-RUN docker-php-ext-install redis zip
+# install php redis extension from source, composer
+RUN apt-get update -q \
+	&& apt-get install -y zlib1g-dev \
+	&& curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
+	&& tar xfz /tmp/redis.tar.gz \
+	&& rm -r /tmp/redis.tar.gz \
+	&& mv phpredis-2.2.7 /usr/src/php/ext/redis \
+	&& docker-php-ext-install redis zip \
+	&& mkdir -p /usr/src/firstapp \
+	&& cd /usr/src/firstapp \
+	&& curl -sS https://getcomposer.org/installer|php \
+	&& apt-get purge -y zlib1g-dev \
+	&& rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /usr/src/firstapp
 WORKDIR /usr/src/firstapp
-RUN curl -sS https://getcomposer.org/installer | php
 
+# use composer to install dependencies
 ADD composer.json /usr/src/firstapp/composer.json
 RUN ./composer.phar install
 
+# copy the rest of the application into the image
 COPY . /usr/src/firstapp
 EXPOSE 80
 ENTRYPOINT ["php", "-S", "0.0.0.0:80", "-t", "web/"]
 ```
 
-As you can see, we use the official [PHP Docker image](https://registry.hub.docker.com/u/library/php/) as a basis. We install the PHP Redis module.
+As you can see, we use the official [PHP Docker image](https://registry.hub.docker.com/_/php/) as a basis. We install the PHP Redis module.
 
 The prefetching of Docker images you started a couple of minutes ago should be finished by now. If not, please wait a few more minutes until it's done.
 
 Assuming that your Giant Swarm username is `yourusername`, to build the image, you  then execute:
 
 ```nohighlight
-$ docker build -t registry.giantswarm.io/yourusername/currentweather ./
+$ docker build -t registry.giantswarm.io/yourusername/currentweather-php ./
 ```
 
 ## Testing locally
@@ -115,13 +124,13 @@ $ docker build -t registry.giantswarm.io/yourusername/currentweather ./
 To test locally before deploying to Giant Swarm, we also need a Redis server. This is very easy to be set up, since we can use a standard image here without any modification. Simply run this to start your local Redis server container:
 
 ```nohighlight
-$ docker run --name=redis -d redis
+$ docker run --name=currentweather-redis-container -d redis
 ```
 
 Now let's start the server container for which we just created the Docker image. Here is the command (replace `yourusername` with your username):
 
 ```nohighlight
-$ docker run --link redis:redis -p 80:80 -ti --rm registry.giantswarm.io/yourusername/currentweather
+$ docker run --link currentweather-redis-container:redis -p 80:80 -ti --rm registry.giantswarm.io/yourusername/currentweather-php
 ```
 
 It should be running. But we need proof! Let's issue an HTTP request.
@@ -180,7 +189,7 @@ You will be prompted for username, password and email. Use your Giant Swarm acco
 Still assuming that your username is `yourusername`, you can now push the image like this:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/yourusername/currentweather
+$ docker push registry.giantswarm.io/yourusername/currentweather-php
 ```
 
 ### Configuring your application
@@ -198,7 +207,7 @@ Pay close attention to how we create a link between our two components by defini
       "components": [
         {
           "component_name": "php",
-          "image": "registry.giantswarm.io/$username/currentweather",
+          "image": "registry.giantswarm.io/$username/currentweather-php",
           "ports": [80],
           "dependencies": [
             {
