@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Java"
 description = "Your first Java application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-05-19"
+date = "2015-06-29"
 type = "page"
 weight = 55
 categories = ["basic"]
@@ -32,10 +32,10 @@ $ cd giantswarm-firstapp-java
 If you're not the type who likes to read a lot, we have a [Makefile](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/Makefile) in the repository. This file helps you get everything described below running using these commands:
 
 ```nohighlight
-$ swarm login <yourusername>
+$ swarm login
 $ make docker-build
 $ make docker-run-redis
-$ make docker-run-application
+$ make docker-run
 $ make docker-push
 $ make swarm-up
 ```
