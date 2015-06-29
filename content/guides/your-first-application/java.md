@@ -270,5 +270,5 @@ If you're still hungry, why not continue with a more advanced tutorial?
 ## Further reading
 
 * [Your first application - in your language](/guides/your-first-application/): this guide in other languages
-* [Swarmify Ruby on Rails](/guides/ruby_on_rails/) - a simple Rails example involving MySQL
+* [Swarmify Ruby on Rails](/guides/ruby-on-rails/) - a simple Rails example involving MySQL
 * [Getting started with Docker and MeanJS](http://blog.giantswarm.io/getting-started-with-docker-and-meanjs) - Easily adaptable to Giant Swarm with the experience you have by now.
