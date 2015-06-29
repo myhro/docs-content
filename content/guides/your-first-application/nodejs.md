@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in NodeJS"
 description = "Your first NodeJS application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-05-19"
+date = "2015-06-29"
 type = "page"
 weight = 50
 categories = ["basic"]
@@ -31,7 +31,7 @@ $ cd giantswarm-firstapp-nodejs
 If you're not the type who likes to read a lot, we have a [Makefile](https://github.com/giantswarm/giantswarm-firstapp-nodejs/blob/master/Makefile) in the repository. This file helps you to get everything described below going using these commands:
 
 ```nohighlight
-$ swarm login <yourusername>
+$ swarm login
 $ make docker-build
 $ make docker-run-redis
 $ make docker-run
@@ -45,16 +45,16 @@ Everybody else, follow the path to wisdom and read on.
 
 We have a Docker task ahead of us that could be a little time-consuming. The good thing is that we can make things a lot faster with some preparation. As a side effect, you can make sure that `docker` is working as expected on your system.
 
-We need to pull two images from the public Docker library, namely `redis` and `google/nodejs`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
+We need to pull two images from the public Docker library, namely `redis:latest` and `nodejs:0.10-slim`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
 
 ```nohighlight
-$ docker pull redis && docker pull google/nodejs
+$ docker pull redis:latest && docker pull nodejs:0.10-slim
 ```
 
 __For Linux users__: You probably have to call the `docker` binary with root privileges, so please use `sudo docker` whenever the docker command is required here. For example, initiate the prefetching like this:
 
 ```nohighlight
-$ sudo docker pull redis && sudo docker pull google/nodejs
+$ sudo docker pull redis:latest && sudo docker pull nodejs:0.10-slim
 ```
 
 We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
@@ -85,16 +85,15 @@ If you're interested in the internal workings of the server, check their content
 We now create a Docker image for our NodeJS server. Here is the `Dockerfile` we use for that purpose:
 
 ```Dockerfile
-FROM google/nodejs
+FROM node:0.10-slim
 
 WORKDIR /app
-
 ADD package.json /app/
 ADD server.js /app/
 RUN npm install
 
 EXPOSE 1337
-CMD ["/nodejs/bin/node", "server.js"]
+ENTRYPOINT ["node", "server.js"]
 ```
 
 As you can see, we use a [NodeJS image provided by Google](https://registry.hub.docker.com/u/google/nodejs/) as a basis. That means NodeJS is already in place. All we have to do is add the two files we introduced earlier to the container and execute `npm install` inside it.
@@ -104,7 +103,7 @@ The prefetching of Docker images you started a couple of minutes ago should be f
 Assuming that your Giant Swarm username is `yourusername`, to build the image, you  then execute:
 
 ```nohighlight
-$ docker build -t registry.giantswarm.io/yourusername/currentweather ./
+$ docker build -t registry.giantswarm.io/yourusername/currentweather-nodejs ./
 ```
 
 ## Testing locally
@@ -112,13 +111,13 @@ $ docker build -t registry.giantswarm.io/yourusername/currentweather ./
 To test locally before deploying to Giant Swarm, we also need a redis server. This is very simple, since we can use a standard image here without any modification. Simply run this to start your local Redis server container:
 
 ```nohighlight
-$ docker run --name=redis -d redis
+$ docker run --name=currentweather-redis-container -d redis
 ```
 
 Now let's start the server container for which we just created the Docker image. Here is the command (replace `yourusername` with your username):
 
 ```nohighlight
-$ docker run --link redis:redis -p 1337:1337 -ti --rm registry.giantswarm.io/yourusername/currentweather
+$ docker run --link currentweather-redis-container:redis -p 1337:1337 -ti --rm registry.giantswarm.io/yourusername/currentweather
 ```
 
 It should be running. But we need proof! Let's issue an HTTP request.
@@ -171,7 +170,7 @@ You will be prompted for username, password and email. Use your Giant Swarm acco
 Still assuming that your username is `yourusername`, you can now push the image like this:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/yourusername/currentweather
+$ docker push registry.giantswarm.io/yourusername/currentweather-nodejs
 ```
 
 ### Configuring your application
@@ -189,7 +188,7 @@ Pay close attention to how we create a link between our two components by defini
       "components": [
         {
           "component_name": "nodejs",
-          "image": "registry.giantswarm.io/$username/currentweather",
+          "image": "registry.giantswarm.io/$username/currentweather-nodejs",
           "ports": [1337],
           "dependencies": [
             {
