@@ -46,16 +46,16 @@ Everybody else, follow the path to wisdom and read on.
 
 We have a Docker task ahead of us that could be a little time-consuming. The good thing is that we can make things a lot faster with some preparation. As a side effect, you can make sure that `docker` is working as expected on your system.
 
-We need to pull two images from the public Docker library, namely `redis` and `java:8`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
+We need to pull two images from the public Docker library, namely `redis:latest` and `java:8`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
 
 ```nohighlight
-$ docker pull redis && docker pull java:8
+$ docker pull redis:latest && docker pull java:8
 ```
 
 __For Linux users__: You probably have to call the `docker` binary with root privileges, so please use `sudo docker` whenever the docker command is required here. For example, initiate the prefetching like this:
 
 ```nohighlight
-$ sudo docker pull redis && sudo docker pull java:8
+$ sudo docker pull redis:latest && sudo docker pull java:8
 ```
 
 We won't repeat the `sudo` note for the sake of readability in the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
@@ -109,7 +109,7 @@ The prefetching of Docker images you started a couple of minutes ago should be f
 Assuming that your Giant Swarm username is `yourusername`, to build the image for your Docker container, you then execute:
 
 ```nohighlight
-$ docker build -t registry.giantswarm.io/yourusername/currentweather ./
+$ docker build -t registry.giantswarm.io/yourusername/currentweather-java ./
 ```
 
 ## Testing locally
@@ -117,13 +117,13 @@ $ docker build -t registry.giantswarm.io/yourusername/currentweather ./
 To test locally before deploying to Giant Swarm, we also need a Redis server. This is very simple to set up, since we can use a standard image here without any modification. Simply run this to start your local Redis server container:
 
 ```nohighlight
-$ docker run -p 6379:6379 --name=redis -d redis
+$ docker run -p 6379:6379 --name=currentweather-redis-container -d redis
 ```
 
 Now let's start the server container, for which we just created the Docker image. Here is the command (replace `yourusername` with your username):
 
 ```nohighlight
-$ docker run --link redis:redis -p 4567:4567 -ti --rm registry.giantswarm.io/yourusername/currentweather
+$ docker run --link currentweather-redis-container:redis -p 4567:4567 -ti --rm registry.giantswarm.io/yourusername/currentweather-java
 ```
 
 If you want to do this the easy way, you can just use Docker Compose and the [docker-compose.yml](https://github.com/giantswarm/giantswarm-firstapp-java/blob/master/docker-compose.yml). Instead of the two docker commands above you now can do a simple:
@@ -174,7 +174,7 @@ You will be prompted for username, password and email. Use your Giant Swarm acco
 Still assuming that your username is `yourusername`, you can now push the image like this:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/yourusername/currentweather
+$ docker push registry.giantswarm.io/yourusername/currentweather-java
 ```
 
 ### Configuring your application
@@ -192,7 +192,7 @@ Pay close attention to how we create a link between our two components by defini
       "components": [
         {
           "component_name": "java",
-          "image": "registry.giantswarm.io/$username/currentweather",
+          "image": "registry.giantswarm.io/$username/currentweather-java",
           "ports": [ 4567 ],
           "domains": { "currentweather-$username.gigantic.io": 4567 },
           "dependencies": [
