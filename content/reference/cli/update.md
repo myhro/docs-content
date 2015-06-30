@@ -1,7 +1,7 @@
 +++
 title = "Updating a component"
 description = "This is the reference page for the 'swarm update' command, which allows you to update a component to run a newer version of a container."
-date = "2015-03-30"
+date = "2015-06-30"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm update"]
@@ -16,7 +16,7 @@ These rolling update strategies are:
 
 * `one-by-one`(default): Updates all instances of your component one after the other.
 * `all-at-once`: Updates all instances of your component at the same time.
-* `hot-swap`: Replaces all instances of your component by new ones with the desired version with zero downtime.
+* `hot-swap`: Replaces all instances of your component by new ones with the desired version with zero downtime. CAUTION: If your component uses volumes, these volumes will be re-created in the process and data from existing volumes will be lost.
 
 If a component was not running before the `swarm update` command is issued on it, it will be started as a result.
 
