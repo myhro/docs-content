@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Ruby"
 description = "Your first Ruby application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-05-19"
+date = "2015-06-29"
 type = "page"
 weight = 55
 categories = ["basic"]
@@ -30,7 +30,7 @@ $ cd giantswarm-firstapp-ruby
 If you're not the type who likes to read a lot, we have a [Makefile](https://github.com/giantswarm/giantswarm-firstapp-ruby/blob/master/Makefile) in the repository. This file helps you to get everything described below going using these commands:
 
 ```nohighlight
-$ swarm login <yourusername>
+$ swarm login
 $ make docker-build
 $ make docker-run-redis
 $ make docker-run
@@ -44,16 +44,16 @@ Everybody else, follow the path to wisdom and read on.
 
 We have a Docker task ahead of us that could be a little time-consuming. The good thing is that we can make things a lot faster with some preparation. As a side effect, you can make sure that `docker` is working as expected on your system.
 
-We need to pull two images from the public Docker library, namely `redis` and `ruby:2.2-onbuild`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
+We need to pull two images from the public Docker library, namely `redis:latest` and `ruby:2.2-onbuild`. Together they can take a few hundred MB of data transfer. Start the prefetching using this command:
 
 ```nohighlight
-$ docker pull redis && docker pull ruby:2.2-onbuild
+$ docker pull redis:latest && docker pull ruby:2.2-onbuild
 ```
 
 __For Linux users__: You probably have to call the `docker` binary with root privileges, so please use `sudo docker` whenever the docker command is required here. For example, initiate the prefetching like this:
 
 ```nohighlight
-$ sudo docker pull redis && sudo docker pull ruby:2.2-onbuild
+$ sudo docker pull redis:latest && sudo docker pull ruby:2.2-onbuild
 ```
 
 We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
@@ -93,7 +93,7 @@ The prefetching of Docker images you started a couple of minutes ago should be f
 Assuming that your Giant Swarm username is `yourusername`, to build the image for your Docker container, you then execute:
 
 ```nohighlight
-$ docker build -t registry.giantswarm.io/yourusername/currentweather ./
+$ docker build -t registry.giantswarm.io/yourusername/currentweather-ruby ./
 ```
 
 ## Testing locally
@@ -101,13 +101,13 @@ $ docker build -t registry.giantswarm.io/yourusername/currentweather ./
 To test locally before deploying to Giant Swarm, we also need a Redis server. This is very simple to set up, since we can use a standard image here without any modification. Simply run this to start your local Redis server container:
 
 ```nohighlight
-$ docker run --name=redis -d redis
+$ docker run --name=currentweather-redis-container -d redis
 ```
 
 Now let's start the server container for which we just created the Docker image. Here is the command (replace `yourusername` with your username):
 
 ```nohighlight
-$ docker run --link redis:redis -p 4567:4567 -ti --rm registry.giantswarm.io/yourusername/currentweather
+$ docker run --link currentweather-redis-container:redis -p 4567:4567 -ti --rm registry.giantswarm.io/yourusername/currentweather-ruby
 ```
 
 It should be running. But we need proof! Let's issue an HTTP request.
@@ -173,7 +173,7 @@ You will be prompted for username, password and email. Use your Giant Swarm acco
 Still assuming that your username is `yourusername`, you can now push the image like this:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/yourusername/currentweather
+$ docker push registry.giantswarm.io/yourusername/currentweather-ruby
 ```
 
 ### Configuring your application
@@ -191,7 +191,7 @@ Pay close attention to how we create a link between our two components by defini
       "components": [
         {
           "component_name": "ruby-web-component",
-          "image": "registry.giantswarm.io/$username/currentweather:1.0",
+          "image": "registry.giantswarm.io/$username/currentweather-ruby",
           "ports": ["4567/tcp"],
           "dependencies": [
             {
