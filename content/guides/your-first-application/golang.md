@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in Go"
 description = "Your first Go/Golang application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-05-19"
+date = "2015-06-29"
 type = "page"
 weight = 50
 categories = ["basic"]
@@ -30,29 +30,29 @@ $ cd giantswarm-firstapp-go
 If you're not the type who likes to read a lot, we have a [Makefile](https://github.com/giantswarm/giantswarm-firstapp-go/blob/master/Makefile) in the repository. This file helps you to get everything described below going using these commands:
 
 ```nohighlight
-$ swarm login <yourusername>
-$ make # Build the linux go binary
-$ make docker-build # Build the Docker image
-$ make docker-run-redis # Run the redis container
-$ make docker-run # Run the Go container
-$ make docker-push # Push the Go container
-$ make swarm-up # Start the application on Giant Swarm
+$ swarm login
+$ make
+$ make docker-build
+$ make docker-run-redis
+$ make docker-run
+$ make docker-push
+$ make swarm-up
 ```
 
 Everybody else, follow the path to wisdom and read on.
 
 ## Testing Docker and getting some base images
 
-We need to pull two images from the public Docker library, namely `redis:latest` and `busybox:ubuntu-14.04`. We pre-fetch them here since they sum up to several hundred megabytes and the download might take a while.
+We need to pull three images from the public Docker library, namely `golang:1.4`, `redis:latest` and `busybox:ubuntu-14.04`. We pre-fetch them here since they sum up to several hundred megabytes and the download might take a while.
 
 ```nohighlight
-$ docker pull golang:1.3.1-cross && docker pull redis:latest && docker pull busybox:ubuntu-14.04
+$ docker pull golang:1.4 && docker pull redis:latest && docker pull busybox:ubuntu-14.04
 ```
 
 __For Linux users__: You probably have to call the `docker` binary with root privileges, so please use `sudo docker` whenever the docker command is required here. For example, initiate the prefetching like this:
 
 ```nohighlight
-$ sudo docker pull golang:1.3.1-cross && sudo docker pull redis:latest && sudo docker pull busybox:ubuntu-14.04
+$ sudo docker pull golang:1.4 && sudo docker pull redis:latest && sudo docker pull busybox:ubuntu-14.04
 ```
 
 We won't repeat the `sudo` note for the sake of readability of the rest of this tutorial. Docker warns you if the privileges aren't okay, so you'll be reminded anyway.
@@ -81,7 +81,7 @@ If you're __on Linux and have done this before__, you might be able to compile t
 $ go build main.go
 ```
 
-When not on Linux, or if you don't want to fiddle with Go-specific environment configuration, there is an easy alternative to compile the binary for linux. It uses a specific version of the [official goalng Docker image](https://registry.hub.docker.com/_/golang/) and compiles the binary inside a Docker container. The only downside is that the image is about 1.7 GB in size, so getting the base image could take some time.
+When not on Linux, or if you don't want to fiddle with Go-specific environment configuration, there is an easy alternative to compile the binary for linux. It uses the [official golang Docker image](https://registry.hub.docker.com/_/golang/) and compiles the binary inside a Docker container.
 
 Before proceeding, please make sure that the prefetching of Docker images you started earlier has finished.
 
@@ -108,12 +108,12 @@ EXPOSE 8080
 ENTRYPOINT ["currentweather"]
 ```
 
-We use a tiny [busybox image](https://github.com/jpetazzo/docker-busybox/blob/ca435164f45c40d761fad9ef9b5a76a6ba0d5f1a/Dockerfile) as a foundation. The only thing we add is our `currentweather binary`. The beauty of an indpendent binary. In addition, the `EXPOSE 8080` setting ensures that port 8080 of our container is exposed to the network.
+We use a tiny [busybox image](https://github.com/jpetazzo/docker-busybox/blob/ca435164f45c40d761fad9ef9b5a76a6ba0d5f1a/Dockerfile) as a foundation. The only thing we add is our `currentweather` file - the beauty of an independent binary. In addition, the `EXPOSE 8080` setting ensures that port 8080 of our container is exposed to the network.
 
 Assuming that your Giant Swarm username is `yourusername`, to build the image, you then execute:
 
 ```nohighlight
-$ docker build -t registry.giantswarm.io/yourusername/currentweather ./
+$ docker build -t registry.giantswarm.io/yourusername/currentweather-go ./
 ```
 
 ## Testing locally
@@ -121,13 +121,13 @@ $ docker build -t registry.giantswarm.io/yourusername/currentweather ./
 To test locally before deploying to Giant Swarm, we want a redis server. This is easy to get, since we can use a standard image here without any modification. Simply run this to start your local Redis server container:
 
 ```nohighlight
-$ docker run --name=redis -d redis
+$ docker run --name=currentweather-redis-container -d redis
 ```
 
 Now let's start the server container for which we just created the Docker image. Here is the command (replace `yourusername` with your username):
 
 ```nohighlight
-$ docker run --link redis:redis -p 8080:8080 -ti --rm registry.giantswarm.io/yourusername/currentweather
+$ docker run --link currentweather-redis-container:redis -p 8080:8080 -ti --rm registry.giantswarm.io/yourusername/currentweather-go
 ```
 
 It should be running. But we need proof! Let's issue an HTTP request.
@@ -181,7 +181,7 @@ You will be prompted for username, password and email. Use your Giant Swarm acco
 Still assuming that your username is `yourusername`, you can now push the image like this:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/yourusername/currentweather
+$ docker push registry.giantswarm.io/yourusername/currentweather-go
 ```
 
 ### Configuring your application
@@ -199,7 +199,7 @@ Pay close attention to how we create a link between our two components by defini
       "components": [
         {
           "component_name": "webserver",
-          "image": "registry.giantswarm.io/$username/currentweather:latest",
+          "image": "registry.giantswarm.io/$username/currentweather-go",
           "ports": [8080],
           "dependencies": [
             {
