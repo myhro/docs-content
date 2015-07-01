@@ -125,6 +125,8 @@ If you like to read (hear or watch) some more about Docker and Microservices, he
 
 ### Microservices
 
+* [Introduction to Microservice Architectures](https://giantswarm.io/microservices/) - Our own short introduction to microservices
+
 * [Microservices](http://martinfowler.com/articles/microservices.html) - The widely-shared introduction article by Martin Fowler and James Lewis
 
 * [Building Microservices](http://shop.oreilly.com/product/0636920033158.do) - For book lovers, by Sam Newman
