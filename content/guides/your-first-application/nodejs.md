@@ -1,7 +1,7 @@
 +++
 title = "Your first application — in NodeJS"
 description = "Your first NodeJS application on Giant Swarm, using your own Docker container and connecting multiple components."
-date = "2015-06-29"
+date = "2015-07-02"
 type = "page"
 weight = 50
 categories = ["basic"]
@@ -117,7 +117,7 @@ $ docker run --name=currentweather-redis-container -d redis
 Now let's start the server container for which we just created the Docker image. Here is the command (replace `yourusername` with your username):
 
 ```nohighlight
-$ docker run --link currentweather-redis-container:redis -p 1337:1337 -ti --rm registry.giantswarm.io/yourusername/currentweather
+$ docker run --link currentweather-redis-container:redis -p 1337:1337 -ti --rm registry.giantswarm.io/yourusername/currentweather-nodejs
 ```
 
 It should be running. But we need proof! Let's issue an HTTP request.
@@ -181,7 +181,7 @@ Pay close attention to how we create a link between our two components by defini
 
 ```json
 {
-  "app_name": "currentweather",
+  "app_name": "currentweather-app",
   "services": [
     {
       "service_name": "currentweather-service",
@@ -222,13 +222,13 @@ $ swarm up --var=username=yourusername
 You will see some progress output during creation and startup of your application:
 
 ```nohighlight
-Creating 'currentweather' in the 'yourusername/dev' environment...
+Creating 'currentweather-app' in the 'yourusername/dev' environment...
 Application created successfully!
-Starting application currentweather...
-Application currentweather is up.
+Starting application currentweather-app...
+Application currentweather-app is up.
 You can see all services and components using this command:
 
-    swarm status currentweather
+    swarm status currentweather-app
 
 ```
 
@@ -239,13 +239,13 @@ Seeing is believing, they say. So let's do the final test that your application 
 If you watched closely, after starting our app we got the recommendation to check it's status using
 
 ```nohighlight
-$ swarm status currentweather
+$ swarm status currentweather-app
 ```
 
 So here is what we get when doing so (your output will vary slightly):
 
 ```nohighlight
-App currentweather is up
+App currentweather-app is up
 
 service                 component  instanceid    created              status
 currentweather-service  nodejs     yYpKV0zOKhkv  2015-01-15 15:35:46  up
@@ -257,8 +257,8 @@ Here you have them, your two components, running on Giant Swarm. If you want to,
 Now if you like, you can stop or even delete the application again.
 
 ```nohighlight
-$ swarm stop currentweather
-$ swarm delete currentweather
+$ swarm stop currentweather-app
+$ swarm delete currentweather-app
 ```
 
 We hope you enjoyed this tutorial. If yes, feel free to tweet and blog it out to the world. If not, please let us know what bugged you (see chat and support info at the bottom of this page).
