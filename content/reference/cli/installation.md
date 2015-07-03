@@ -1,7 +1,7 @@
 +++
 title = "Installing the Giant Swarm CLI"
 description = "A detailed description of how to install Giant Swarm client software on various platforms"
-date = "2015-02-01"
+date = "2015-07-03"
 type = "page"
 weight = 10
 +++
@@ -10,9 +10,9 @@ weight = 10
 
 <p class="lead">Instructions for installing the <code>swarm</code> command line interface on the supported platforms. By the way, the latest version is <strong>{{% cli_latest_version %}}</strong>.</p>
 
-## Mac OS X
+## Mac OS X {#macosx}
 
-### Mac OS X install via Homebrew
+### Mac OS X install via Homebrew {#macosx-homebrew}
 
 If you're on a Mac, the recommended way to install the `swarm` command line interface (CLI) is to use [Homebrew](http://brew.sh/).
 
@@ -30,7 +30,7 @@ $ brew update
 $ brew upgrade swarm-client
 ```
 
-### Mac OS X manual install
+### Mac OS X manual install {#macosx-manual}
 
 If you don't want to use Homebrew, here is how you could download and install the <abbr title="command line interface">CLI</abbr> manually.
 
@@ -43,7 +43,7 @@ To check the integrity of the downloaded .tar.gz file, we provide [SHA1](http://
 
 Please add the `swarm` binary to your PATH.
 
-## Linux
+## Linux {#linux}
 
 Please note that the `swarm` <abbr title="command line interface">CLI</abbr> requires a 64 bit system.
 
@@ -61,6 +61,10 @@ We recommend to make the `swarm` binary available in your PATH by copying it to 
 ```nohighlight
 $ sudo cp swarm /usr/local/bin/
 ```
+
+## Windows {#windows}
+
+Currently, we don't offer the swarm CLI for Windows. However, you can run it in a Linux virtual machine like the one used by [Boot2Docker](https://docs.docker.com/installation/windows/). Simply log in to Boot2Docker's virtual machine via `boot2docker ssh` and follow the installation instructions for Linux ([see above](#linux)).
 
 ## Using an HTTP proxy
 
