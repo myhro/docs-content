@@ -64,10 +64,10 @@ $ sudo cp swarm /usr/local/bin/
 
 ## Windows {#windows}
 
-Currently, we don't offer the swarm CLI for Windows. However, you can run it in a Linux virtual machine like the one used by [Boot2Docker](https://docs.docker.com/installation/windows/). Note that this requires a 64 bit version of Windows. Follow this procedure for installing the CLI:
+Currently, we don't offer the swarm CLI for Windows. However, you can run it in a Linux virtual machine like the one used by [Boot2Docker](https://docs.docker.com/installation/windows/). Note that this, like Docker itself, requires a 64 bit version of Windows. Follow this procedure for installing the CLI:
 
 1. Start Boot2Docker
-2. Log in to Boot2Docker's virtual machine via the command line and the command `boot2docker ssh`
+2. Log in to Boot2Docker's virtual machine via the command line using the command `boot2docker ssh`
 3. Execute `curl -O http://downloads.giantswarm.io/swarm/clients/{{% cli_latest_version %}}/swarm-{{% cli_latest_version %}}-linux-amd64.tar.gz`
 4. Execute `tar xzf swarm-{{% cli_latest_version %}}-linux-amd64.tar.gz`
 5. Execute `sudo cp ./swarm /usr/local/bin/`
