@@ -73,7 +73,7 @@ Currently, we don't offer the swarm CLI for Windows. However, you can run it in 
 5. Execute `sudo cp ./swarm /usr/local/bin/`
 6. Check your install using the `swarm info` command
 
-Whenever you need the swarm CLI, execute steps one 1 and 2 of this procedure and you should be ready to go. To update the CLI, follow the same routine as for the first-time install.
+Whenever you need the swarm CLI, execute first two steps of this procedure and you should be ready to go. To update the CLI, follow the same routine as for the first-time install.
 
 
 ## Using an HTTP proxy
