@@ -11,25 +11,25 @@ categories = ["advanced"]
 
 The following guide will explain how to configure the [RailsTutorials Sample App](https://github.com/railstutorial/sample_app_rails_4/) to GiantSwarm. We will run one container for MySQL and one for your Rails application. You should have a basic understanding of Docker and Rails.
 
-## TL;DR with fig
+## TL;DR with docker-compose
 
-Before we get into the details, let us first run the setup locally with [fig](http://www.fig.sh/). For this, we clone our repository, switch to the [dockerize branch](https://github.com/giantswarm/sample_app_rails_4/tree/dockerize) and start the setup with `fig up`:
+Before we get into the details, let us first run the setup locally with [docker-compose](https://docs.docker.com/compose/). For this, we clone our repository, switch to the [dockerize branch](https://github.com/giantswarm/sample_app_rails_4/tree/dockerize) and start the setup with `docker-compose up`:
 
     $ git clone https://github.com/giantswarm/sample_app_rails_4
     $ cd sample_app_rails_4/
     $ git checkout dockerize
-    $ fig up
+    $ docker-compose up
 
 That's it. Two containers are up, linked, and running. You can now access your app on [port 3000](http://localhost:3000/) of your localhost.
 
 ## Get up and running with Docker on localhost
 
-Now let's see what needs to get done to manually dockerize the Sample Rails app. 
+Now let's see what needs to get done to manually dockerize the Sample Rails app.
 
     $ git clone https://github.com/railstutorial/sample_app_rails_4
     $ cd sample_app_rails_4/
 
-The team behind [Docker-Library](https://registry.hub.docker.com/_/rails/) ([GitHub repository](https://github.com/docker-library/rails)) already provides a base image for Ruby on Rails. We are using the "onbuild" version, which makes it easy to write our own Dockerfile. At the root of the sample rails app, create a new file called `Dockerfile` with the following statement: 
+The team behind [Docker-Library](https://registry.hub.docker.com/_/rails/) ([GitHub repository](https://github.com/docker-library/rails)) already provides a base image for Ruby on Rails. We are using the "onbuild" version, which makes it easy to write our own Dockerfile. At the root of the sample rails app, create a new file called `Dockerfile` with the following statement:
 
 ```
 FROM rails:onbuild
@@ -146,7 +146,7 @@ One last step: As as we currently do not yet support SSL, we need to disable it 
 ```
 # File config/environments/production.rb
 -  config.force_ssl = true
-+  config.force_ssl = false 
++  config.force_ssl = false
 ```
 
 Calling `docker build -t sample_rails_4 .` to build the new image, we can now run everything on the local Docker daemon:
@@ -222,7 +222,7 @@ Here, we define one app `rails-sample-1` with one service `web`. This service co
 
 You can either use your own domains (which you have to configure to forward to us) or use a subdomain of the cluster you are using. In this example we are using `gigantic.io` - modify this to match your needs.
 
-### Run 
+### Run
 
 That's it. With the `swarm` command line tool we can now create and start our containers on the Giant Swarm cluster:
 
