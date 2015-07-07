@@ -35,11 +35,11 @@ The team behind [Docker-Library](https://registry.hub.docker.com/_/rails/) ([Git
 FROM rails:onbuild
 ```
 
-Before you can build the Rails app we need to fix the `Gemfile`. At first we remove Ruby version since this is given by the chosen Docker image:
+Before you can build the Rails app we need to fix the `Gemfile`. At first we remove the Ruby version since this is given by the chosen Docker image:
 
 ```
 source 'https://rubygems.org'
-#ruby '2.1.2'
+#ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.8'
