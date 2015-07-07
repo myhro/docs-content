@@ -35,16 +35,32 @@ The team behind [Docker-Library](https://registry.hub.docker.com/_/rails/) ([Git
 FROM rails:onbuild
 ```
 
-Before you can build the Rails app we need to fix the `Gemfile` and set the Ruby version to `2.1.2`:
+Before you can build the Rails app we need to fix the `Gemfile`. At first we remove the Ruby version since this is given by the chosen Docker image:
 
 ```
 source 'https://rubygems.org'
-ruby '2.1.2'
+#ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.8'
 gem 'bootstrap-sass', '2.3.2.0'
 ....
+```
+
+Then we have to change the desired version of the `sqlite3` gem. The given version fails in our environment, but `1.3.10` works fine:
+
+```
+....
+group :development, :test do
+  gem 'sqlite3', '1.3.10'
+  gem 'rspec-rails', '2.13.1'
+....
+```
+
+After this change we have to update our Gemfile.lock since it has to be in sync with the Gemfile. The following command deals with this:
+
+```bash
+docker run -v $PWD:$PWD -w $PWD ruby bundle update sqlite3
 ```
 
 Upon `docker build -t sample_rails_4 .` our patched Rails Gemfile is added and the dependencies are installed. Then the Rails sample app is added and Node.JS is installed. See the [Rails Dockerfile](
