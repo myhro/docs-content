@@ -1,7 +1,7 @@
 +++
 title = "Swarmify Ruby on Rails"
 description = "This guide shows you how to create, deploy, and run a simple Ruby on Rails project on Giant Swarm"
-date = "2015-01-13"
+date = "2015-07-07"
 type = "page"
 weight = 80
 categories = ["advanced"]
