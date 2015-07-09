@@ -8,35 +8,38 @@ tags = ["swarm info"]
 weight = 80
 +++
 
-# Getting basic information
+# `swarm info`: Get Basic Information
 
-The `swarm info` command is available to access some very basic information on your current status and settings.
+The `swarm info` command provides information about a Giant Swarm account, including cluster status, CLI verson, logged in user and the current enviroment.
 
-## Command syntax
+## Command Syntax
 
-The comand is called without any arguments, like this:
+The `swarm info` comand is called without any arguments by doing:
+
+```nohighlight
+swarm info
+```
+
+#### Example with Response
 
 ```nohighlight
 $ swarm info
-```
-
-## Output
-
-Here is an example output:
-
-```nohighlight
 Cluster status:      reachable
-Logged in as user:   someuser
-Current environment: acmecorp/dev
+Swarm CLI version:   0.17.0
+Logged in as user:   bant
+Current environment: bant/dev
 ```
 
-What does this information tell you?
+### Response Explained
 
-* __Cluster status__: This is the general platform health and should say `reachable`.
-* __Logged in as user__: Here you find the username you are currently logged in with. Hint: If you are only interested in the current user name, you can use the [`swarm user`](/reference/cli/user/) command for that.
-* __Current environment__: The currently selected environment you are working in. Hint: Your can also get this information using [`swarm env`](/reference/cli/env/).
+* `Cluster status` - The general platform health, normally `reachable`.
+* `Swarm CLI version` - The version of the installed command line client.
+* `Logged in as user` - The current logged in username. 
+* `Current environment` - The current working environment.
 
-## Further reading
+*Hint: If you are only interested in the current user name, you can use the [`swarm user`](/reference/cli/user/) command. The same is true of the current environment, which can be retrieved using [`swarm env`](/reference/cli/env/).*
+
+## Further Reading
 
 * [Environments](/reference/cli/env/)
 * [Organizations](/reference/cli/org/)

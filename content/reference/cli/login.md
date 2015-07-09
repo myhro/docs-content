@@ -1,5 +1,5 @@
 +++
-title = "Logging in"
+title = "swarm login"
 description = "Reference page for the `swarm login` command, which allows you to authenticate with your Giant Swarm credentials."
 date = "2015-03-19"
 type = "page"
@@ -8,53 +8,73 @@ tags = ["swarm login"]
 weight = 40
 +++
 
-# Logging in using the CLI
+# `swarm login`: Login with the CLI
 
-The `swarm login` command allows you to authenticate with the <abbr title="command line interface">CLI</appr>.
+The `swarm login` command allows you to authenticate to your Giant Swarm account using the <abbr title="command line interface">CLI</appr>.
 
-The command can be used in an interactive way, where the credentials are entered interactively. Alternatively, credentials can be passed via the command line to enable non-interactive use.
+The command can be used in interactive mode or credentials can be passed via the command line in non-interactive mode.
 
-## Notice on authenticated sessions
+## Interactive Login
 
-When logging in using the `swarm login` command, an authenticated session is opened that will be valid for up to 30 days. During that period, no further authentication is required.
+You can invoke an interactive login session by doing the following:
 
-To minimize the risk of unauthorized use, please use the `swarm logout` command to explicitly quit the authenticated session.
+```nohighlight
+swarm login
+```
 
-## Interactive login
+Alternately, you can pass in your username by doing the following while substituting the `<username>`:
 
-The command can be called without any arguments to invoke the interactive login:
+```nohighlight
+swarm login <username>
+```
+
+#### Example with Response
 
 ```nohighlight
 $ swarm login
-```
-
-You will then be prompted for your Giant Swarm username or, alternatively, your email address. When using your email address, please double-check that you are using exactly the address you used when creating your user account.
-
-After you confirmed the username/email input, you are prompted for the password. The entry of the password won't be visible.
-
-After the successfull login, an output like this should be shown:
-
-```nohighlight
+Username or email: bant
+Password:
 Login Succeeded
-Environment yourusername/dev has been selected
+Environment bant/dev has been selected
 ```
 
-The last output line informs you which [environment](/reference/cli/env/) has been selected as the current environment. It defaults to `<yourusername>/dev`.
+*Note: The last line of output informs you which environment has been selected. The default is `<yourusername>/dev` which can be changed using the [`swarm env`](/reference/cli/env/) command.*
 
-## Non-interactive login
-
-Both username and password can be passed to the login command as arguments. Here is an example:
+## Non-Interactive Login
+In non-interactive mode, the username and password can be passed to the login command as arguments:
 
 ```nohighlight
-$ swarm login yourusername -p secretpassword
+swarm login <username> -p <password>
 ```
 
-To pass the username, but not the password as an argument, it's possible to use the following syntax. In this case you will be prompted for the password only:
+#### Example with Response
 
 ```nohighlight
-$ swarm login yourusername
+$ swarm login bant -p f00bar
+Login Succeeded
+Environment bant/dev has been selected
 ```
+
+## Authentication Tokens
+
+When logging in using the `swarm login` command, authentication tokens are created and stored locally in `~/.swarm/token`:
+
+```nohighlight
+$ ls -la ~/.swarm/
+total 24
+drwxr-xr-x   5 bant  staff   170 May 18 23:40 .
+drwxr-xr-x+ 53 bant  staff  1802 May 28 11:11 ..
+-rw-------   1 bant  staff    34 May 18 23:40 config
+-rw-------   1 bant  staff    39 May 27 11:24 last_update_info
+-rw-------   1 bant  staff    36 May 27 20:30 token
+```
+
+Giant Swarm authentication tokens are good for up to 30 days. To minimize the risk of unauthorized use, please use the [`swarm logout`](/reference/cli/logout/) command to explicitly expire the authenticated token and session.
+
+The [API documentation](/reference/api/#auth) contains more information about acquiring and using authentication tokens.
 
 ## Further reading
 
 * [Environments](/reference/cli/env/)
+* [Logging Out](/reference/cli/logout/)
+* [API Documentation](/reference/api/)

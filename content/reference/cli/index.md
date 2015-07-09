@@ -8,25 +8,17 @@ weight = 1
 +++
 
 # The swarm CLI
+The `swarm` CLI is a command line client used to deploy, query and control your Giant Swarm applications.
 
-Here you find the reference documentation of our `swarm` command line interface (CLI).
+## Getting Started
+Please refer to the following guides to get started using Giant Swarm's `swarm` client:
 
-### [Installation and Configuration](installation/)
-
-Get instructions on how to set up the CLI on Mac OS and Linux.
-
-### [Global Command Line Options](global-options/)
-
-Learn about some useful options working with most or all CLI commands.
-
-### [Release Notes](release-notes/)
-
-What has changed with the latest CLI release? Make sure to check out this page when updating to a new CLI version.
+* [Installation and Configuration](installation/) - instructions on how to set up the CLI on OS X and Linux.
+* [Global Command Line Options](global-options/) - options for working with CLI commands.
+* [Release Notes](release-notes/) - information about changes in the CLI releases.
 
 ## Command Reference
-
-Click the command for details.
-
+Click on the links below for more details on a particular command usage:
 
 Command | Description
 --------|---------------------
