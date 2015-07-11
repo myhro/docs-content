@@ -1,7 +1,7 @@
 +++
 title = "Listing applications"
 description = "The reference page for the 'swarm ls' command, which is used to show a list of applications in an environment."
-date = "2015-01-29"
+date = "2015-07-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm ls"]

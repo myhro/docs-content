@@ -1,7 +1,7 @@
 +++
 title = "Starting an application or service"
 description = "This is the reference page for the 'swarm start' command, which allows you to start an application or service."
-date = "2014-12-11"
+date = "2015-07-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm start"]
@@ -10,52 +10,54 @@ weight = 50
 
 # `swarm start`: Start Application or Service
 
-Applications and services inside applications are started by using the `swarm start` command.
+The `swarm start` command is used to start an application or a service inside an application after it has been created using the [`swarm create`](/reference/cli/create/) command.
 
-Before an application can be started, it must be created by using the [`swarm create`](/reference/cli/create/) command using a specific [environment](/refernce/cli/env/) setting.
+*Note: To start the applicaiton, the `swarm start` command will need to be using the same organization and environment used by the `swarm create` command to create the application.*
 
 ## Command Syntax
-The `swarm start` command can be called to start an application without any arguments if its corresponding `swarm.json` file is present in the current working directory:
+
+The `swarm start` command can be called to start an application without any arguments if a valid `swarm.json` file is present in the current working directory:
 
 ```nohighlight
 swarm start
 ```
 
-#### Example with Response
-```nohighlight
-$ swarm start
-Starting application swarm-hello...
-Application swarm-hello is up.
-```
-
-*Note: The CLI will block until the application reaches `running` state unless the `--detach` option is set.*
-
-### Command Options
-The `swarm start` command can be called with an optional `-d` or `--detach` flag to prevent blocking:
+The CLI will normally block and wait for the application to start before it returns control to the shell. The command can be issued in non-blocking mode using the `-d` or `--detach` flags:
 
 ```nohighlight
 swarm start --detach
 ```
 
-Application services may be started in whole or individually. All services may be started together by specifying the application name:
+The command can also be passed an application name:
 
 ```nohighlight
 swarm start <app_name>
 ```
 
-Services may be started individually by specifying the service name in addition to the application name:
+#### Example with Response
+```nohighlight
+$ swarm start -d helloworld
+Starting application helloworld...
+To check the status of your application, use
+
+	swarm status helloworld
+```
+
+## Starting a Service
+The `swarm start` command may be used to start a service (a set of components) inside a given application without starting the other services in that application. A single service is started by using the application name, a `/` separator and the service name:
 
 ```nohighlight
 swarm start <app_name>/<service_name>
 ```
 
-Here is an example where the `webserver` portion of the application is started in non-blocking mode:
-
+#### Example with Response
 ```nohighlight
-$ swarm start -d swarm-hello/webserver
-```
+$ swarm start -d helloworld/webserver
+Starting service helloworld/webserver...
+To check the status of your service, use
 
-*Note: If the `swarm start` command is issued in a directory with a valid `swarm.json` configuration file, the entire application will be started.*
+	swarm status helloworld/webserver
+```
 
 ## Combining Commands
 The `swarm start` command can be used in conjunction with the `swarm ls` and `swarm status` commands to start and monitor an application and its services.
@@ -71,6 +73,7 @@ swarm-hello           2015-05-30 18:53:38  down
 
 $ swarm start swarm-hello
 Starting application swarm-hello...
+\ <--- spinner
 To check the status of your application, use
 
 	swarm status swarm-hello

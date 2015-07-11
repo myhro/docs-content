@@ -8,76 +8,61 @@ tags = ["swarm update"]
 weight = 70
 +++
 
-# Updating a component
+# `swarm update`: Update a Component
 
-The `swarm update` command enables you to update the container version that's running in a specific component. This results in the component being stopped, the new image being pulled from the registry and then the component being restarted. If your component is scaled to at least several instances, `swarm update` performs a rolling update. According to that, we offer three different rolling update strategies which ideally gives you zero downtime deployment out of the box.
+The `swarm update` command is used to update a component's container to use a specific version of an image. The update stops the component's instance(s), pulls the desired image from the registry, and then restarts the instance(s) using the new image.
 
-These rolling update strategies are:
+*Note: A component's instance will be started if it was not running before the `swarm update` command was issued.*
 
-* `one-by-one`(default): Updates all instances of your component one after the other.
-* `all-at-once`: Updates all instances of your component at the same time.
-* `hot-swap`: Replaces all instances of your component by new ones with the desired version with zero downtime. CAUTION: If your component uses volumes, these volumes will be re-created in the process and data from existing volumes will be lost.
-
-If a component was not running before the `swarm update` command is issued on it, it will be started as a result.
-
-You can use the `swarm update` command to either update a component to use a specific version (tag) of an image, or simply let it pull the newest image with he `latest` tag.
-
-## Updating to the latest image version {#latestversion}
-
-Say your full image name is `registry.giantswarm.io/yourusername/yourimage`, make sure that you push the image to the registry with the `:latest` verision tag Here is the `docker push` command for that:
+## Update Component with the Latest Image {#latestversion}
+The `swarm update` command is called using the application, service and component name to update the component image:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/yourusername/yourimage:latest
+swarm update <app>/<service>/<component>
 ```
 
-(On Linux, you might need to Prepend `sudo` whenever calling the `docker` CLI.)
+When a `swarm update` is issued to a component, it will use the `:latest` tag from the Docker index **by default**. Tags may be set by using `docker push` and prepending a version using `:<version_tag>`.
 
-When the new image is uploaded to the registry, you can issue the `swarm update` command to the latest version using this syntax:
+#### Example with Response
+This example first pushes an image to the registry tagged with `latest`, then updates the `currentweather/currentweather-service/flask` component to the latest version for that image:
 
 ```nohighlight
-$ swarm update <app>/<service>/<component>
+$ sudo docker push registry.giantswarm.io/bant/currentweather-python:latest
+The push refers to a repository [registry.giantswarm.io/bant/currentweather-python] (len: 1)
+Sending image list
+Pushing repository registry.giantswarm.io/bant/currentweather-python (1 tags)
+Image bf84c1d84a8f already pushed, skipping
+...
+4b8d5ad81a18: Image successfully pushed
+Pushing tag for rev [4b8d5ad81a18] on {https://registry.giantswarm.io/v1/repositories/bant/currentweather-python/tags/latest}
+
+$ swarm update currentweather/currentweather-service/flask
+Updating component 'currentweather/currentweather-service/flask' with version 'latest' ...
 ```
 
-If you were to use the image from the example above inside a component `yourapp/yourservice/yourcomponent`, the comand would be:
+## Update Component with a Versioned Image {#versionedimage}
+The `swarm update` command can be called using the application, service, component and version name:
 
 ```nohighlight
-$ swarm update yourapp/yourservice/yourcomponent
-```
+swarm update <app>/<service>/<component>:<version_tag>
+``` 
 
-<!-- TODO: Explain what the expected output would be. WOuld the comand wait until the component is restarted successfully?-->
-
-## Updating to a specific image version {#specificversion}
-
-I you want to make sure the component uses a specific version of your image, you would first tag your image using a specific version number and then upload it to the registry. For example:
-
+#### Example with Response
+This example first pushes an image to the registry tagged with `2.7.3`, then updates the `currentweather/currentweather-service/flask` component to use the `2.7.3` version for that image:
 
 ```nohighlight
-$ docker push registry.giantswarm.io/yourusername/yourimage:2.7.3
+$ sudo docker push registry.giantswarm.io/bant/currentweather-python:2.7.3
+The push refers to a repository [registry.giantswarm.io/bant/currentweather-python] (len: 1)
+Sending image list
+Pushing repository registry.giantswarm.io/bant/currentweather-python (1 tags)
+Image cb5666ced332 already pushed, skipping
+...
+55bf9745b7af: Image successfully pushed
+Pushing tag for rev [55bf9745b7af] on {https://registry.giantswarm.io/v1/repositories/bant/currentweather-python/tags/2.7.3}
+
+$ swarm update currentweather/currentweather-service/flask
+Updating component 'currentweather/currentweather-service/flask' with version '2.7.3' ...
 ```
-
-Then you can pass the version number as a positional argument to the swarm update command.
-
-```nohighlight
-$ swarm update <app>/<service>/<component> <version_tag>
-```
-
-For example, to update `yourapp/yourservice/yourcomponent` to use version `2.7.3`, you would use this command:
-
-```nohighlight
-$ swarm update yourapp/yourservice/yourcomponent 2.7.3
-```
-
-## Updating a component using a specific strategy {#specificversion}
-
-Based on the example shown above, you can also specify the type of rolling update strategy you want to use
-when updating your component. To do so, you would add the flag `-s|--strategy` followed by the selected strategy.
-
-```nohighlight
-$ swarm update -s hot-swap yourapp/yourservice/yourcomponent 2.7.3
-$ swarm update -s one-by-one yourapp/yourservice/yourcomponent 2.7.3
-$ swarm update -s all-at-once yourapp/yourservice/yourcomponent 2.7.3
-```
-
 
 ### Further reading
 

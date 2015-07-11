@@ -1,7 +1,7 @@
 +++
 title = "swarm login"
 description = "Reference page for the `swarm login` command, which allows you to authenticate with your Giant Swarm credentials."
-date = "2015-03-19"
+date = "2015-07-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm login"]

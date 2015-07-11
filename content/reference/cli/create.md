@@ -1,7 +1,7 @@
 +++
 title = "Creating an application"
 description = "This is the reference page for the 'swarm create' command, which allows you to create a new application based on your configuration."
-date = "2015-01-29"
+date = "2015-07-11"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm create"]
