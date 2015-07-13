@@ -342,7 +342,7 @@ There are four Giant Swarm context variables available for use in your `swarm.js
 * GIANTSWARM_ENV: e.g. "giantswarm/dev"
 * GIANTSWARM_LOGIN_NAME: e.g. "yourusername"
 
-You can use these anywhere in your `swarm.json`. E.g. in our ['Complete example'](#complete-example) above, we use the $GIANTSWARM_LOGIN_NAME to customize the domain entry of the application based on the current user's username.
+You can use these anywhere in your `swarm.json`. E.g. in our ['Complete example'](#complete-example) above, we use the $GIANTSWARM_LOGIN_NAME variable to customize the domain entry of the application based on the current user's username.
 
 ## Making use of additional configuration variables
 
