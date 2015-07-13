@@ -83,7 +83,7 @@ This example makes use of all possible keys to illustrate their use.
             "max" : 10
           },
           "domains": {
-            "myexample.gigantic.io": 8080
+            "$GIANTSWARM_LOGIN_NAME-myexample.gigantic.io": 8080
           }
         },
         {
@@ -197,7 +197,7 @@ Let's review the dependencies key in our full-fledged example above, specificall
 ]
 ```
 
-The name `redis` points to the `component_name` of the component in the same service. This dependency enforces the `redis` component to be started before the `appserver component`. 
+The name `redis` points to the `component_name` of the component in the same service. This dependency enforces the `redis` component to be started before the `appserver component`.
 
 In addition, this dependency definition results in a network link between the `appserver` component and port 6379 of the `redis` component being set up. To make use of this link, the `appserver` component needs to know the IP address of the running `redis` component. This information will be made available automatically in an environment variable called
 
@@ -327,13 +327,24 @@ or
 
 or
 
-* `volume-from`: The name of another component in the same `pod`. 
+* `volume-from`: The name of another component in the same `pod`.
 * `volume-path`: The `path` of a volume in the component referenced by `volume-from`. This volume from the referenced component will be mounted inside this component.
 * `path` (optional): If specified, this will be used as mounting point of the volume from the referenced component. If not specified, the mounting point will be equal to the mounting point of the referenced component.
 
 <i class="fa fa-exclamation-triangle"></i> Please note that we currently do not provide a backup mechanism. If you need to preserve the data on your volumes, please think about a solution using for example an FTP server or cloud storage like Amazon S3 from within your component.
 
-## Making use of configuration variables
+## Giant Swarm context variables
+
+There are four Giant Swarm context variables available for use in your `swarm.json`. The respective values of these varialbes are set based on your login and current selected environment. Note that you cannot change the values of these variables unless you change your actual login or environment through CLI or API.
+
+* `GIANTSWARM_ORGANIZATION`: Your current selected organization, e.g. "giantswarm"
+* `GIANTSWARM_ENVIRONMENT`: Your current selected environment, e.g. "dev"
+* `GIANTSWARM_ENV`: Your current selected organization and environment, e.g. "giantswarm/dev"
+* `GIANTSWARM_LOGIN_NAME`: Your username that you logged in with, e.g. "yourusername"
+
+You can use these anywhere in your `swarm.json`. E.g. in our ['Complete example'](#complete-example) above, we use the `$GIANTSWARM_LOGIN_NAME` variable to customize the domain entry of the application based on the current user's username.
+
+## Making use of additional configuration variables
 
 Imagine you would like to run an almost identical application in two different [environments](/reference/cli/env/), say each one with only a different version of an image.
 
