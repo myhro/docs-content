@@ -337,12 +337,12 @@ or
 
 There are four Giant Swarm context variables available for use in your `swarm.json`. The respective values of these varialbes are set based on your login and current selected environment. Note that you cannot change the values of these variables unless you change your actual login or environment through CLI or API.
 
-* GIANTSWARM_ORGANIZATION: e.g. "giantswarm"
-* GIANTSWARM_ENVIRONMENT: e.g. "dev"
-* GIANTSWARM_ENV: e.g. "giantswarm/dev"
-* GIANTSWARM_LOGIN_NAME: e.g. "yourusername"
+* `GIANTSWARM_ORGANIZATION`: Your current selected organization, e.g. "giantswarm"
+* `GIANTSWARM_ENVIRONMENT`: Your current selected environment, e.g. "dev"
+* `GIANTSWARM_ENV`: Your current selected organization and environment, e.g. "giantswarm/dev"
+* `GIANTSWARM_LOGIN_NAME`: Your username that you logged in with, e.g. "yourusername"
 
-You can use these anywhere in your `swarm.json`. E.g. in our ['Complete example'](#complete-example) above, we use the $GIANTSWARM_LOGIN_NAME variable to customize the domain entry of the application based on the current user's username.
+You can use these anywhere in your `swarm.json`. E.g. in our ['Complete example'](#complete-example) above, we use the `$GIANTSWARM_LOGIN_NAME` variable to customize the domain entry of the application based on the current user's username.
 
 ## Making use of additional configuration variables
 
