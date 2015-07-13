@@ -83,7 +83,7 @@ This example makes use of all possible keys to illustrate their use.
             "max" : 10
           },
           "domains": {
-            "myexample.gigantic.io": 8080
+            "$GIANTSWARM_LOGIN_NAME-myexample.gigantic.io": 8080
           }
         },
         {
@@ -333,7 +333,16 @@ or
 
 <i class="fa fa-exclamation-triangle"></i> Please note that we currently do not provide a backup mechanism. If you need to preserve the data on your volumes, please think about a solution using for example an FTP server or cloud storage like Amazon S3 from within your component.
 
-## Making use of configuration variables
+## Giant Swarm context variables
+
+There are four Giant Swarm context variables available for use in your `swarm.json`. The respective values of these varialbes are set based on your login and current selected environment. Note that you cannot change the values of these variables unless you change your actual login or environment through CLI or API.
+
+* GIANTSWARM_ORGANIZATION: e.g. "giantswarm"
+* GIANTSWARM_ENVIRONMENT: e.g. "dev"
+* GIANTSWARM_ENV: e.g. "giantswarm/dev"
+* GIANTSWARM_LOGIN_NAME: e.g. "yourusername"
+
+## Making use of additional configuration variables
 
 Imagine you would like to run an almost identical application in two different [environments](/reference/cli/env/), say each one with only a different version of an image.
 
