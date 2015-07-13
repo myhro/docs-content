@@ -197,7 +197,7 @@ Let's review the dependencies key in our full-fledged example above, specificall
 ]
 ```
 
-The name `redis` points to the `component_name` of the component in the same service. This dependency enforces the `redis` component to be started before the `appserver component`. 
+The name `redis` points to the `component_name` of the component in the same service. This dependency enforces the `redis` component to be started before the `appserver component`.
 
 In addition, this dependency definition results in a network link between the `appserver` component and port 6379 of the `redis` component being set up. To make use of this link, the `appserver` component needs to know the IP address of the running `redis` component. This information will be made available automatically in an environment variable called
 
@@ -327,7 +327,7 @@ or
 
 or
 
-* `volume-from`: The name of another component in the same `pod`. 
+* `volume-from`: The name of another component in the same `pod`.
 * `volume-path`: The `path` of a volume in the component referenced by `volume-from`. This volume from the referenced component will be mounted inside this component.
 * `path` (optional): If specified, this will be used as mounting point of the volume from the referenced component. If not specified, the mounting point will be equal to the mounting point of the referenced component.
 
@@ -341,6 +341,8 @@ There are four Giant Swarm context variables available for use in your `swarm.js
 * GIANTSWARM_ENVIRONMENT: e.g. "dev"
 * GIANTSWARM_ENV: e.g. "giantswarm/dev"
 * GIANTSWARM_LOGIN_NAME: e.g. "yourusername"
+
+You can use these anywhere in your `swarm.json`. E.g. in our ['Complete example'](#complete-example) above, we use the $GIANTSWARM_LOGIN_NAME to customize the domain entry of the application based on the current user's username.
 
 ## Making use of additional configuration variables
 
