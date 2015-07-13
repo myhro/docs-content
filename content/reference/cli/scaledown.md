@@ -10,7 +10,9 @@ weight = 91
 
 # Scaling down a component
 
-The `swarm scaledown` command is used to decrease the number of instances running a service component.
+The `swarm scaledown` command is used to decrease the number of instances running a service component. Note that scaled instances of a component with volumes do not share those volumes between each other, but each have their own volumes.
+
+If you scale a component in a [`pod`](/reference/swarm-json/#pod) all components in that group will be scaled. Note that each group of scaled instances will have their own namespaces and can be scheduled on different machines. Thus, each group of component instances is only part of their respective namespaces on one host, instances on different hosts do not share namespaces.
 
 ## Command syntax
 
@@ -35,3 +37,5 @@ $ swarm scaledown onlineshop/imageserver/nginx 2
 ## Further reading
 
  * [Scaling up a component](/reference/cli/scaleup/)
+ * [Scaling policy in swarm.json](/reference/swarm-json/#scaling_policy)
+ * [Scaling pods](/reference/swarm-json/#pod)
