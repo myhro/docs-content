@@ -1,7 +1,7 @@
 +++
 title = "Getting an applications's status"
 description = "Reference page for the 'swarm status' command, which prints out the status of a particular application and its services and components."
-date = "2015-03-18"
+date = "2015-07-14"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm status"]
