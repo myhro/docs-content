@@ -1,42 +1,70 @@
 +++
 title = "Getting statistics for one or several instances"
 description = "Reference page for the 'swarm stats' command, which allows you to access basic statistics about the resource usage of your components."
-date = "2015-04-20"
+date = "2015-07-14"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm stats"]
 weight = 86
 +++
 
-# Getting statistics of an application, service, component or instance
+# `swarm stats` View Application Statistics
+The `swarm stats` command returns usage information for an application, service, component or instance. The command takes a variety of application, service, component and instance names.
 
-The `swarm stats` command allows you to get information on the current system load for an entire application, a service, a component or a specific instance.
-
-## Command syntax
-
-The command requires a selection mechanism as an argument. Depending on what scope you want to display statistics for, you give an application name, a service name, a component name (all three as defined in your [application configuration](/reference/swarm-json/)). To show the statistics for a specific component instance, an instance ID (as fetched via the [`swarm status` command](/reference/cli/status/) is required.
+## Command Syntax
+The `swarm stats` command is called by using the application name:
 
 ```nohighlight
-$ swarm stats <application_name>
-$ swarm stats <application_name/service_name>
-$ swarm stats <application_name/service_name/component_name>
-$ swarm stats <instance_id>
+swarm stats <application_name>
 ```
 
-## Output
+#### Example with Response
+```nohighlight
+$ swarm stats currentweather
+service                 component  instanceid    status  memory usage (mb)  memory capacity (mb)  memory usage (%)  cpu usage (%)
+weather-service  flask      gg0tu0al5uya  up      27.93              512.00                5.45              0.01
+weather-service  redis      ft2gnsw59oj4  up      8.31               512.00                1.62              0.07
+```
 
-The command will output the statistics of all instances matched by the selection. An example:
+The `swarm stats` command can also be called on a service by appending the service name to the application name:
 
 ```nohighlight
-service         component   instanceid        status  memory usage (mb)  memory capacity (mb)  memory usage (%)  cpu usage (%)
-content-master  content     hSmPrV0l6BFq5cRq  up      33.53              512                   6.55              0
-content-slave   content     WJcSOkDg4mpwAT7B  up      20.71              512                   4.05              0
-proxy           proxy       17jzGgU63VlFhJib  up      7.32               512                   1.43              0
-proxy           proxy       Inr9L2jfBs5GMrsX  up      7.59               512                   1.48              0
-sitesearch      sitesearch  sMEWLDbXnO5xkJY3  up      390.94             512                   76.35             0.17
+swarm stats <application_name>/<service_name>
 ```
 
-## Further reading
+Finally, the `swarm stats` command can be called on a component by appending the component name to the application and service names:
 
- * [Accessing process logs](/reference/cli/logs/)
- * [Getting an app's status](/reference/cli/status/)
+```nohighlight
+swarm stats <application_name>/<service_name>/<component_name>
+```
+
+#### Example with Response
+```nohighlight
+$ swarm stats currentweather/weather-service/redis
+service          component  instanceid    status  memory usage (mb)  memory capacity (mb)  memory usage (%)  cpu usage (%)
+weather-service  redis      ft2gnsw59oj4  up      8.31               512.00                1.62              0.07
+```
+
+### Viewing a Specific Instance's Statistics
+The `swarm stats` command can alternately be called with an instance ID to return usage information for a give component instance:
+
+```nohighlight
+swarm stats <instance_id>
+```
+
+#### Example with Response
+```nohighlight
+$ swarm stats gg0tu0al5uya
+
+service                 component  instanceid    status  memory usage (mb)  memory capacity (mb)  memory usage (%)  cpu usage (%)
+currentweather-service  flask      gg0tu0al5uya  up      27.93              512.00                5.45              0.01
+```
+
+*Note: The easiest way to return all instance IDs for a given application is by doing a `swarm status <app_name>`.*
+
+
+## Further Reading
+
+ * [Getting an Application's Status](/reference/cli/status/)
+ * [Accessing Instance Logs](/reference/cli/logs/)
+

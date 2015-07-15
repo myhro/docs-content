@@ -1,7 +1,7 @@
 +++
 title = "Accessing process logs"
 description = "This is the reference page for the 'swarm logs' command, which allows you to access the logs of your component instances."
-date = "2015-05-12"
+date = "2015-07-14"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm logs"]
@@ -11,7 +11,7 @@ weight = 87
 # `swarm logs`: View Instance Logs
 The `swarm logs` command returns any output written to `STDOUT` or `STDERR` by a process running inside an instance. There are few things to note about obtaining logs from instances:
 
-* Processes must log to STDOUT or STDERR to be accessable via the `swarm` CLI or [API log methods](/reference/api/#LogInstance).
+* Processes must log to STDOUT or STDERR to be accessible via the `swarm` CLI or [API log methods](/reference/api/#LogInstance).
 * [Scaling down](/reference/cli/scaledown/) components and [deleting applications](/reference/cli/exec/) will result in the loss of instance logs.
 * Logs older than 14 days will be deleted by a slightly drunk beaver named *J. Edgar*.
 

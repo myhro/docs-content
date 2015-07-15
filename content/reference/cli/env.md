@@ -1,74 +1,75 @@
 +++
 title = "Environments"
 description = "This is the reference page for the 'swarm env' command, which allows you to select, create, and delete environments."
-date = "2014-12-13"
+date = "2015-07-14"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm env"]
 weight = 40
 +++
 
-# Environments
+# `swarm env`: Manage Environments
 
-Environments allow you to deploy your apps in __multiple independent contexts__ for different purposes. As an example, you might want to have one environment for development purposes and another for production.
+Giant Swarm environments provide separate contextual namespaces in which you can deploy your applications. A simple example illustrates creating and switching to the `prod` environment namespace for an [organization](/reference/cli/org) named `startup`:
 
-Environments are managed with the swarm client using the `swarm env` command. They are distinguished by a __unique name__. The name is a compound of two parts, seperated by a forward slash:
+```nohighlight
+$ swarm org create startup
+Organization 'startup' has been created
+$ swarm env startup/prod
+Environment startup/prod has been selected
+```
 
-1. The organization name
-2. The actual environment name
+When a user signs up for Giant Swarm, they are assigned an organization which carries the same name as their username. For example, a user named `bant` will find they have an organization named `bant` in their account:
 
-## The default environment
+```nohighlight
+$ swarm user
+bant
+$ swarm org --list
+bant
+```
 
-When you start working with the swarm client, you are automatically assigned to a default environment named after your username as the organization name part and `dev` as the second part. For a user named `bouncer`, this would be: `bouncer/dev`.
+*Note: Organization names are managed using the [`swarm org`](/reference/cli/org/) command. Organization names are unique across the Giant Swarm shared public cluster. If you receive an error creating an organization, try a different name!*
 
-Note that you are free to set up environments with arbitrary names. Read on for details on creating environments.
-
-## Show your current environment
-
-To find out which environment you are currently working in (i.e. your selected environment), simply use the `swarm env` command without any argument:
+## Command Syntax
+### Viewing Environments
+The `swarm env` command is used without parameters to view the current organization and environment:
 
 ```nohighlight
 $ swarm env
+bant/dev
 ```
 
-## Creating and selecting an environment
+The `swarm env` command can also be called using the full environment path, which requires an organization name and desired environment name:
 
-To select an environment, use the `swarm env` command with the respective environment name as argument (see above for explanations on the name structure). This will create the environment if it didn't exist already.
-
-To select/create an environment called `bouncer/prod` your command would look like this:
-    
 ```nohighlight
-$ swarm env bouncer/prod
+swarm env <org_name>/<env_name>
 ```
 
-If the environment already existed, it is now the selected environment. If it didn't exist yet, it is created and then selected.
+*Note: If the given environment namespace does not exist, it will be created before the CLI switches to using the specified environment path.*
 
-<!--
-TODO: explain what actually happens when creating an environment)
--->
-
-## Showing available environments
-
-To lists all environments, use the `swarm env` command with the `-l` switch:
+### Listing Environments
+The `swarm env` command can be called with the `-l` or `--list` flags to return a list of all available environments for the current user:
 
 ```nohighlight
 $ swarm env -l
-   bouncer/dev
- * bouncer/prod
+   bant/dev
+ * startup/prod
+   startup/test
 ```
 
-Here, the names of all environments are printed. In addition, the selected environment is marked with an asterisk.
-
-## Deleting an environment
-
-Deleting an environment removes that environment from the list of known environments which you see when you issue the `swarm env -l` command without argument.
-
-Be aware that deleting an environment does not delete or stop any applications you (or someone else in your organization) might have deployed in that environment.
-
-To delete an environment, use the `swarm env` command with the `-d` switch and the respective env name:
+### Deleting Environments
+The `swarm env` command can be called with the `-d` or `--delete` flag to delete a specific environment:
 
 ```nohighlight
-$ swarm env -d bouncer/test
+$ swarm env -d startup/test
+Environment startup/test has been deleted
 ```
 
-If you delete the currently selected environment this way, your default environment (see above) will be selected.
+Note: Deleting an environment does not delete or stop any applications deployed in the environment's scope. This means it is entirely possible to 'strand' applications, where you can't stop or delete them. Be careful out there!
+
+## Further Reading
+
+ * [Managing Organizations](/reference/cli/org/)
+
+
+
