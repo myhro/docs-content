@@ -8,54 +8,47 @@ tags = ["swarm status"]
 weight = 84
 +++
 
-# Getting an applications's status
+# `swarm status`: View Application Status
 
-The `swarm` command line tool provides the `status` command for you to fetch information on a specific application as well as its services and components.
+The `swarm status` command returns information about a specific application and its services and components.
 
-## Syntax and output
-
-The command needs the name of your application, which you have to set with the `app_name` key as an argument. Here, `<app_name>` is the name you used in your application configuration file (`swarm.json`) when [creating](/reference/cli/create/) the app. The syntax is:
-
-```nohighlight
-$ swarm status [app_name]
-```
-
-For example, for an application named "onlineshop", we would use this command:
+## Command Syntax
+The `swarm status` command is called using the application name, which is defined in the `swarm.json` file using the `app_name` key when you start the application.
 
 ```nohighlight
-$ swarm status onlineshop
+swarm status <app_name>
 ```
 
-Here is an example output:
+*Note: Use `swarm ls` to get a listing of all applications in the current environment.*
 
+
+#### Example with Response
+*Note: This example uses truncated output for improved readablity.*
 ```nohighlight
-App onlineshop is up
+$ swarm status weather
+App weather is up
 
-service      component      image                                          instanceid    created               status
-appserver    elasticsearch  registry.giantswarm.io/myorganization/es:latest     TiEjBtvk1L4x  2015-01-06 10:28 UTC  up
-appserver    gunicorn       registry.giantswarm.io/myorganization/gunicorn:tag  5Ueplayovegp  2015-01-06 10:28 UTC  up
-appserver    gunicorn       registry.giantswarm.io/myorganization/gunicorn:tag  nyMWa7ECI1UC  2015-01-06 10:28 UTC  up
-appserver    mongodb        registry.giantswarm.io/myorganization/mongodb:tag   sPZJz6tzRUwL  2015-01-06 10:28 UTC  up
-appserver    nginx          registry.giantswarm.io/myorganization/nginx:tag     OIPTDv9MTMfm  2015-01-06 10:28 UTC  up
-appserver    redis          redis:latest                                   zQWU5lP3ZWdk  2015-01-06 10:28 UTC  up
-imageserver  nginx          nginx:latest                                   xga0mQdQ99mG  2015-01-06 10:28 UTC  up
-payments     payments       registry.giantswarm.io/myorganization/payments:0.1  XfZdh7dF6JFb  2015-01-06 10:28 UTC  up
+service          component  image             instanceid    created              status
+weather-service  flask      weather:latest    1ifd72dklx8z  2015-07-14 23:05:11  up
+weather-service  flask      weather:latest    wz2umflmmy3t  2015-07-15 01:06:06  up
+weather-service  redis      redis             ft2gnsw59oj4  2015-07-14 23:03:06  up
+
 ```
 
-The first line of the output shows the status of the application as a summary. This status is an aggregation of the individual component's statuses, with the "worst" status of all components being reported. This means that if even one component is `down`, the entire application is considered `down`, too.
+## Response Explained
+The first line of the output shows the status of the application as a summary. This status is reported as the *worst* status of the application's components. For example, if one component is `down`, the entire application will be considered `down`.
 
-The second part is a table of all components within all services of that application. The table columns show which service the component belongs to, the component name, the ID of the instance the component is running on, the date and time when the instance of the component was first started, and the component status. If a component is running on more than one instance, each instance is represented in an individual row.
+The remaining lines of output shows a table of components listed by the application's services. The table columns show which service the component belongs to, the component name, the ID of the instance the component is running on, the date and time when the instance of the component was first started, and the component status. If a component is running on more than one instance, each instance is represented in an individual row.
 
-## Statuses and their meaning
+### Instance Status Explained
+An application's component instances may be in one of the following states:
 
-Your components can have either of the following statuses:
+ * `up`: The component has an instance running.
+ * `starting`: The component has an instance starting.
+ * `down`: The component does not have an instance running.
+ * `failed`: The component is does not have an instance running and, unfortunately, there was an error.
 
- * `up`: The component is currently running
- * `starting`: The component is currently starting
- * `down`: The component is currently not running
- * `failed`: An error occurred during the attempt to start the component and it's currently not running
-
-## Further reading
+## Further Reading
 
 * [List applications](/reference/cli/ls/)
 * [Accessing process logs](/reference/cli/logs/)

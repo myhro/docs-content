@@ -49,7 +49,7 @@ The `swarm stop` command may be used to stop a service (a set of components) ins
 swarm stop <app_name>/<service_name>
 ```
 
-## Further reading
+## Further Reading
 
 * [Starting an Application or Service](/reference/cli/start/)
 * [Application Configuration](/reference/swarm-json/)

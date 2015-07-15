@@ -8,7 +8,7 @@ tags = ["swarm update"]
 weight = 70
 +++
 
-# `swarm update`: Update a Component
+# `swarm update`: Update a Component with Image
 
 The `swarm update` command is used to update a component's container to use a specific version of an image. The update stops the component's instance(s), pulls the desired image from the registry, and then restarts the instance(s) using the new image.
 
@@ -20,8 +20,8 @@ The component update can be done using one of three optional rolling [update str
 
 *Note: A component's instance will be started if it was not running before the `swarm update` command was issued.*
 
-## Update Component with the Latest Image {#latestversion}
-The `swarm update` command is called using the application, service and component name to update the component image:
+## Command Syntax
+The `swarm update` command is called using the application, service and component name to update the component image with the latest image:
 
 ```nohighlight
 swarm update <app>/<service>/<component>
@@ -47,7 +47,7 @@ Updating component 'currentweather/currentweather-service/flask' with version 'l
 ```
 
 ## Update with a Versioned Image {#versionedimage}
-The `swarm update` command can be called using the application, service, component and version name:
+The `swarm update` command can also be called using the application, service, component and *version* named tag:
 
 ```nohighlight
 swarm update <app>/<service>/<component> <version_tag>
@@ -88,7 +88,7 @@ Updating component 'currentweather/currentweather-service/flask' with version '2
 $ 
 ```
 
-### Further reading
+## Further Reading
 
 * [Using the registry](/reference/registry/)
 * [Application configuration](/reference/swarm-json/)
