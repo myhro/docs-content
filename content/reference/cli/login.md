@@ -14,8 +14,9 @@ The `swarm login` command allows you to authenticate to your Giant Swarm account
 
 The command can be used in interactive mode or credentials can be passed via the command line in non-interactive mode.
 
-## Interactive Login
+## Command Syntax
 
+### Interactive Login
 You can invoke an interactive login session by doing the following:
 
 ```nohighlight
@@ -40,7 +41,7 @@ Environment bant/dev has been selected
 
 *Note: The last line of output informs you which environment has been selected. The default is `<yourusername>/dev` which can be changed using the [`swarm env`](/reference/cli/env/) command.*
 
-## Non-Interactive Login
+### Non-Interactive Login
 In non-interactive mode, the username and password can be passed to the login command as arguments:
 
 ```nohighlight

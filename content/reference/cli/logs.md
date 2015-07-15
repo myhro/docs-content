@@ -8,57 +8,57 @@ tags = ["swarm logs"]
 weight = 87
 +++
 
-# Accessing process logs
+# `swarm logs`: View Instance Logs
+The `swarm logs` command returns any output written to `STDOUT` or `STDERR` by a process running inside an instance. There are few things to note about obtaining logs from instances:
 
-Logs of processes running on Giant Swarm can be accessed using the `swarm logs` command.
+* Processes must log to STDOUT or STDERR to be accessable via the `swarm` CLI or [API log methods](/reference/api/#LogInstance).
+* [Scaling down](/reference/cli/scaledown/) components and [deleting applications](/reference/cli/exec/) will result in the loss of instance logs.
+* Logs older than 14 days will be deleted by a slightly drunk beaver named *J. Edgar*.
 
-The command requires an instance ID for the instance your component is running on as an argument. An instance ID can be found using the [`swarm status`](/reference/cli/status/) command. If there is more than one instance running for the component you are interested in, you have to inquire the logs for each instance seperately.
-
-Notes:
-
-* For logs to be accessible in this way, processes have to send their log messages to STDOUT or STDERR. This is the standard with Docker containers running single processes each.
-* Log data is only acessible as long as the originating instance still exists. Actions that result in an instance being deleted, like [scaling down a component](../scaledown/) or deleting an entire application make the according log data inaccessible.
-* Log entries are stored for 14 days, for the time being.
-
-## Return the latest log messages
-
-To quickly return the latest 10 log entries for an instance, simply give the instance ID as an argument:
+## Command Syntax
+The `swarm logs` command is called with a given component instance ID:
 
 ```nohighlight
-$ swarm logs <instance-id>
+swarm logs <instance-id>
 ```
 
-## Returning more log messages
+#### Example with Response
+```nohighlight
+$ swarm logs gg0tu0al5uya
+2015-07-15 01:17:04.672 +0000 UTC - * Running on http://0.0.0.0:5000/
+2015-07-15 03:28:23.575 +0000 UTC - 172.17.42.1 - - [15/Jul/2015 03:28:23] "GET /favicon.ico HTTP/1.1" 404
+2015-07-15 03:28:26.007 +0000 UTC - Querying live weather data
+2015-07-15 03:28:26.224 +0000 UTC - 172.17.42.1 - - [15/Jul/2015 03:28:26] "GET / HTTP/1.1" 200
+```
 
-To adjust the number of log messages to be returned from the end, use the `--tail` or `-t` parameter and use it to set the number of entries to return. The syntax is like this:
+### Requesting Trailing Log Lines
+The `swarm logs` command can be instructed to return the trailing set of an instance's log lines using the `--tail` or `-t` flags:
 
 ```nohighlight
-$ swarm logs <instance-id> -t <n>
+swarm logs <instance-id> -t <num_lines>
 ```
 
-As a result, the latest `n` entries recorded so far for this instance will be printed to your console.
+#### Example with Response
+```nohighlight
+$ swarm logs gg0tu0al5uya -t 1
+2015-07-15 03:28:36.634 +0000 UTC - 172.17.42.1 - - [15/Jul/2015 03:28:36] "GET / HTTP/1.1" 200
+```
 
-To return all stored log entries for that instance, the special value `all` is accepted, like this:
+### Request All Log Lines
+The `swarm logs` command can also be instructed to return the entire set of logs by using the `all` directive following the `--tail` or `-t` flags:
 
 ```nohighlight
-$ swarm logs <instance-id> -t all
+swarm logs <instance-id> -t all
 ```
 
-## Continuous output
-
-You can print out new log messages as they occur. For this purpose, add the `--follow` or `-f` switch to the command.
+### Request a Continous Stream of Logs
+The `swarm logs` command can stream logs to the console by using the `--follow` or `-f` flags:
 
 ```nohighlight
-$ swarm logs <instance-id> -f
+swarm logs <instance-id> -f
 ```
 
-Or
+## Further Reading
 
-```nohighlight
-$ swarm logs <instance-id> --follow
-```
-
-## Further reading
-
- * [Getting an application's status](/reference/cli/status/)
- * [Getting statistics](/reference/cli/stats/)
+ * [Getting a List of Instances for an Application](/reference/cli/status/)
+ * [Getting an Application's Statistics](/reference/cli/stats/)
