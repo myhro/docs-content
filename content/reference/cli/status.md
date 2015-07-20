@@ -44,7 +44,7 @@ payments     payments       reg…/myorganization/payments:0.1  XfZdh7dF6JFb  20
 
 The first line of the output shows the status of the application as a summary. This status is an aggregation of the individual component's statuses, with the "worst" status of all components being reported. This means that if even one component is `down`, the entire application is considered `down`, too.
 
-The second part is a table of all component instances within all services of that application. The table columns show which service and component the instance belongs to, the component name, the ID of the instance, the date and time when the instance of the component was first started, and the instance status. If a component has more than one instance, each instance is represented in an individual row.
+The second part is a table of all component instances within all services of that application. The table columns show, which service and component the instance belongs to, the component name, the ID of the instance, the date and time when the instance of the component was first started, and the instance status. If a component has more than one instance, each instance is represented in an individual row.
 
 ## Statuses and their meaning
 
