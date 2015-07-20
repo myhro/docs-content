@@ -1,7 +1,7 @@
 +++
 title = "Getting an applications's status"
 description = "Reference page for the 'swarm status' command, which prints out the status of a particular application and its services and components."
-date = "2015-03-18"
+date = "2015-07-16"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm status"]
@@ -31,29 +31,30 @@ Here is an example output:
 ```nohighlight
 App onlineshop is up
 
-service      component      image                                          instanceid    created               status
-appserver    elasticsearch  registry.giantswarm.io/myorganization/es:latest     TiEjBtvk1L4x  2015-01-06 10:28 UTC  up
-appserver    gunicorn       registry.giantswarm.io/myorganization/gunicorn:tag  5Ueplayovegp  2015-01-06 10:28 UTC  up
-appserver    gunicorn       registry.giantswarm.io/myorganization/gunicorn:tag  nyMWa7ECI1UC  2015-01-06 10:28 UTC  up
-appserver    mongodb        registry.giantswarm.io/myorganization/mongodb:tag   sPZJz6tzRUwL  2015-01-06 10:28 UTC  up
-appserver    nginx          registry.giantswarm.io/myorganization/nginx:tag     OIPTDv9MTMfm  2015-01-06 10:28 UTC  up
-appserver    redis          redis:latest                                   zQWU5lP3ZWdk  2015-01-06 10:28 UTC  up
-imageserver  nginx          nginx:latest                                   xga0mQdQ99mG  2015-01-06 10:28 UTC  up
-payments     payments       registry.giantswarm.io/myorganization/payments:0.1  XfZdh7dF6JFb  2015-01-06 10:28 UTC  up
+service      component      image                             instanceid    created               status
+appserver    elasticsearch  reg…/myorganization/es:latest     TiEjBtvk1L4x  2015-01-06 10:28 UTC  up
+appserver    gunicorn       reg…/myorganization/gunicorn:tag  5Ueplayovegp  2015-01-06 10:28 UTC  up
+appserver    gunicorn       reg…/myorganization/gunicorn:tag  nyMWa7ECI1UC  2015-01-06 10:28 UTC  up
+appserver    mongodb        reg…/myorganization/mongodb:tag   sPZJz6tzRUwL  2015-01-06 10:28 UTC  up
+appserver    nginx          reg…/myorganization/nginx:tag     OIPTDv9MTMfm  2015-01-06 10:28 UTC  up
+appserver    redis          redis:latest                      zQWU5lP3ZWdk  2015-01-06 10:28 UTC  up
+imageserver  nginx          nginx:latest                      xga0mQdQ99mG  2015-01-06 10:28 UTC  up
+payments     payments       reg…/myorganization/payments:0.1  XfZdh7dF6JFb  2015-01-06 10:28 UTC  up
 ```
 
 The first line of the output shows the status of the application as a summary. This status is an aggregation of the individual component's statuses, with the "worst" status of all components being reported. This means that if even one component is `down`, the entire application is considered `down`, too.
 
-The second part is a table of all components within all services of that application. The table columns show which service the component belongs to, the component name, the ID of the instance the component is running on, the date and time when the instance of the component was first started, and the component status. If a component is running on more than one instance, each instance is represented in an individual row.
+The second part is a table of all component instances within all services of that application. The table columns show, which service and component the instance belongs to, the component name, the ID of the instance, the date and time when the instance of the component was first started, and the instance status. If a component has more than one instance, each instance is represented in an individual row.
 
 ## Statuses and their meaning
 
-Your components can have either of the following statuses:
+Your component instances can have either of the following statuses:
 
- * `up`: The component is currently running
- * `starting`: The component is currently starting
- * `down`: The component is currently not running
- * `failed`: An error occurred during the attempt to start the component and it's currently not running
+ * `up`: The instance is currently running
+ * `starting`: The instance is currently starting
+ * `stopping`: The instance is currently being stopped
+ * `down`: The instance is currently not running
+ * `failed`: The instance is currently not running due to an error
 
 ## Further reading
 
