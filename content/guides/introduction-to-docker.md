@@ -95,7 +95,7 @@ To look at our application’s logs we can use `docker logs` like following:
 $ docker logs -f redis_container
 ```
 
-The `-f` flag makes the command work like `tail -f` and watch the standard out of the container.
+The `-f` flag makes the command work like `tail -f` and watch the standard output of the container.
 
 If we want to go deeper into the container we can also let Docker show us the processes running inside a container:
 
@@ -127,7 +127,7 @@ Now `docker ps -a` shouldn’t show our container anymore.
 
 ## Working with Images
 
-Images are the basis of containers in Docker and as you will see also in Giant Swarm. We have worked with images already in the previous sections of this guide, but let’s go into a bit more detail here. We’ll start with simply listing all containers on our host:
+Images are the basis of containers in Docker and as you will see also in Giant Swarm. We have worked with images already in the previous sections of this guide, but let’s go into a bit more detail here. We’ll start with simply listing all images on our host:
 
 ```nohighlight
 $ docker images
