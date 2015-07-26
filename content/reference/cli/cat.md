@@ -1,7 +1,7 @@
 +++
 title = "Getting an application's configuration"
 description = "This is the reference page for the 'swarm cat' command, which allows you to fetch the effective configuration of an application."
-date = "2015-01-29"
+date = "2015-07-25"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm cat"]
@@ -30,7 +30,7 @@ The `app_name` argument is optional when there is a proper `swarm.json` file in 
 
 ## Output
 
-The effective application configuration is printed in JSON format. VIf variables were used when creating the application, they are replaced with their respective values.
+The effective application configuration is printed in JSON format. If variables were used when creating the application, they are replaced with their respective values.
 
 ## Further reading
 

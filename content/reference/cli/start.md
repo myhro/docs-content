@@ -1,7 +1,7 @@
 +++
 title = "Starting an application or service"
 description = "This is the reference page for the 'swarm start' command, which allows you to start an application or service."
-date = "2014-12-11"
+date = "2015-07-25"
 type = "page"
 categories = ["Reference", "Swarm CLI Commands"]
 tags = ["swarm start"]
@@ -26,7 +26,7 @@ The optional `app_name` argument specifies the application to be started. It ref
 
 If the `app_name` (and `service_name`) argument is ommitted, the CLI looks if there is a `swarm.json` [application configuration](/reference/swarm-json/) file in the current directory. If this is the case, the application defined in that configuration file is started.
 
-The flag `-d` or `--detach` can be used to immediately exit the command after issuing the command to the API. When immitted, the command is running until the application is either running an error occurs.
+The flag `-d` or `--detach` can be used to immediately exit the command after issuing the command to the API. When ommitted, the command is running until the application is either running or an error occurs.
 
 ## Starting an application
 
