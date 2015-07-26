@@ -1,7 +1,7 @@
 +++
 title = "Introduction to Docker"
 description = "This guide gives an introduction on how to use Docker locally as well as with Giant Swarm."
-date = "2015-05-19"
+date = "2015-07-25"
 type = "page"
 weight = 20
 categories = ["basic"]
